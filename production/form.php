@@ -358,13 +358,11 @@
                         ?>
                         <script language=javascript>
                         function limpiar2(){
-                      </script>
-                      <script language=javascript>
+                      
                           document.getElementById('nombreusuario2').value = "";
                           document.getElementById('contraseña').value = "";
                           document.getElementById('privilegio').value = "";
-                      </script>
-                      <script language=javascript>
+                     
                         }
                       </script>
                       </form>
