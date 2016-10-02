@@ -171,6 +171,7 @@
                     <br />
                     <?php
                     include_once 'conex.php';
+                    
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
 
@@ -357,9 +358,13 @@
                         ?>
                         <script language=javascript>
                         function limpiar2(){
+                      </script>
+                      <script language=javascript>
                           document.getElementById('nombreusuario2').value = "";
                           document.getElementById('contraseña').value = "";
                           document.getElementById('privilegio').value = "";
+                      </script>
+                      <script language=javascript>
                         }
                       </script>
                       </form>
