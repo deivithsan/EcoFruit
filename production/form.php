@@ -171,11 +171,9 @@
                     <br />
                     <?php
                     include_once 'conex.php';
-                    
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-
-
                     if ($_POST){
+                    if ($_POST["Enviar"]){
                     $nomus = $_POST["nombreusuario"];
                     $name = $_POST["nombre"];
                     $apell = $_POST["apellido"];
@@ -196,6 +194,7 @@
                     echo"<script>alert('Registrio Agregado Correctamente')</script>";
                   }
                        }
+                     }
 
                     ?>
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
@@ -251,7 +250,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <input type="submit" class="btn btn-success">
+                        <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                         <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
                         </div>
                       </div>
@@ -294,9 +293,8 @@
                     <?php
                     include_once 'conex.php';
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-
-                    if ($_POST){
-
+                    if ($_POST) {
+                    if ($_POST["Enviar1"]) {
                     $nomus2 = $_POST["nombreusuario2"];
                     $contrase = $_POST["contraseña"];
                     $privileg = $_POST["privilegio"];
@@ -304,17 +302,23 @@
                     $priv = (int) $privileg;
                     $validar2 = "SELECT nombreuser from public.usuarios";
                     $busqueda2 =pg_query($validar2);
-                    $comparar2 = pg_fetch_array($busqueda2);
-                    if ($comparar2 ["nombreuser"] == $nomus2){
-                      echo"<script>alert('El nombre de usuario ya existe')</script>";
-                    }else{
+                    while ($comparar2 = pg_fetch_array($busqueda2)){
+
+
+                  }
+                  if ($comparar2 ["nombreuser"] == $nomus2){
+                    echo "<script>alert('El nombre de usuario ya existe')</script>";
+
+                  }else {
                     $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
                     echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                  }
 
-                       }
 
-                     }
-                    ?>
+
+                  }
+                   }
+                     ?>
 
                       <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
@@ -349,7 +353,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <input type="submit" class="btn btn-success">
+                          <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1">
                           <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
                           </div>
                         </div>
@@ -393,6 +397,7 @@
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                       if ($_POST){
+                      if ($_POST["Enviar2"]){
                       $nompriv = $_POST["nombrepriv"];
                       $numeroprivilegio = $_POST["numpriv"];
                       $numpriv = (int) $numeroprivilegio;
@@ -407,6 +412,7 @@
                       echo"<script>alert('Registrio Agregado Correctamente')</script>";
                     }
                          }
+                       }
 
                       ?>
                       <form class="form-horizontal form-label-left input_mask" method="post">
@@ -430,7 +436,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                         <div class="form-group">
                           <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <input type="submit" class="btn btn-success">
+                            <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2">
                             <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
                             </div>
                           </div>
@@ -439,7 +445,7 @@
                           ?>
                           <script language=javascript>
                           function limpiar3(){
-                            document.getElementById('nombrepriv').value = "";
+                            document.getElementById('nombrepriv').value = "" ;
                             document.getElementById('numpriv').value = "";
                             }
                         </script>
