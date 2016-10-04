@@ -183,19 +183,24 @@
                     $cedul = $_POST["cedula"];
                     $tel = (int) $numerotel;
                     $ced = (int) $cedul;
-
-                    $validar = "SELECT nombreuser from public.infousuarios";
+                    $dat = 0;
+                    $validar = "SELECT nombreuser from public.usuarios";
                     $busqueda =pg_query($validar);
-                    $comparar = pg_fetch_array($busqueda);
+                    while($comparar = pg_fetch_array($busqueda)){
                     if ($comparar ["nombreuser"] == $nomus){
-                      echo"<script>alert('Ese usuario ya tiene informacion agregada')</script>";
+                      $dat = 0;
                     }else{
+                      $dat = 1;
+                    }
+                  }
+                  if($dat == 0){
                     $result =pg_query($cnx, "INSERT INTO public.infousuarios (nombreuser, nombre, apellido, correo, telefono, direccion, cedula) VALUES('$nomus', '$name', '$apell','$email',$tel,'$dir',$ced);");
                     echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                  }elseif ($dat == 1) {
+                    echo"<script>alert('No existe una cuenta con ese nombre de usuario')</script>";
                   }
                        }
                      }
-
                     ?>
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
                       <div class="form-group">
