@@ -306,7 +306,7 @@
                     while ($comparar2 = pg_fetch_array($busqueda2)){
                      if ($comparar2 ["nombreuser"] == $nomus2){
                     echo "<script>alert('El nombre de usuario ya existe')</script>";
-                       $val=1
+                       $val=1;
                         }
                       if($val = 0){
                     $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
