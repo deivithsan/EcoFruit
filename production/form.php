@@ -307,11 +307,11 @@
                       if ($comparar2 ["nombreuser"] == $nomus2){
                         echo "<script>alert('El nombre de usuario ya existe')</script>";
                         $val = 1;
-                      }else{
-                        $val = 0;
+                      }else {
+                          $val = 0;
+                        }
                       }
-                    }
-                      if ($val = 0) {
+                      if ($val == 0) {
                         $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
                         echo"<script>alert('Registrio Agregado Correctamente')</script>";
                       }
