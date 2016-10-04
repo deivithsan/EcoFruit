@@ -304,19 +304,16 @@
                     $validar2 = "SELECT nombreuser from public.usuarios";
                     $busqueda2 =pg_query($validar2);
                     while ($comparar2 = pg_fetch_array($busqueda2)){
-                     if ($comparar2 ["nombreuser"] == $nomus2){
-                    echo "<script>alert('El nombre de usuario ya existe')</script>";
-                       $val=1;
-                        }
-                      if($val = 0){
-                    $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
-                    echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                      if ($comparar2 ["nombreuser"] == $nomus2)
+                        echo "<script>alert('El nombre de usuario ya existe')</script>";
+                        $val = 1;
+                      }
+                      if ($val = 0) {
+                        $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
+                        echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                      }
                   }
-
-                  }         
-          
-                 }
-                   
+                   }
                      ?>
 
                       <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
