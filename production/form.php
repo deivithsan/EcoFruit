@@ -205,49 +205,49 @@
                     ?>
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required">*</span>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula">
@@ -327,7 +327,7 @@
                      ?>
 
                       <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required">*</span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
                           <input type="text" id="nombreusuario2" name="nombreusuario2" required="required" class="form-control col-md-7 col-xs-12">
@@ -335,7 +335,7 @@
                       </div>
 
                       <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Contraseña <span class="required">*</span>
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Contraseña <span class="required"></span>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
                           <input type="password" id="contraseña" name="contraseña" required="required" class="form-control col-md-7 col-xs-12">
@@ -343,7 +343,7 @@
                       </div>
 
                       <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Número de Privilegio <span class="required">*</span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Número de Privilegio <span class="required"></span>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
                           <input type="number" id="privilegio" name="privilegio" required="required" class="form-control col-md-7 col-xs-12">
@@ -429,7 +429,7 @@
                       ?>
                       <form class="form-horizontal form-label-left input_mask" method="post">
                         <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre del Privilegio <span class="required">*</span>
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre del Privilegio <span class="required"></span>
                           </label>
                           <div class="col-md-12 col-sm-6 col-xs-12">
                             <input type="text" id="nombrepriv" name="nombrepriv" required="required" class="form-control col-md-7 col-xs-12">
@@ -437,7 +437,7 @@
                         </div>
 
                         <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Numero de Privilegio <span class="required">*</span>
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Numero de Privilegio <span class="required"></span>
                           </label>
                           <div class="col-md-12 col-sm-6 col-xs-12">
                             <input type="number" id="numpriv" name="numpriv" required="required" class="form-control col-md-7 col-xs-12">
