@@ -189,6 +189,7 @@
                     while($comparar = pg_fetch_array($busqueda)){
                     if ($comparar ["nombreuser"] == $nomus){
                       $dat = 0;
+                      break;
                     }else{
                       $dat = 1;
                     }
@@ -312,6 +313,7 @@
                       if ($comparar2 ["nombreuser"] == $nomus2){
                         echo "<script>alert('El nombre de usuario ya existe')</script>";
                         $val = 1;
+                        break;
                       }else {
                           $val = 0;
                         }
@@ -405,13 +407,22 @@
                       $nompriv = $_POST["nombrepriv"];
                       $numeroprivilegio = $_POST["numpriv"];
                       $numpriv = (int) $numeroprivilegio;
-
+                      $num = 0;
                       $validar3 = "SELECT privil from public.privilegio";
                       $busqueda3 =pg_query($validar3);
-                      $comparar3 = pg_fetch_array($busqueda3);
-                      if ($comparar3 ["privil"] == $numpriv){
-                        echo"<script>alert('Ese Numero de Privilegio ya esta Asignado. ')</script>";
-                      }else{
+                      while($comparar3 = pg_fetch_array($busqueda3)){
+                        while ($num == 0) {
+                          if ($comparar3 ["privil"] == $numpriv){
+                            echo"<script>alert('Ese Numero de Privilegio ya esta Asignado. ')</script>";
+                            $num = 1;
+                            
+                          }else{
+                            $num = 0;
+                          }
+                        }
+
+                    }
+                    if ($num == 0){
                       $result3 =pg_query($cnx, "INSERT INTO public.Privilegio (nombre, privil) VALUES('$nompriv', '$numpriv');");
                       echo"<script>alert('Registrio Agregado Correctamente')</script>";
                     }
