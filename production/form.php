@@ -219,35 +219,35 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Correo <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Telefono <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Dirección <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de Cedula <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula">
