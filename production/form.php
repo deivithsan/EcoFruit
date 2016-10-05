@@ -410,18 +410,15 @@
                       $num = 0;
                       $validar3 = "SELECT privil from public.privilegio";
                       $busqueda3 =pg_query($validar3);
-                      while($comparar3 = pg_fetch_array($busqueda3)){
-                        while ($num == 0) {
+                      while($comparar3 = pg_fetch_array($busqueda3)){                        
                           if ($comparar3 ["privil"] == $numpriv){
                             echo"<script>alert('Ese Numero de Privilegio ya esta Asignado. ')</script>";
                             $num = 1;
-                            
+                            break;
                           }else{
                             $num = 0;
                           }
-                        }
-
-                    }
+                        }                    
                     if ($num == 0){
                       $result3 =pg_query($cnx, "INSERT INTO public.Privilegio (nombre, privil) VALUES('$nompriv', '$numpriv');");
                       echo"<script>alert('Registrio Agregado Correctamente')</script>";
