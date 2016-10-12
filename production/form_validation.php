@@ -58,7 +58,7 @@
                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.php">Principales</a></li>
-                      <li><a href="form_validation.php">Ingresar Frutas</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
@@ -152,62 +152,79 @@
                     <form class="form-horizontal form-label-left" novalidate method="post">
 
 
-                      <span class="section">Frutas</span>
+                      <span class="section">Productos</span>
                       <?php
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
+                      $desp = "SELECT nombrestado FROM public.estado";
+                      $lis = pg_query($desp);
+
                       if ($_POST){
-                      $nomfruta = $_POST["nomfrut"];
-                      $cantidadfruta = $_POST["cantfrut"];
-                      $ubic = $_POST["ubicacion"];
-                      $vend = $_POST["vendedor"];
-                      $fec = $_POST["fechahora"];
-                      $canfrut = (int) $cantidadfruta;
-                      $validar = "SELECT nombreuser from public.usuarios where privilegio='3'";
-                      $busqueda =pg_query($validar);
-                      $comparar = pg_fetch_array($busqueda);
-                      if ($comparar ["nombreuser"] == $vend){
-                        $result =pg_query($cnx, "INSERT INTO public.frutas (nombre, cantidad, lugar,vendedor, fechahora) VALUES('$nomfruta', '$canfrut', '$ubic','$vend','$fec');");
+                      $nomprod = $_POST["nomprod"];
+                      $tipoprod = $_POST["tip"];
+                      $cantidad = $_POST["cant"];
+                      $costoprod = $_POST["costo"];
+                      $ventaprod = $_POST["venta"];
+                      $estado = $_POST["estadolist"];
+                      $cant = (int) $cantidad;
+                      $cost = (int) $costoprod;
+                      $venta = (int) $ventaprod;
+
+                        $result =pg_query($cnx, "INSERT INTO public.productos (nombre, tipo, estado, cantidad, costo, venta) VALUES('$nomprod','$tipoprod', '$estado', '$cant','$cost','$venta');");
                         echo"<script>alert('Registrio Agregado Correctamente')</script>";
-                      }else{
-                      echo"<script>alert('No existe ese vendedor')</script>";
-                    }
-                         }
+                      }
                       ?>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de la Fruta <span class="required"></span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nomfrut" name="nomfrut" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad Disponible <span class="required"></span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cantfrut" name="cantfrut" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación de la Fruta <span class="required"></span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
+                          <select name="estadolist">
+
+                          <?php
+                          while ( $lisdesp = pg_fetch_array($lis)){
+                           ?>
+                              <option value="<?php echo $lisdesp['nombrestado'] ?>"><?php echo $lisdesp['nombrestado']; ?></option>
+
+                          <?php
+                        }
+                           ?>
+                           </select>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor <span class="required"></span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="vendedor" name="vendedor" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Fecha y Hora Finalizacion de la publicación <span class="required"></span>
+                      <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="fechahora" name="fechahora" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                      </div>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12">
                       </div>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
