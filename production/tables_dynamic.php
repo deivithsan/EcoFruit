@@ -267,6 +267,108 @@
                   </div>
                 </div>
               </div>
+          
+          <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>Estado de los Productos</h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <?php
+                      include_once 'conex.php';
+                      $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+
+                      $hccQuery3 = "SELECT * FROM public.estado ORDER BY codest";
+                      $result3 = pg_query($cnx, $hccQuery3);
+
+                      if($result3){
+                        if(pg_num_rows($result3)>0){
+                          ?>
+                      <table id="datatable-buttons3" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Codigo Estado</th>
+                            <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <?php while ($row = pg_fetch_object($result3)) {
+                          ?>
+                          <tr>
+                            <td><?php echo $row->codest ?></td>
+                            <td><?php echo $row->nombrestado ?></td>
+                          </tr>
+                          <?php
+                        }
+                      }
+                    }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Tipo de Productos</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <?php
+                        include_once 'conex.php';
+                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+
+                        $hccQuery3 = "SELECT * FROM public.tipoprod ORDER BY idtipo";
+                        $result3 = pg_query($cnx, $hccQuery3);
+
+                        if($result3){
+                          if(pg_num_rows($result3)>0){
+                            ?>
+                        <table id="datatable-buttons3" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Id Tipo</th>
+                              <th>Nombre</th>
+                              <th>Estado</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <?php while ($row = pg_fetch_object($result3)) {
+                            ?>
+                            <tr>
+                              <td><?php echo $row->idtipo ?></td>
+                              <td><?php echo $row->nombretipo ?></td>
+                              <td><?php echo $row->estado ?></td>
+
+                            </tr>
+                            <?php
+                          }
+                        }
+                      }
+                            ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+          
               <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
