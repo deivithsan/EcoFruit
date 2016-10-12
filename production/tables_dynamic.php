@@ -257,18 +257,6 @@
                           <td><?php echo $row->costo ?></td>
                           <td><?php echo $row->venta ?></td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <?php while ($row = pg_fetch_object($result2)) {
-                        ?>
-                        <tr>
-                          <td><?php echo $row->idfrut ?></td>
-                          <td><?php echo $row->nombre ?></td>
-                          <td><?php echo $row->cantidad ?></td>
-                          <td><?php echo $row->lugar ?></td>
-                          <td><?php echo $row->vendedor ?></td>
-                          <td><?php echo $row->fechahora ?></td>
-                        </tr>
                         <?php
                       }
                     }
@@ -279,7 +267,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
