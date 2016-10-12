@@ -67,7 +67,7 @@
                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.php">Principales</a></li>
-                      <li><a href="form_validation.php">Ingresar Frutas</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
@@ -213,7 +213,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Frutas Disponibles</h2>
+                    <h2>Productos Disponibles</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -227,7 +227,7 @@
                     include_once 'conex.php';
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-                    $hccQuery2 = "SELECT * FROM public.frutas ORDER BY idfrut";
+                    $hccQuery2 = "SELECT * FROM public.productos ORDER BY idprod";
                     $result2 = pg_query($cnx, $hccQuery2);
 
                     if($result2){
@@ -236,12 +236,26 @@
                     <table id="datatable-buttons2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Id Fruta</th>
+                          <th>Id Producto</th>
                           <th>Nombre</th>
+                          <th>Tipo</th>
+                          <th>Estado Actual</th>
                           <th>Cantidad</th>
-                          <th>Ubicación</th>
-                          <th>Nombre Vendedor</th>
-                          <th>Fecha y Hora de Finalización</th>
+                          <th>Costo Producto</th>
+                          <th>Costo Venta</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($row = pg_fetch_object($result2)) {
+                        ?>
+                        <tr>
+                          <td><?php echo $row->idprod ?></td>
+                          <td><?php echo $row->nombre ?></td>
+                          <td><?php echo $row->tipo ?></td>
+                          <td><?php echo $row->estado ?></td>
+                          <td><?php echo $row->cantidad ?></td>
+                          <td><?php echo $row->costo ?></td>
+                          <td><?php echo $row->venta ?></td>
                         </tr>
                       </thead>
                       <tbody>
