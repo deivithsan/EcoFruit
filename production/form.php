@@ -68,7 +68,7 @@
                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.php">Principales</a></li>
-                      <li><a href="form_validation.php">Ingresar Frutas</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
