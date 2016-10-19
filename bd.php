@@ -63,7 +63,7 @@
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
-                        <li><a href="#features">Frutas</a></li>
+                        <li><a href="#features">Productos</a></li>
                     </ul>
                 </nav>
 				<!-- /main nav -->
@@ -93,7 +93,7 @@
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
 							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">InfoFruit</span>!</h2>
-							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta sobrante en su cosecha</span> </h3>
+							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
 							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se deben perder las frutas que sobran!</p>
 
 							<ul class="social-links text-center">
@@ -106,78 +106,71 @@
 				<!-- End Wrapper for slides --></div>
 		</section><!--
         Features
-        ==================================== -->
-        <section id="features" class="features"
+        ==================================== --><section id="features" class="features">
 			<div class="container">
 				<div class="row">
 
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-						<h2>Frutas Disponibles para la Compra</h2>
+						<h2>Productos Disponibles para la Compra</h2>
 						<div class="devider"></div>
 					</div>
 
 					<!-- service item -->
-          <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+
+        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
           </div>
 
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-						<div class="service-item">
-							<div class="service-desc">
-                <?php
-  $host = 'localhost';
-  $user = 'postgres';
-  $passwd = 'liz6625382';
-  $db = 'postgres';
-  $port = '5432';
-  $strCnx = "host=$host port=$port dbname=$db user=$user password=$passwd sslmode='allow'" ;
-  $cnx = pg_connect($strCnx) or die (print "Error de conexion.");
-  $sql = "SELECT * from public.frutas ORDER BY idfrut";
-  $rs = pg_query($cnx, $sql );
-  $ok = true;
-if ($rs) {
-  if (pg_num_rows($rs)>0) {
-    ?>
-    <?php
-    while ($obj = pg_fetch_object($rs)) {
-      ?>
-      <table border="2px" class= "table" >
-           <tr>
-              <td>Id Fruta</td>
-              <td>Nombre</td>
-              <td>Cantidad</td>
-              <td>Lugar</td>
-              <td>Vendedor</td>
-              <td>Fecha y hora finalizacion</td>
-          </tr>
-          <tr>
-              <td><?php echo $obj->idfrut ?></td>
-              <td><?php echo $obj->nombre ?></td>
-              <td><?php echo $obj->cantidad ?></td>
-              <td><?php echo $obj->lugar ?></td>
-              <td><?php echo $obj->vendedor ?></td>
-              <td><?php echo $obj->fechahora ?></td>
-          </tr>
-        </table>
-      <?php
-      }
-  }
-    else {
-      echo "<p>No hay frutas disponibles para la compra</p>";
-    }
 
-}
-  else {
-    $ok = false;
-    return $ok;
-  }
 
-?>
-							</div>
-						</div>
-					</div>
-					<!-- end service item -->
-        </div>
+                    <?php
+                    include_once 'conex.php';
+                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+
+                    $hccQuery = "SELECT * FROM public.productos ORDER BY idprod";
+                    $result = pg_query($cnx, $hccQuery);
+
+                    if($result){
+                      if(pg_num_rows($result)>0){
+                        ?>
+                    <table border="2px" class="table">
+                      <thead>
+                        <tr>
+                          <th>Id Producto</th>
+                          <th>Nombre Producto</th>
+                          <th>Tipo</th>
+                          <th>Estado</th>
+                          <th>Cantidad</th>
+                          <th>Costo Producto</th>
+                          <th>Valor Venta</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($row = pg_fetch_object($result)) {
+                        ?>
+                        <tr>
+                          <td><?php echo $row->idprod ?></td>
+                          <td><?php echo $row->nombre ?></td>
+                          <td><?php echo $row->tipo ?></td>
+                          <td><?php echo $row->estado ?></td>
+                          <td><?php echo $row->cantidad ?></td>
+                          <td><?php echo $row->costo ?></td>
+                          <td><?php echo $row->venta ?></td>
+                        </tr>
+                        <?php
+                      }
+                    }
+                  }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 		</section>
+
+
 
         <!--
         End Features
