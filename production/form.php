@@ -302,10 +302,10 @@
                     if ($_POST) {
                     if ($_POST["Enviar1"]) {
                     $nomus2 = $_POST["nombreusuario2"];
-                    $contrase = $_POST["contraseña"];
+                    $pass = $_POST["contraseña"];
                     $privileg = $_POST["privilegio"];
-                    $pass = (int) $contrase;
                     $priv = (int) $privileg;
+                    $encripass = md5($pass);
                     $val = 0;
                     $validar2 = "SELECT nombreuser from public.usuarios";
                     $busqueda2 =pg_query($validar2);
@@ -318,8 +318,9 @@
                           $val = 0;
                         }
                       }
+
                       if ($val == 0) {
-                        $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$pass', '$priv');");
+                        $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$encripass', '$priv');");
                         echo"<script>alert('Registrio Agregado Correctamente')</script>";
                       }
                   }
@@ -346,7 +347,18 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Número de Privilegio <span class="required"></span>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
-                          <input type="number" id="privilegio" name="privilegio" required="required" class="form-control col-md-7 col-xs-12">
+                          <select name="privilegio">
+                            <?php
+                          while ( $lisdesp = pg_fetch_array($lis)){
+                           ?>
+                              <option value="<?php echo $lisdesp['privil'] ?>"><?php echo $lisdesp['privil']; ?></option>
+
+                          <?php
+                        }
+                           ?>
+                          </select>
+
+                        </div>
                         </div>
                       </div>
                       <div class="form-group">
