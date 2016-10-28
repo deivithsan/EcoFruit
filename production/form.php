@@ -299,6 +299,8 @@
                     <?php
                     include_once 'conex.php';
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+                    $desp = "SELECT privil FROM public.privilegio";
+                    $lis = pg_query($desp);
                     if ($_POST) {
                     if ($_POST["Enviar1"]) {
                     $nomus2 = $_POST["nombreusuario2"];
