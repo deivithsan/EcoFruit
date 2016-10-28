@@ -8,16 +8,17 @@ $port = '5432';
 $strCnx = "host=$host port=$port dbname=$db user=$user password=$passwd sslmode='allow'" ;
 $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
 $nom = $_POST["nomusuario"];
-$pas = $_POST["pass"];
+$password = $_POST["pass"];
+$pasencrip = md5($password);
 
-if (empty($nom) & empty($pas)){
+if (empty($nom) & empty($pasencrip)){
 
 echo "Campos vacios";
 	}else{
-	$sql = "SELECT nombreuser,contraseña FROM public.usuarios WHERE nombreuser='$nom' and contraseña =$pas";
+	$sql = "SELECT nombreuser,contraseña FROM public.usuarios WHERE nombreuser='$nom' and contraseña ='$pasencrip'";
 	$busqueda=pg_query($sql);
 	$compara = pg_fetch_array($busqueda);
-		if ($compara["nombreuser"] ==$nom && $compara["contraseña"]==$pas){
+		if ($compara["nombreuser"] ==$nom && $compara["contraseña"]==$pasencrip){
 		$sqlpriv = "SELECT privilegio.privil FROM public.usuarios, public.privilegio WHERE usuarios.nombreuser = '$nom' and usuarios.privilegio=privilegio.privil";
 				$busprov = pg_query($sqlpriv);
 				$igual = pg_fetch_array($busprov);
