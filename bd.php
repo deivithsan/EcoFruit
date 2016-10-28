@@ -228,7 +228,13 @@
                       <input type="text" id="tip" name="tip" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
                     </div>
                   </div>
-
+			<div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="est" name="est" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
+                    </div>
+                  </div>
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Cantidad <span class="required"></span>
                     </label>
