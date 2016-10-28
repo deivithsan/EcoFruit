@@ -133,7 +133,8 @@
                     if($result){
                       if(pg_num_rows($result)>0){
                         ?>
-                    <table border="2px" class="table">
+                        <center>
+                    <table border="2px" class="table" >
                       <thead>
                         <tr>
                           <th>Id Producto</th>
@@ -164,12 +165,136 @@
                         ?>
                       </tbody>
                     </table>
-                  </div>
+                  </center>
+
                 </div>
               </div>
-            </div>
-		</section>
+              <form class="form-horizontal form-label-left input_mask" method="post">
 
+                  <h3> Formulario de Compra </h3>
+                  <h3> </h3>
+
+                  <span class="section"></span>
+
+                  <?php
+                  $desp = "SELECT nombrestado FROM public.estado";
+                  $lis = pg_query($desp);
+
+                  $bus = "SELECT idprod FROM public.productos";
+                  $bu = pg_query($bus);
+
+                  if ($_POST){
+                  if ($_POST["buscar"]){
+                  $idproduc = $_POST["idprod"];
+                  while($busq = pg_fetch_array($bu)){
+                      if ($busq ["idprod"] == $idproduc){
+                        $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
+                        $llenar = pg_query($llen);
+                        $row = pg_fetch_assoc($llenar);
+
+                  }
+                }
+              }
+            }
+                  ?>
+
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <center>
+                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                  <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                    </div>
+                  </div>
+                </center>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre<span class="required"></span>
+
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Tipo de Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="tip" name="tip" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
+                    </div>
+                  </div>
+
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Cantidad <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="number" id="cant" name="cant" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Costo <span class="required"></span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="number" id="costo" name="costo" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
+                  </div>
+                  </div>
+                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Venta <span class="required"></span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="number" id="venta" name="venta" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
+                    </div>
+<!--
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="estadolist">
+
+                        <?php
+                        while ( $lisdesp = pg_fetch_array($lis)){
+                         ?>
+                            <option value="<?php echo $lisdesp['nombrestado'] ?>"><?php echo $lisdesp['nombrestado']; ?></option>
+
+                        <?php
+                      }
+                         ?>
+                         </select>
+                       -->
+                     <center>
+                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                  <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <input type="submit" class="btn btn-success" style="display:inline">
+</center>
+                      <!--<button onclick='limpiar3()' class="btn btn-success">Limpiar</button>-->
+
+
+
+                    <?php
+                    pg_close($cnx)
+                    ?>
+                    <script language=javascript>
+                    function limpiar3(){
+                      document.getElementById('cant').value = "";
+                      document.getElementById('nomprod').value = "";
+                      document.getElementById('venta').value = "";
+                      document.getElementById('costo').value = "";
+                      document.getElementById('tip').value = "";
+                      }
+                  </script>
+                </form>
+
+
+
+
+
+
+		</section>
 
 
         <!--
