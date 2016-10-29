@@ -171,8 +171,12 @@
               </div>
               <form class="form-horizontal form-label-left input_mask" method="post">
 
-                  <h3> Formulario de Compra </h3>
-                  <h3> </h3>
+                 <br></br>
+                <center>
+                  <h3> Busca El Producto Que Quieras Comprar! </h3>
+                </center>
+                  <br></br>
+
 
                   <span class="section"></span>
 
@@ -228,7 +232,7 @@
                       <input type="text" id="tip" name="tip" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
                     </div>
                   </div>
-			<div class="item form-group">
+                  <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -236,17 +240,17 @@
                     </div>
                   </div>
                   <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Cantidad <span class="required"></span>
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible <span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="cant" name="cant" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
+                      <input type="number" id="cant" name="cant" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
                     </div>
                   </div>
                   <div class="item form-group">
-                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Costo <span class="required"></span>
+                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad <span class="required"></span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" id="costo" name="costo" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
+                    <input type="number" id="costo" name="costo" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
                   </div>
                   </div>
                   <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Venta <span class="required"></span>
@@ -271,11 +275,7 @@
                          ?>
                          </select>
                        -->
-                     <center>
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                  <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                      <input type="submit" class="btn btn-success" style="display:inline">
+
 </center>
                       <!--<button onclick='limpiar3()' class="btn btn-success">Limpiar</button>-->
 
@@ -293,14 +293,71 @@
                       document.getElementById('tip').value = "";
                       }
                   </script>
+                </div>
                 </form>
 
+                                          <!-- Segundo Formulario -->
 
 
+                <form class="form-horizontal form-label-left input_mask" method="post">
 
+                  <?php
+                  if ($_POST){
+                  if ($_POST["comprar"]){
+                  $cantidadcomprar = $_POST["cantbuy"];
+                  $cantbuy = int($cantidadcomprar);
+                  while($busq = pg_fetch_array($bu)){
+                      if ($busq ["idprod"] == $idproduc){
+                        $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
+                        $llenar = pg_query($llen);
+                        $row = pg_fetch_assoc($llenar);
+
+                  }
+                }
+              }
+            }
+                ?>
+
+                    <center>
+                      <br></br>
+                    <h3> Formulario de Compra </h3>
+                  </center>
+                    <br></br>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="cantbuy" name="cantbuy"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Cedula <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="ced" name="ced"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Celular <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="tel" name="tel"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <center>
+                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                 <div class="form-group">
+                   <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                     <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
+                   </center>
+
+</form>
 
 
 		</section>
+
 
 
         <!--
