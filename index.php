@@ -153,7 +153,7 @@
 							<div class="service-desc">
 								<h3>Login</h3>
 
-								<form name=f method=post action='conexlog.php'>
+									<form name=f method=post action='conexlog.php'>
                       <br />Nombre de Usuario:
  											<br />
  												<input type=text name=nomusuario id='nomusuario'>
@@ -162,13 +162,13 @@
  													<input type=password name=pass id='pass'>
  												<br />
  											<br />
-                                          <input type=submit name=entrar value='Entrar'>
+                      <input type=submit name=entrar value='Entrar'>
+                    </form>
+                    <form name="a" action="registro.php">
+                      <button onclick='registro.php'>Registro</button>
                                         </form>
-
-
-
                                       </div>
-						</div>
+				</div>
 					</div>
 					<!-- end service item -->
 
