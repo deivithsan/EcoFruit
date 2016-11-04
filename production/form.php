@@ -67,8 +67,9 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.php">Principales</a></li>
+                      <li><a href="form.php">Ingresar Información Usuario</a></li>
                       <li><a href="form_validation.php">Ingresar Productos</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
@@ -79,6 +80,13 @@
                   <li><a><i class="fa fa-table"></i> Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="tables_dynamic.php">Tablas</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="modInfo.php">Modificar Información Usuario</a></li>
+                      <li><a href="modProd.php">Modificar Productos</a></li>
+                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
                     </ul>
                   </li>
 
@@ -203,7 +211,7 @@
                        }
                      }
                     ?>
-                    <form class="form-horizontal form-label-left" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
                         </label>
@@ -219,35 +227,35 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido<span class="required"></span>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Correo <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Telefono <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Dirección <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de Cedula <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula">
@@ -280,206 +288,6 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Crear usuario</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left input_mask" method="post">
-                    <?php
-                    include_once 'conex.php';
-                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                    $desp = "SELECT privil FROM public.privilegio";
-                    $lis = pg_query($desp);
-                    if ($_POST) {
-                    if ($_POST["Enviar1"]) {
-                    $nomus2 = $_POST["nombreusuario2"];
-                    $pass = $_POST["contraseña"];
-                    $privileg = $_POST["privilegio"];
-                    $priv = (int) $privileg;
-                    $encripass = md5($pass);
-                    $val = 0;
-                    $validar2 = "SELECT nombreuser from public.usuarios";
-                    $busqueda2 =pg_query($validar2);
-                    while ($comparar2 = pg_fetch_array($busqueda2)){
-                      if ($comparar2 ["nombreuser"] == $nomus2){
-                        echo "<script>alert('El nombre de usuario ya existe')</script>";
-                        $val = 1;
-                        break;
-                      }else {
-                          $val = 0;
-                        }
-                      }
-
-                      if ($val == 0) {
-                        $result2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$encripass', '$priv');");
-                        echo"<script>alert('Registrio Agregado Correctamente')</script>";
-                      }
-                  }
-                   }
-                     ?>
-
-                      <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
-                        </label>
-                        <div class="col-md-12 col-sm-6 col-xs-12">
-                          <input type="text" id="nombreusuario2" name="nombreusuario2" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-
-                      <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Contraseña <span class="required"></span>
-                        </label>
-                        <div class="col-md-12 col-sm-6 col-xs-12">
-                          <input type="password" id="contraseña" name="contraseña" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-
-                      <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Número de Privilegio <span class="required"></span>
-                        </label>
-                        <div class="col-md-12 col-sm-6 col-xs-12">
-                          <select name="privilegio">
-                            <?php
-                          while ( $lisdesp = pg_fetch_array($lis)){
-                           ?>
-                              <option value="<?php echo $lisdesp['privil'] ?>"><?php echo $lisdesp['privil']; ?></option>
-
-                          <?php
-                        }
-                           ?>
-                          </select>
-
-                        </div>
-                        </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                        </label>
-                        <div class="col-md-12 col-sm-9 col-xs-12">
-                          <h4>Privilegios:
-                             1. Admin     2.Vendedor     3.Comprador </h4></div>
-                      </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1">
-                          <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
-                          </div>
-                        </div>
-                        <?php
-                        pg_close($cnx)
-                        ?>
-                        <script language=javascript>
-                        function limpiar2(){
-                      
-                          document.getElementById('nombreusuario2').value = "";
-                          document.getElementById('contraseña').value = "";
-                          document.getElementById('privilegio').value = "";
-                     
-                        }
-                      </script>
-                      </form>
-                  </div>
-
-
-                </div>
-
-
-
-              </div>
-              <div class="row">
-                <div class="col-md-6 col-xs-12">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>Crear Privilegio</h2>
-                      <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <br />
-                      <?php
-                      include_once 'conex.php';
-                      $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                      if ($_POST){
-                      if ($_POST["Enviar2"]){
-                      $nompriv = $_POST["nombrepriv"];
-                      $numeroprivilegio = $_POST["numpriv"];
-                      $numpriv = (int) $numeroprivilegio;
-                      $num = 0;
-                      $validar3 = "SELECT privil from public.privilegio";
-                      $busqueda3 =pg_query($validar3);
-                      while($comparar3 = pg_fetch_array($busqueda3)){                        
-                          if ($comparar3 ["privil"] == $numpriv){
-                            echo"<script>alert('Ese Numero de Privilegio ya esta Asignado. ')</script>";
-                            $num = 1;
-                            break;
-                          }else{
-                            $num = 0;
-                          }
-                        }                    
-                    if ($num == 0){
-                      $result3 =pg_query($cnx, "INSERT INTO public.Privilegio (nombre, privil) VALUES('$nompriv', '$numpriv');");
-                      echo"<script>alert('Registrio Agregado Correctamente')</script>";
-                    }
-                         }
-                       }
-
-                      ?>
-                      <form class="form-horizontal form-label-left input_mask" method="post">
-                        <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre del Privilegio <span class="required"></span>
-                          </label>
-                          <div class="col-md-12 col-sm-6 col-xs-12">
-                            <input type="text" id="nombrepriv" name="nombrepriv" required="required" class="form-control col-md-7 col-xs-12">
-                          </div>
-                        </div>
-
-                        <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Numero de Privilegio <span class="required"></span>
-                          </label>
-                          <div class="col-md-12 col-sm-6 col-xs-12">
-                            <input type="number" id="numpriv" name="numpriv" required="required" class="form-control col-md-7 col-xs-12">
-                          </div>
-                        </div>
-
-
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                        <div class="form-group">
-                          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2">
-                            <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
-                            </div>
-                          </div>
-                          <?php
-                          pg_close($cnx)
-                          ?>
-                          <script language=javascript>
-                          function limpiar3(){
-                            document.getElementById('nombrepriv').value = "" ;
-                            document.getElementById('numpriv').value = "";
-                            }
-                        </script>
-                        </form>
-                    </div>
-                  </div>
-            </div>
-        </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -743,3 +551,4 @@
     <!-- /Starrr -->
   </body>
 </html>
+
