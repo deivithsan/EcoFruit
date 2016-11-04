@@ -57,8 +57,9 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.php">Principales</a></li>
+                      <li><a href="form.php">Ingresar Información Usuario</a></li>
                       <li><a href="form_validation.php">Ingresar Productos</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
@@ -71,7 +72,14 @@
                       <li><a href="tables_dynamic.php">Tablas</a></li>
                     </ul>
                   </li>
-                  
+                  <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="modInfo.php">Modificar Información Usuario</a></li>
+                      <li><a href="modProd.php">Modificar Productos</a></li>
+                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
+                    </ul>
+                  </li>
+
 
               </div>
               <div class="menu_section">
@@ -280,3 +288,4 @@
 
   </body>
 </html>
+
