@@ -63,9 +63,7 @@
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
-                        <li><a href="#features">Accede</a></li>
-                        <li><a href="#facts"> Usuarios</a></li>
-                        <li><a href="#contact">Contacto</a></li>
+                        <li><a href="#features">Productos</a></li>
                     </ul>
                 </nav>
 				<!-- /main nav -->
@@ -74,11 +72,7 @@
         </header>
         <!--
         End Fixed Navigation
-        ==================================== -->
-
-
-
-        <!--
+        ==================================== --><!--
         Home Slider
         ==================================== -->
 
@@ -98,9 +92,9 @@
 					<!-- single slide -->
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">InfoFruit</span>!</h2>
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">InfoFruit</span>!</a></h2>
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se deben perder las frutas que sobran!</p>
+							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
 
 							<ul class="social-links text-center">
 								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
@@ -108,195 +102,238 @@
 							</ul>
 						</div>
 					</div>
-					<!-- end single slide -->
-
-
-
-				</div>
-				<!-- End Wrapper for slides -->
-
-			</div>
-		</section>
-
-        <!--
+					<!-- end single slide --></div>
+				<!-- End Wrapper for slides --></div>
+		</section><!--
         Features
         ==================================== -->
-
-		<section id="features" class="features"
+        <section id="features" class="features">
 			<div class="container">
 				<div class="row">
 
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-						<h2>Accede</h2>
+						<h2>Productos Disponibles para la Compra</h2>
 						<div class="devider"></div>
 					</div>
 
 					<!-- service item -->
-					<div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
-						<div class="service-item">
-							<div class="service-desc">
-								<h3><a href="bd.php">Frutas Disponibles</h3></a>
-								<p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
-							</div>
-						</div>
-					</div>
-					<!-- end service item -->
 
-					<!-- service item -->
+        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+          </div>
+
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-					</div>
-					<!-- end service item -->
 
-					<!-- service item -->
-					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
-						<div class="service-item">
-							<div class="service-desc">
-								<h3>Login</h3>
 
-									<form name=f method=post action='conexlog.php'>
-                      <br />Nombre de Usuario:
- 											<br />
- 												<input type=text name=nomusuario id='nomusuario'>
- 													<br />Contraseña:
- 										 				<br />
- 													<input type=password name=pass id='pass'>
- 												<br />
- 											<br />
-                      <input type=submit name=entrar value='Entrar'>
-                    </form>
-                    <form name="a" action="registro.php">
-                      <button onclick='registro.php'>Registro</button>
-                                        </form>
-                                      </div>
-				</div>
-					</div>
-					<!-- end service item -->
+                    <?php
+                    include_once 'conex.php';
+                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-				</div>
-			</div>
+                    $hccQuery = "SELECT * FROM public.productos ORDER BY idprod";
+                    $result = pg_query($cnx, $hccQuery);
+
+                    if($result){
+                      if(pg_num_rows($result)>0){
+                        ?>
+                        <center>
+                    <table border="2px" class="table" >
+                      <thead>
+                        <tr>
+                          <th>Id Producto</th>
+                          <th>Nombre Producto</th>
+                          <th>Tipo</th>
+                          <th>Estado</th>
+                          <th>Cantidad</th>
+                          <th>Costo Producto</th>
+                          <th>Valor Venta</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($row = pg_fetch_object($result)) {
+                        ?>
+                        <tr>
+                          <td><?php echo $row->idprod ?></td>
+                          <td><?php echo $row->nombre ?></td>
+                          <td><?php echo $row->tipo ?></td>
+                          <td><?php echo $row->estado ?></td>
+                          <td><?php echo $row->cantidad ?></td>
+                          <td><?php echo $row->costo ?></td>
+                          <td><?php echo $row->venta ?></td>
+                        </tr>
+                        <?php
+                      }
+                    }
+                  }
+                        ?>
+                      </tbody>
+                    </table>
+                  </center>
+
+                </div>
+              </div>
+              <form class="form-horizontal form-label-left input_mask" method="post">
+                <br></br>
+                <center>
+                  <h3> Busca El Producto Que Quieras Comprar! </h3>
+                </center>
+                  <br></br>
+
+
+                  <span class="section"></span>
+
+                  <?php
+                  $desp = "SELECT nombrestado FROM public.estado";
+                  $lis = pg_query($desp);
+
+                  $bus = "SELECT idprod FROM public.productos";
+                  $bu = pg_query($bus);
+
+                  if ($_POST){
+
+                  $idproduc = $_POST["idprod"];
+                  if ($_POST["buscar"]){
+                  while($busq = pg_fetch_array($bu)){
+                      if ($busq ["idprod"] == $idproduc){
+                        $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
+                        $llenar = pg_query($llen);
+                        $row = pg_fetch_assoc($llenar);
+
+                  }
+                }
+              }
+            }
+                  ?>
+
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <center>
+                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                  <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                    </div>
+                  </div>
+                </center>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre<span class="required"></span>
+
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Tipo de Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="tip" name="tip" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="text" id="est" name="est" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input type="number" id="cant" name="cant" DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad <span class="required"></span>
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="number" id="costo" name="costo" DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
+                  </div>
+                  </div>
+
+                </form>
+                                                          <!-- Segundo Formulario -->
+
+
+                <form class="form-horizontal form-label-left input_mask" method="post">
+
+                  <?php
+                  if ($_POST){
+                  if ($_POST["comprar"]){
+                  $nomprod = $_POST["nomprod"];
+                  $tipprod = $_POST["tip"];
+                  $est = $_POST["est"];
+                  $cantidaddisp = $_POST["cant"];
+                  $costounitario = $_POST["costo"];
+                  $cantidadcomp = $_POST["cantbuy"];
+                  $numerocedula = $_POST["ced"];
+                  $numerocelular = $_POST["tel"];
+                  $cantdis = (int) $cantidaddisp;
+                  $costun = (int) $costounitario;
+                  $cantbuy = (int) $cantidadcomp;
+                  $numced = (int) $numerocedula;
+                  $tel = (int) $numerocelular;
+
+                  $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, tipoprod, estado, cantdisp, costuni, cantbuy, numced, numcel) VALUES (6,'$nomprod', '$tipprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel);");
+                  echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                  }
+                }
+
+                ?>
+
+                    <center>
+                      <br></br>
+                    <h3> Formulario de Compra </h3>
+                  </center>
+                    <br></br>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="cantbuy" name="cantbuy"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Cedula <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="ced" name="ced"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Celular <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="tel" name="tel"  required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <center>
+                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                 <div class="form-group">
+                   <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                     <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
+                   </center>
+
+                   <?php
+                   pg_close($cnx)
+                   ?>
+
+</form>
+
+
 		</section>
+
+
 
         <!--
         End Features
-        ==================================== -->
-
-		<!--
-        Some fun facts
-        ==================================== -->
-
-		<section id="facts" class="facts">
-			<div class="parallax-overlay">
-				<div class="container">
-					<div class="row number-counters">
-
-						<div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
-							<h2>Usuarios Actuales!</h2>
-							<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
-						</div>
-
-						<!-- first count item -->
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
-							<div class="counters-item">
-								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="200">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Compradores</p>
-							</div>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
-							<div class="counters-item">
-								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="120">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Vendedores</p>
-							</div>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
-							<div class="counters-item">
-								<i class="fa fa-shopping-cart fa-3x"></i>
-								<strong data-to="50">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p> Frutas Disponibles</p>
-							</div>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
-							<div class="counters-item">
-								<i class="fa fa-trophy fa-3x"></i>
-								<strong data-to="54">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Compras Concretadas</p>
-							</div>
-						</div>
-						<!-- end first count item -->
-
-					</div>
-				</div>
-			</div>
-		</section>
-
-        <!--
-        End Some fun facts
-        ==================================== -->
-
-
-		<!--
-        Contact Us
-        ==================================== -->
-
-		<section id="contact" class="contact">
-			<div class="container">
-				<div class="row mb50">
-
-					<div class="sec-title text-center mb50 wow fadeInDown animated" data-wow-duration="500ms">
-						<h2>Contactenos!</h2>
-						<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
-					</div>
-
-					<div class="sec-sub-title text-center wow rubberBand animated" data-wow-duration="1000ms">
-						<p>Si deseea ponerse en contacto con nosotros para la venta de sus productos o para la compra, llene el siguiente formulario y sera respondido en el menor tiempo posible. Gracias!</p>
-					</div>
-
-
-					<!-- contact form -->
-					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
-						<div class="contact-form">
-
-							<form action="conexemail.php" id="contact-form" method="post">
-								<div class="input-group name-email">
-									<div class="input-field">
-										<input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
-									</div>
-									<div class="input-field">
-										<input type="number" name="tel" id="tel" placeholder="Telefono" class="form-control">
-									</div>
-								</div>
-								<div class="input-group">
-									<textarea name="message" id="message" placeholder="Mensaje" class="form-control"></textarea>
-								</div>
-								<div class="input-group">
-									<input type="submit" id="form-submit" class="pull-right" value="Enviar Mensaje">
-								</div>
-							</form>
-						</div>
-					</div>
-					<!-- end contact form -->
-
-
-				</div>
-			</div>
-
-
-
-		</section>
-
-        <!--
-        End Contact Us
-        ==================================== -->
-
-
-
-
-		<!-- Essential jQuery Plugins
+        ==================================== -->	<!-- Essential jQuery Plugins
 		================================================== -->
 		<!-- Main jQuery -->
         <script src="js/jquery-1.11.1.min.js"></script>
@@ -317,8 +354,6 @@
 		<!-- Contact form validation -->
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
-		<!-- Google Map -->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
 		<!-- jquery easing -->
@@ -338,41 +373,7 @@
         <script src="js/custom.js"></script>
 
 		<script type="text/javascript">
-			$(function(){
-				/* ========================================================================= */
-				/*	Contact Form
-				/* ========================================================================= */
 
-				$('#contact-form').validate({
-					rules: {
-						name: {
-							required: true,
-							minlength: 2
-						},
-						tel: {
-							required: true,
-							tel: true
-						},
-						message: {
-							required: true
-						}
-					},
-					messages: {
-						name: {
-							required: "come on, you have a name don't you?",
-							minlength: "your name must consist of at least 2 characters"
-						},
-						email: {
-							required: "no email, no message"
-						},
-						message: {
-							required: "um...yea, you have to write something to send this form.",
-							minlength: "thats all? really?"
-						}
-					},
-
-				});
-			});
 		</script>
     </body>
 </html>
