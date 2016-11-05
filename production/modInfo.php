@@ -86,7 +86,6 @@
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Modificar Información Usuario</a></li>
                       <li><a href="modProd.php">Modificar Productos</a></li>
-                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
                     </ul>
                   </li>
 
@@ -195,7 +194,7 @@
                      }
                    }
                    if ($_POST["Enviar"]){
-
+                   $nameuser =$_POST["nomuser"];
                    $name = $_POST["nombre"];
                    $apell = $_POST["apellido"];
                    $email = $_POST["correo"];
@@ -206,7 +205,7 @@
                    $ced = (int) $cedul;
                    $dat = 0;
 
-                   $result =pg_query($cnx, "UPDATE public.infousuarios SET nombre ='$name',apellido = '$apell', correo='$email', telefono=$tel, direccion='$dir', cedula=$ced");
+                   $result =pg_query($cnx, "UPDATE public.infousuarios SET nombre ='$name',apellido = '$apell', correo='$email', telefono=$tel, direccion='$dir', cedula=$ced where nombreuser = '$nameuser'");
                    echo"<script>alert('Registrio Actualizado Correctamente')</script>";
 
                  }
@@ -228,7 +227,13 @@
                           <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
                         </div>
                       </div>
-
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="nomuser" name="nomuser"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $row['nombreuser'] ?>">
+                        </div>
+                      </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
                         </label>

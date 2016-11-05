@@ -76,7 +76,6 @@
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Modificar Información Usuario</a></li>
                       <li><a href="modProd.php">Modificar Productos</a></li>
-                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
                     </ul>
                   </li>
 
@@ -146,7 +145,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Ingresa Nuevos Productos a la Venta</h2>
+                    <h2>Modifica Algun Producto</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -164,11 +163,26 @@
                       <?php
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-
+                      $bus = "SELECT idprod FROM public.productos";
+                      $bu = pg_query($bus);
                       $desp = "SELECT nombrestado FROM public.estado";
                       $lis = pg_query($desp);
-
                       if ($_POST){
+                        $idproducto = $_POST["idprod"];
+                        $idprod = (int) $idproducto;
+                      if ($_POST["buscar"]){
+
+                            while($busq = pg_fetch_array($bu)){
+                                if ($busq ["idprod"] == $idprod){
+                                  $llen = "SELECT * from public.productos where idprod =$idprod ";
+                                  $llenar = pg_query($llen);
+                                  $row = pg_fetch_assoc($llenar);
+                          }
+                       }
+                     }
+                      if ($_POST["Enviar"]){
+                      $idedelproducto = $_POST["idproduc"];
+                      $idpro = (int) $idedelproducto;
                       $nomprod = $_POST["nomprod"];
                       $tipoprod = $_POST["tip"];
                       $cantidad = $_POST["cant"];
@@ -179,23 +193,43 @@
                       $cost = (int) $costoprod;
                       $venta = (int) $ventaprod;
 
-                        $result =pg_query($cnx, "INSERT INTO public.productos (nombre, tipo, estado, cantidad, costo, venta) VALUES('$nomprod','$tipoprod', '$estado', '$cant','$cost','$venta');");
-                        echo"<script>alert('Registrio Agregado Correctamente')</script>";
+                        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoprod', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta where idprod =$idpro");
+                        echo"<script>alert('Registrio Actualizado Correctamente')</script>";
                       }
+                    }
                       ?>
-
+                      <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id del Producto<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['idprod'] ?>" style="display:none">
+                        </div>
+                      </div>
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['nombre'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['tipo'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -219,26 +253,26 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['cantidad'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['costo'] ?>">
                       </div>
                       </div>
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['venta'] ?>">
                       </div>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <input type="submit" class="btn btn-success">
+                          <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                           <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
                           </div>
                         </div>
