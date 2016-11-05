@@ -85,6 +85,7 @@
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Modificar Información Usuario</a></li>
                       <li><a href="modProd.php">Modificar Productos</a></li>
+                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
                     </ul>
                   </li>
 
@@ -158,6 +159,73 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
+                    <h2>Compras Realizadas</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <?php
+                    include_once 'conex.php';
+                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+
+                    $hccQuery = "SELECT * FROM public.compra ORDER BY idcompra";
+                    $result = pg_query($cnx, $hccQuery);
+
+                    if($result){
+                      if(pg_num_rows($result)>0){
+                        ?>
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Id Compra</th>
+                          <th>Id del Producto Comprado</th>
+                          <th>Nombre Producto</th>
+                          <th>Tipo de Producto</th>
+                          <th>Estado del Producto</th>
+                          <th>Cantidad Disponible del Producto</th>
+                          <th>Costo Por Unidad</th>
+                          <th>Cantidad Comprada</th>
+                          <th>Nùmero de Celular Comprador</th>
+                          <th>Nùmero de Cedula Comprador</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($row = pg_fetch_object($result)) {
+                        ?>
+                        <tr>
+                          <td><?php echo $row->idcompra ?></td>
+                          <td><?php echo $row->idprod ?></td>
+                          <td><?php echo $row->nombreprod ?></td>
+                          <td><?php echo $row->tipoprod ?></td>
+                          <td><?php echo $row->estado ?></td>
+                          <td><?php echo $row->cantdisp ?></td>
+                          <td><?php echo $row->costuni ?></td>
+                          <td><?php echo $row->cantbuy ?></td>
+                          <td><?php echo $row->numced ?></td>
+                          <td><?php echo $row->numcel ?></td>
+                        </tr>
+                        <?php
+                      }
+                    }
+                  }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
                     <h2>Información de los Usuarios</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -214,7 +282,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            
 
             <div class="clearfix"></div>
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -895,4 +963,3 @@
     <!-- /Datatables -->
   </body>
 </html>
-
