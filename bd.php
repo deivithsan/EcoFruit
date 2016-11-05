@@ -92,9 +92,9 @@
 					<!-- single slide -->
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">InfoFruit</span>!</h2>
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">InfoFruit</span>!</a></h2>
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se deben perder las frutas que sobran!</p>
+							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
 
 							<ul class="social-links text-center">
 								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
@@ -106,7 +106,8 @@
 				<!-- End Wrapper for slides --></div>
 		</section><!--
         Features
-        ==================================== --><section id="features" class="features">
+        ==================================== -->
+        <section id="features" class="features">
 			<div class="container">
 				<div class="row">
 
@@ -170,8 +171,7 @@
                 </div>
               </div>
               <form class="form-horizontal form-label-left input_mask" method="post">
-
-                 <br></br>
+                <br></br>
                 <center>
                   <h3> Busca El Producto Que Quieras Comprar! </h3>
                 </center>
@@ -188,8 +188,9 @@
                   $bu = pg_query($bus);
 
                   if ($_POST){
-                  if ($_POST["buscar"]){
+
                   $idproduc = $_POST["idprod"];
+                  if ($_POST["buscar"]){
                   while($busq = pg_fetch_array($bu)){
                       if ($busq ["idprod"] == $idproduc){
                         $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
@@ -199,14 +200,35 @@
                   }
                 }
               }
+              if ($_POST["comprar"]){
+              $iddelproductocompra = $_POST["idproduc"];
+              $idpr = (int) $iddelproductocompra;
+              $nomprod = $_POST["nomprod"];
+              $tipprod = $_POST["tip"];
+              $est = $_POST["est"];
+              $cantidaddisp = $_POST["cant"];
+              $costounitario = $_POST["costo"];
+              $cantidadcomp = $_POST["cantbuy"];
+              $numerocedula = $_POST["ced"];
+              $numerocelular = $_POST["tel"];
+              $cantdis = (int) $cantidaddisp;
+              $costun = (int) $costounitario;
+              $cantbuy = (int) $cantidadcomp;
+              $numced = (int) $numerocedula;
+              $tel = (int) $numerocelular;
+
+              $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, tipoprod, estado, cantdisp, costuni, cantbuy, numced, numcel) VALUES ($idpr,'$nomprod', '$tipprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel);");
+              echo"<script>alert('Compra Realizada Correctamente')</script>";
+              }
             }
+
                   ?>
 
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="number" id="idprod" name="idprod" class="form-control col-md-7 col-xs-12">
                     </div>
                   </div>
                   <center>
@@ -217,133 +239,74 @@
                     </div>
                   </div>
                 </center>
+                <div class="item form-group">
+                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">ID<span class="required"></span>
+
+                  </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="idproduc" name="idproduc"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $row['idprod'] ?>">
+                  </div>
+                </div>
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre<span class="required"></span>
 
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
+                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
                     </div>
                   </div>
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Tipo de Producto<span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="tip" name="tip" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
+                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
                     </div>
                   </div>
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="est" name="est" DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
+                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
                     </div>
                   </div>
                   <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible <span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="cant" name="cant" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
+                      <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
                     </div>
                   </div>
                   <div class="item form-group">
                   <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad <span class="required"></span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" id="costo" name="costo" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
+                    <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
                   </div>
                   </div>
-                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Venta <span class="required"></span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" id="venta" name="venta" DISABLED required="required" class="form-control col-md-7 col-xs-12" style="display:none">
-                    </div>
-<!--
-                    <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="estadolist">
-
-                        <?php
-                        while ( $lisdesp = pg_fetch_array($lis)){
-                         ?>
-                            <option value="<?php echo $lisdesp['nombrestado'] ?>"><?php echo $lisdesp['nombrestado']; ?></option>
-
-                        <?php
-                      }
-                         ?>
-                         </select>
-                       -->
-
-</center>
-                      <!--<button onclick='limpiar3()' class="btn btn-success">Limpiar</button>-->
-
-
-
-                    <?php
-                    pg_close($cnx)
-                    ?>
-                    <script language=javascript>
-                    function limpiar3(){
-                      document.getElementById('cant').value = "";
-                      document.getElementById('nomprod').value = "";
-                      document.getElementById('venta').value = "";
-                      document.getElementById('costo').value = "";
-                      document.getElementById('tip').value = "";
-                      }
-                  </script>
-                </div>
-                </form>
-
-                                          <!-- Segundo Formulario -->
-
-
-                <form class="form-horizontal form-label-left input_mask" method="post">
-
-                  <?php
-                  if ($_POST){
-                  if ($_POST["comprar"]){
-                  $cantidadcomprar = $_POST["cantbuy"];
-                  $cantbuy = int($cantidadcomprar);
-                  while($busq = pg_fetch_array($bu)){
-                      if ($busq ["idprod"] == $idproduc){
-                        $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
-                        $llenar = pg_query($llen);
-                        $row = pg_fetch_assoc($llenar);
-
-                  }
-                }
-              }
-            }
-                ?>
-
-                    <center>
-                      <br></br>
-                    <h3> Formulario de Compra </h3>
-                  </center>
-                    <br></br>
-
-
-                    <div class="item form-group">
+                      <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $row['nombre'] ?>">
+                      <input type="text" id="tip" name="tip"  style="display:none" value="<?php echo $row['tipo'] ?>">
+                      <input type="text" id="est" name="est" style="display:none" value="<?php echo $row['estado'] ?>">
+                      <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $row['cantidad'] ?>">
+                    <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $row['costo'] ?>">
+                  <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="cantbuy" name="cantbuy"  required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
                     <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Cedula <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="ced" name="ced"  required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="ced" name="ced"   class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
                     <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Celular <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="tel" name="tel"  required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="tel" name="tel"   class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
                     <center>
@@ -352,6 +315,10 @@
                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                      <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
                    </center>
+
+                   <?php
+                   pg_close($cnx)
+                   ?>
 
 </form>
 
@@ -402,8 +369,7 @@
         <script src="js/custom.js"></script>
 
 		<script type="text/javascript">
-			$(function(){
-      }
+
 		</script>
     </body>
 </html>
