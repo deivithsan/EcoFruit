@@ -255,15 +255,18 @@
                         </script>
                         </form>
                     </div>
+                      </div>
+                      </div>
+                    </div>
                   </div>
-            </div>
-        </div>
+                </div>
+              </div>
         <!-- /page content -->
 
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            <a href="../index.php">InfoFruit - Deivith Becerra</a>
+            <a href="../index.php">InfoFruit</a>
           </div>
           <div class="clearfix"></div>
         </footer>
