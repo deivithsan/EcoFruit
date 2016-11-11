@@ -246,16 +246,7 @@
 
                   }
                 }
-                ?>
-
-                <form class="form-horizontal form-label-left input_mask" method="post">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-
-                  <input type="submit" class="btn btn-success" style="display:inline" name="editar" id="editar" value="Editar">
-                </form>
-
-              </div>
-                  <?php
+                
               }
 
               if ($_POST["editar"]){
