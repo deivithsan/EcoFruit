@@ -67,9 +67,15 @@
                       <li><a href="invoice.html">Datos</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tablas <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables_dynamic.php">Tablas</a></li>
+                      <li><a href="tableBuy.php"> Compras </a></li>
+                      <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
+                      <li><a href="tableProDisp.php"> Productos </a></li>
+                      <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
+                      <li><a href="tableMen.php"> Mensajes </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -145,7 +151,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Modifica Algun Producto</h2>
+                    <h2>Modifica Los Productos</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -156,11 +162,22 @@
                   </div>
                   <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" novalidate method="post">
+                    <table id="datatable-buttons" class="table table-striped table-bordered"><div class="form-group">
+                      <form class="form-horizontal form-label-left input_mask" method="post">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id del Producto a Modificar <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                          <center>
+                          <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                          <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form_validation.php'"/>
+                      </form>
 
-
-                      <span class="section">Productos</span>
-                      <?php
+                      </center>
+                      </div>
+                      </div>
+                    </div>
+                    <?php
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                       $bus = "SELECT idprod FROM public.productos";
@@ -175,11 +192,96 @@
                             while($busq = pg_fetch_array($bu)){
                                 if ($busq ["idprod"] == $idprod){
                                   $llen = "SELECT * from public.productos where idprod =$idprod ";
-                                  $llenar = pg_query($llen);
-                                  $row = pg_fetch_assoc($llenar);
+                                  $result2 = pg_query($llen);
+                                  if($result2){
+                                    if(pg_num_rows($result2)>0){
+                                      ?>
+                                    </center>
+                                  </div>
+                                  </div>
+                                </div>
+                                <thead>
+                                  <tr>
+                                    <th>Id Producto</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Estado Actual</th>
+                                    <th>Cantidad</th>
+                                    <th>Costo Producto</th>
+                                    <th>Costo Venta</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php while ($row = pg_fetch_object($result2)) {
+                                  ?>
+                                  <tr>
+                                    <td><?php echo $row->idprod ?></td>
+                                    <td><?php echo $row->nombre ?></td>
+                                    <td><?php echo $row->tipo ?></td>
+                                    <td><?php echo $row->estado ?></td>
+                                    <td><?php echo $row->cantidad ?></td>
+                                    <td><?php echo $row->costo ?></td>
+                                    <td><?php echo $row->venta ?></td>
+                                  </tr>
+
+                                    <?php
                           }
                        }
                      }
+                     $llenarcas = "SELECT * from public.productos where idprod = '$idprod' ";
+                               $llen = pg_query($llenarcas);
+                               $z = pg_fetch_assoc($llen);
+                   }
+                 }
+               }
+               }else {
+                 $hccQuery2 = "SELECT * FROM public.productos ORDER BY idprod";
+                 $result2 = pg_query($cnx, $hccQuery2);
+
+                 if($result2){
+                   if(pg_num_rows($result2)>0){
+                     ?>
+                   </center>
+                    </div>
+                    </div>
+                  </div>
+                   <thead>
+                     <tr>
+                       <th>Id Producto</th>
+                       <th>Nombre</th>
+                       <th>Tipo</th>
+                       <th>Estado Actual</th>
+                       <th>Cantidad</th>
+                       <th>Costo Producto</th>
+                       <th>Costo Venta</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php while ($row = pg_fetch_object($result2)) {
+                     ?>
+                     <tr>
+                       <td><?php echo $row->idprod ?></td>
+                       <td><?php echo $row->nombre ?></td>
+                       <td><?php echo $row->tipo ?></td>
+                       <td><?php echo $row->estado ?></td>
+                       <td><?php echo $row->cantidad ?></td>
+                       <td><?php echo $row->costo ?></td>
+                       <td><?php echo $row->venta ?></td>
+                     </tr>
+                     <?php
+                   }
+                 }
+               }
+             }
+
+                     ?>
+                   </tbody>
+                 </table>
+               </div>
+             </div>
+           </div>
+                <?php
+                      if ($_POST){
                       if ($_POST["Enviar"]){
                       $idedelproducto = $_POST["idproduc"];
                       $idpro = (int) $idedelproducto;
@@ -198,38 +300,26 @@
                       }
                     }
                       ?>
-                      <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
-                        </div>
-                      </div>
+                      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id del Producto<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['idprod'] ?>" style="display:none">
+                          <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>" style="display:none">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['nombre'] ?>">
+                          <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['nombre'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['tipo'] ?>">
+                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['tipo'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -253,45 +343,35 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['cantidad'] ?>">
+                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['cantidad'] ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['costo'] ?>">
+                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['costo'] ?>">
                       </div>
                       </div>
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $row['venta'] ?>">
+                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
                       </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                      <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <center>
                           <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
-                          <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
+                          <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
+                        </center>
                           </div>
                         </div>
                         <?php
                         pg_close($cnx)
                         ?>
-                        <script language=javascript>
-                        function limpiar3(){
-                          document.getElementById('nombrepriv').value = "";
-                          document.getElementById('numpriv').value = "";
-                          }
-                      </script>
                     </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -318,7 +398,62 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/datatables.net/js/jquery.dataTables.minNS.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
+
+
+    <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+
+
+        TableManageButtons.init();
+      });
+
+
+
+    </script>
+    <!-- /Datatables -->
 
   </body>
 </html>

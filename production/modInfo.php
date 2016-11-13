@@ -445,7 +445,7 @@
 
     <!-- bootstrap-wysiwyg -->
     <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net/js/jquery.dataTables.minNS.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
@@ -461,7 +461,9 @@
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-     <!-- Datatables -->
+
+
+    <!-- Datatables -->
     <script>
       $(document).ready(function() {
         var handleDataTableButtons = function() {
@@ -498,7 +500,6 @@
 
 
     </script>
-
     <!-- /Datatables -->
     <script>
       $(document).ready(function() {
