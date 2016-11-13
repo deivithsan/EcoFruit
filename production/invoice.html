@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>InfoFruit!</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"></i> <span>InfoFruit!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile">
+              <div class="profile_pic">
+                <img src="images/dei.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Bienvenido,</span>
+                <h2>Deivith Becerra</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="index.html">Pagina Principal</a></li>
+                      </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="form.php">Información Usuario</a></li>
+                      <li><a href="form_validation.php">Productos</a></li>
+                      <li><a href="formPriv.php">Privilegios</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
+                      <li><a href="tableProDisp.php"> Productos </a></li>
+                      <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                      <li><a href="tableBuy.php"> Compras </a></li>
+                      <li><a href="tableMen.php"> Mensajes </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Modificar <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="modInfo.php">Información Usuario</a></li>
+                      <li><a href="modProd.php">Productos</a></li>
+                      <li><a href="modBuy.php">Compra</a></li>
+                    </ul>
+                  </li>
+
+              </div>
+              <div class="menu_section">
+                <h3>Extras</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-bug"></i> Paginas Adicionales <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="invoice.html">Información</a></li>
+                      <li><a href="profile.html">Perfil</a></li>
+                      <li><a href="contacts.html">Contactos</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" a href="../index.php" data-placement="top" title="Salir">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="images/dei.jpg" alt="">Deivith Becerra
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="profile.html"> Perfil</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span>Configuración</span>
+                      </a>
+                    </li>
+                    <li><a href="../index.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Informacion Grupo de Trabajo</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-child"></i> Deivith Stiven Becerra Granados.
+                                          <small class="pull-right">Fecha: 25/09/2016</small>
+                                      </h1>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+
+                          <address>
+                                          <strong>Universidad Piloto de Colombia.</strong>
+                                          <br>Carrera 19 No. 17 - 33 Barrio La Estación
+                                          <br>Barrio la Estacion, Girardot Cundinamarca
+                                          <br>Telefono: 321-2420644
+                                          <br>Correo: deivith-becerra@upc.edu.co
+                                      </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          Para.
+                          <address>
+                                          <strong>Elkin O. Forero Soto</strong>
+                                          <br>Ingeniero de Sistemas
+                                          <br>Docente Investigador
+                                          <br>Telefonos: 311-2930768 315-3111337
+                                          <br>Twitter @forerosotoelkin
+                                      </address>
+                        </div>
+
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <h3>Compañeros</h3>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th style="width: 59%">Información</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Jose Camilo Garcia Mahecha</td>
+                                <td>313-4347034</td>
+                                <td>Estudiante de Ingenieria de Sistemas, 8 Semestre
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Emiliano Castiblanco Rincon</td>
+                                <td>313-8229289</td>
+                                <td>Estudiante de Ingenieria de Sistemas, 8 Semestre</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+
+                      </div>
+
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            <a href="../index.php">InfoFruit - Deivith Becerra</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+  </body>
+</html>
