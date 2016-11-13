@@ -227,7 +227,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
             <center>
               <input type=button value="Agregar" class="btn btn-success" onclick = "location='form.php'"/>
-            <input type=button value="Modificar" class="btn btn-success" onclick = "location='modinfo.php'"/>
+            <input type=button value="Modificar" class="btn btn-success" onclick = "location='modInfo.php'"/>
           </center>
             </div>
           </div>
