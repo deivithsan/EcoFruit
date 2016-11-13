@@ -171,7 +171,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Modificar Información de los Usuarios</h2>
+                    <h2>Modificar Una Compra Realizada</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -183,13 +183,13 @@
                   <div class="x_content">
                     <table id="datatable-buttons" class="table table-striped table-bordered"><div class="form-group">
                       <form class="form-horizontal form-label-left input_mask" method="post">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Usuario a Modificar <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id de la compra <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="idbuy" name="idbuy" required="required" class="form-control col-md-7 col-xs-12">
                           <center>
                           <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
-                          <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
+                          <input type=button value="Nuevo" class="btn btn-success" onclick = "location='../bd.php'"/>
                       </form>
 
                       </center>
@@ -200,14 +200,14 @@
                     <?php
                     include_once 'conex.php';
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                    $bus = "SELECT nombreuser FROM public.infousuarios";
+                    $bus = "SELECT idcompra FROM public.compra";
                     $bu = pg_query($bus);
                     if ($_POST){
                     if ($_POST["buscar"]){
-                          $nomus = $_POST["nombreusuario"];
+                          $idbuy = $_POST["idbuy"];
                           while($busq = pg_fetch_array($bu)){
-                              if ($busq ["nombreuser"] == $nomus){
-                                $llen = "SELECT * from public.infousuarios where nombreuser ='$nomus' ";
+                              if ($busq ["idcompra"] == $idbuy){
+                                $llen = "SELECT * from public.compra where idcompra ='$idbuy' ";
                                 $llenar = pg_query($llen);
                                 if($llenar){
                                   if(pg_num_rows($llenar)>0){
@@ -218,14 +218,16 @@
                                   </div>
                                     <thead>
                                       <tr>
-                                        <th>Id Usuario</th>
-                                        <th>Nombre de Usuario</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Correo</th>
-                                        <th>Telefono</th>
-                                        <th>Dirección</th>
+                                        <th>Id Compra</th>
+                                        <th>Id Producto</th>
+                                        <th>Nombre Producto</th>
+                                        <th>Tipo de Producto</th>
+                                        <th>Estado</th>
+                                        <th>Cantidad Disponible</th>
+                                        <th>Costo Unidad</th>
+                                        <th>Cantidad Comprada</th>
                                         <th>Número de Cedula</th>
+                                        <th>Número de Telefono</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -233,14 +235,16 @@
                                     while ($row = pg_fetch_object($llenar)) {
                         ?>
                         <tr>
-                          <td><?php echo $row->iduser ?></td>
-                          <td><?php echo $row->nombreuser ?></td>
-                          <td><?php echo $row->nombre ?></td>
-                          <td><?php echo $row->apellido ?></td>
-                          <td><?php echo $row->correo ?></td>
-                          <td><?php echo $row->telefono ?></td>
-                          <td><?php echo $row->direccion ?></td>
-                          <td><?php echo $row->cedula ?></td>
+                          <td><?php echo $row->idcompra ?></td>
+                          <td><?php echo $row->idprod ?></td>
+                          <td><?php echo $row->nombreprod ?></td>
+                          <td><?php echo $row->tipoprod ?></td>
+                          <td><?php echo $row->estado ?></td>
+                          <td><?php echo $row->cantdisp ?></td>
+                          <td><?php echo $row->costuni ?></td>
+                          <td><?php echo $row->cantbuy ?></td>
+                          <td><?php echo $row->numced ?></td>
+                          <td><?php echo $row->numcel ?></td>
                         </tr>
 
                         <?php
@@ -248,7 +252,7 @@
 
                     }
                   }
-                  $llenarcas = "SELECT * from public.infousuarios where nombreuser ='$nomus' ";
+                  $llenarcas = "SELECT * from public.compra where idcompra ='$idbuy' ";
                                 $llen = pg_query($llenarcas);
                                 $z = pg_fetch_assoc($llen);
 
@@ -259,7 +263,7 @@
 
 
            }else {
-             $hccQuery = "SELECT * FROM public.infousuarios ORDER BY iduser";
+             $hccQuery = "SELECT * FROM public.compra ORDER BY idcompra";
              $result = pg_query($cnx, $hccQuery);
 
              if($result){
@@ -271,28 +275,32 @@
                </div>
                  <thead>
                    <tr>
-                     <th>Id Usuario</th>
-                     <th>Nombre de Usuario</th>
-                     <th>Nombre</th>
-                     <th>Apellido</th>
-                     <th>Correo</th>
-                     <th>Telefono</th>
-                     <th>Dirección</th>
+                     <th>Id Compra</th>
+                     <th>Id Producto</th>
+                     <th>Nombre Producto</th>
+                     <th>Tipo de Producto</th>
+                     <th>Estado</th>
+                     <th>Cantidad Disponible</th>
+                     <th>Costo Unidad</th>
+                     <th>Cantidad Comprada</th>
                      <th>Número de Cedula</th>
+                     <th>Número de Telefono</th>
                    </tr>
                  </thead>
                  <tbody>
                    <?php while ($row = pg_fetch_object($result)) {
                    ?>
                    <tr>
-                     <td><?php echo $row->iduser ?></td>
-                     <td><?php echo $row->nombreuser ?></td>
-                     <td><?php echo $row->nombre ?></td>
-                     <td><?php echo $row->apellido ?></td>
-                     <td><?php echo $row->correo ?></td>
-                     <td><?php echo $row->telefono ?></td>
-                     <td><?php echo $row->direccion ?></td>
-                     <td><?php echo $row->cedula ?></td>
+                     <td><?php echo $row->idcompra ?></td>
+                     <td><?php echo $row->idprod ?></td>
+                     <td><?php echo $row->nombreprod ?></td>
+                     <td><?php echo $row->tipoprod ?></td>
+                     <td><?php echo $row->estado ?></td>
+                     <td><?php echo $row->cantdisp ?></td>
+                     <td><?php echo $row->costuni ?></td>
+                     <td><?php echo $row->cantbuy ?></td>
+                     <td><?php echo $row->numced ?></td>
+                     <td><?php echo $row->numcel ?></td>
                    </tr>
                    <?php
                  }
@@ -309,17 +317,25 @@
 
                    if ($_POST){
                    if ($_POST["Enviar"]){
-                   $nameuser =$_POST["nomuser"];
-                   $name = $_POST["nombre"];
-                   $apell = $_POST["apellido"];
-                   $email = $_POST["correo"];
-                   $numerotel = $_POST["telefono"];
-                   $dir = $_POST["direccion"];
-                   $cedul = $_POST["cedula"];
-                   $tel = (int) $numerotel;
-                   $ced = (int) $cedul;
+                   $idcompraproducto =$_POST["idcompra"];
+                   $idproducto = $_POST["idprod"];
+                   $nomprod = $_POST["nomprod"];
+                   $tiprod = $_POST["tipoprod"];
+                   $estaprod = $_POST["estadoprod"];
+                   $cantidadisponible = $_POST["cantdisp"];
+                   $costounidad = $_POST["costunidad"];
+                   $cantidadcomprada = $_POST["cantcomprada"];
+                   $numerocedula = $_POST["numcedula"];
+                   $numerotelefono = $_POST["numtelefono"];
+                   $idc = (int) $idcompraproducto;
+                   $idp = (int) $idproducto;
+                   $cantd = (int) $cantidadisponible;
+                   $costou = (int) $costounidad;
+                   $cantc = (int) $cantidadcomprada;
+                   $numc = (int) $numerocedula;
+                   $numt = (int) $numerotelefono;
                    $dat = 0;
-                   $result =pg_query($cnx, "UPDATE public.infousuarios SET nombre ='$name',apellido = '$apell', correo='$email', telefono=$tel, direccion='$dir', cedula=$ced where nombreuser = '$nameuser'");
+                   $result =pg_query($cnx, "UPDATE public.compra SET idprod ='$idp',nombreprod = '$nomprod', tipoprod='$tiprod', estado='$estaprod', cantdisp=$cantd, costuni=$costou, cantbuy=$cantc, numced=$numc, numcel=$numt where idcompra = $idc");
                    echo"<script>alert('Registrio Actualizado Correctamente')</script>";
 
 
@@ -330,52 +346,73 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                       <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</span>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de Compra</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nomuser" name="nomuser"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $z['nombreuser'] ?>">
+                          <input type="number" id="idcompra" name="idcompra"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $z['idcompra'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['nombre'] ?>">
+                          <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['apellido'] ?>">
+                          <input id="nomprod" name="nomprod" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['nombreprod'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo Producto <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo" value="<?php echo $z['correo'] ?>">
+                          <input id="tipoprod" class="form-control col-md-7 col-xs-12" required="required" type="text" name="tipoprod" value="<?php echo $z['tipoprod'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Estado <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono" value="<?php echo $z['telefono'] ?>">
+                          <input id="estadoprod" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="estadoprod" value="<?php echo $z['estado'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion" value="<?php echo $z['direccion'] ?>">
+                          <input id="cantdisp" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantdisp" value="<?php echo $z['cantdisp'] ?>">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Costo por Unidad <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="costunidad" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="costounidad" value="<?php echo $z['costuni'] ?>">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantcomprada" value="<?php echo $z['cantbuy'] ?>">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula" value="<?php echo $z['cedula'] ?>">
+                          <input id="numcedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="numcedula" value="<?php echo $z['numced'] ?>">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Telefono <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="numtelefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="numtelefono" value="<?php echo $z['numcel'] ?>">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -383,7 +420,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <center>
                         <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Editar">
-                        <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableInfoUsr.php'"/>
+                        <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableBuy.php'"/>
                         </div>
                       </div>
                       <?php
