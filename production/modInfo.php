@@ -77,9 +77,15 @@
                       <li><a href="invoice.html">Datos</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tablas <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables_dynamic.php">Tablas</a></li>
+                      <li><a href="tableBuy.php"> Compras </a></li>
+                      <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
+                      <li><a href="tableProDisp.php"> Productos </a></li>
+                      <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
+                      <li><a href="tableMen.php"> Mensajes </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -176,12 +182,13 @@
                   <div class="x_content">
                     <table id="datatable-buttons" class="table table-striped table-bordered"><div class="form-group">
                       <form class="form-horizontal form-label-left input_mask" method="post">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Usuario a Modificar <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
                           <center>
                           <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                          <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
                       </form>
 
                       </center>
@@ -246,12 +253,9 @@
 
                   }
                 }
-                
-              }
-
-              if ($_POST["editar"]){
 
               }
+
 
            }else {
              $hccQuery = "SELECT * FROM public.infousuarios ORDER BY iduser";
@@ -316,6 +320,8 @@
                    $dat = 0;
                    $result =pg_query($cnx, "UPDATE public.infousuarios SET nombre ='$name',apellido = '$apell', correo='$email', telefono=$tel, direccion='$dir', cedula=$ced where nombreuser = '$nameuser'");
                    echo"<script>alert('Registrio Actualizado Correctamente')</script>";
+
+
                  }
                }
 
@@ -374,23 +380,14 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <center>
                         <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Editar">
-                        <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
+                        <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableInfoUsr.php'"/>
                         </div>
                       </div>
                       <?php
                       pg_close($cnx)
                       ?>
-                      <script language=javascript>
-                      function limpiar(){
-                        document.getElementById('nombreusuario').value = "";
-                        document.getElementById('nombre').value = "";
-                        document.getElementById('apellido').value = "";
-                        document.getElementById('correo').value = "";
-                        document.getElementById('telefono').value = "";
-                        document.getElementById('direccion').value = "";
-                        document.getElementById('cedula').value = "";
-                      }
                     </script>
                     </form>
                   </div>
@@ -423,9 +420,7 @@
     <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="js/moment/moment.min.js"></script>
-    <script src="js/datepicker/daterangepicker.js"></script>
+
     <!-- bootstrap-wysiwyg -->
     <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
@@ -448,20 +443,66 @@
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-    <!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-wysiwyg -->
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+
+    <!-- Datatables -->
     <script>
       $(document).ready(function() {
-        $('#birthday').daterangepicker({
-          singleDatePicker: true,
-          calender_style: "picker_4"
-        }, function(start, end, label) {
-          console.log(start.toISOString(), end.toISOString(), label);
-        });
-      });
-    </script>
-    <!-- /bootstrap-daterangepicker -->
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+            });
+          }
+        };
 
-    <!-- bootstrap-wysiwyg -->
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+
+
+        TableManageButtons.init();
+      });
+
+
+
+    </script>
+
+    <!-- /Datatables -->
     <script>
       $(document).ready(function() {
         function initToolbarBootstrapBindings() {
@@ -645,4 +686,3 @@
     <!-- /Starrr -->
   </body>
 </html>
-
