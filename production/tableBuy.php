@@ -190,7 +190,7 @@
                           <th>Tipo de Producto</th>
                           <th>Estado del Producto</th>
                           <th>Cantidad Disponible del Producto</th>
-                          <th>Costo Por Unidad</th>
+                          <th>Costo Por Unidad ($)</th>
                           <th>Cantidad Comprada</th>
                           <th>Nùmero de Celular Comprador</th>
                           <th>Nùmero de Cedula Comprador</th>
