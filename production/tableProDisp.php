@@ -189,8 +189,8 @@
                           <th>Tipo</th>
                           <th>Estado Actual</th>
                           <th>Cantidad</th>
-                          <th>Costo Producto</th>
-                          <th>Costo Venta</th>
+                          <th>Costo Producto ($)</th>
+                          <th>Costo Venta ($)</th>
                         </tr>
                       </thead>
                       <tbody>
