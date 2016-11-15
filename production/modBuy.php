@@ -217,7 +217,7 @@
                                         <th>Estado</th>
                                         <th>Cantidad Disponible</th>
                                         <th>Costo Unidad</th>
-                                        <th>Cantidad Comprada</th>
+                                        <th>Cantidad Comprada ($)</th>
                                         <th>Número de Cedula</th>
                                         <th>Número de Telefono</th>
                                       </tr>
@@ -274,7 +274,7 @@
                      <th>Estado</th>
                      <th>Cantidad Disponible</th>
                      <th>Costo Unidad</th>
-                     <th>Cantidad Comprada</th>
+                     <th>Cantidad Comprada ($)</th>
                      <th>Número de Cedula</th>
                      <th>Número de Telefono</th>
                    </tr>
@@ -380,7 +380,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Costo por Unidad <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Costo por Unidad ($) <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="costunidad" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="costounidad" value="<?php echo $z['costuni'] ?>">
