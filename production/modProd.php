@@ -200,8 +200,8 @@
                                     <th>Tipo</th>
                                     <th>Estado Actual</th>
                                     <th>Cantidad</th>
-                                    <th>Costo Producto</th>
-                                    <th>Costo Venta</th>
+                                    <th>Costo Producto ($)</th>
+                                    <th>Costo Venta ($)</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -245,8 +245,8 @@
                        <th>Tipo</th>
                        <th>Estado Actual</th>
                        <th>Cantidad</th>
-                       <th>Costo Producto</th>
-                       <th>Costo Venta</th>
+                       <th>Costo Producto ($)</th>
+                       <th>Costo Venta ($)</th>
                      </tr>
                    </thead>
                    <tbody>
@@ -340,13 +340,13 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo ($) <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['costo'] ?>">
                       </div>
                       </div>
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta ($) <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
