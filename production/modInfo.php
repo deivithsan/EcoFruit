@@ -181,7 +181,6 @@
                           <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
                           <center>
                           <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
-                          <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
                       </form>
 
                       </center>
@@ -292,6 +291,10 @@
              }
              }
                         ?>
+                     <form class="form-horizontal form-label-left input_mask" method="post">
+                          <center>
+                            <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
+                        </form>
                       </tbody>
                     </table>
                   </div>
