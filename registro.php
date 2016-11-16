@@ -62,8 +62,6 @@
 				<!-- main nav -->
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
-                        <li class="current"><a href="#body">Inicio</a></li>
-                        <li><a href="#features">Productos</a></li>
                     </ul>
                 </nav>
 				<!-- /main nav -->
