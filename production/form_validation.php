@@ -158,7 +158,6 @@
                     <form class="form-horizontal form-label-left" novalidate method="post">
 
 
-                      <span class="section">Productos</span>
                       <?php
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
