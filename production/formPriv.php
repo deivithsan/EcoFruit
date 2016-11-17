@@ -60,33 +60,42 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="index.html"><i class="fa fa-home"></i> Inicio </a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.php">Información Usuario</a></li>
-                      <li><a href="form_validation.php">Productos</a></li>
-                      <li><a href="formPriv.php">Privilegios</a></li>
+                      <li><a href="index.html">Pagina Principal</a></li>
+                      </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="form.php">Ingresar Información Usuario</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Información <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="invoice.html">Datos</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tableBuy.php"> Compras </a></li>
                       <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                       <li><a href="tableProDisp.php"> Productos </a></li>
                       <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                      <li><a href="tableBuy.php"> Compras </a></li>
                       <li><a href="tableMen.php"> Mensajes </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Modificar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="modInfo.php">Información Usuario</a></li>
-                      <li><a href="modProd.php">Productos</a></li>
-                      <li><a href="modBuy.php">Compra</a></li>
+                      <li><a href="modInfo.php">Modificar Información Usuario</a></li>
+                      <li><a href="modProd.php">Modificar Productos</a></li>
+                      <li><a href="modPriv.php">Modificar Privilegio</a></li>
                     </ul>
                   </li>
+
 
               </div>
               <div class="menu_section">
@@ -94,7 +103,6 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Paginas Adicionales <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="invoice.html">Información</a></li>
                       <li><a href="profile.html">Perfil</a></li>
                       <li><a href="contacts.html">Contactos</a></li>
                     </ul>
@@ -175,21 +183,7 @@
                   </div>
                   <div class="x_content">
 
-              <div class="row">
-                <div class="col-md-8 col-sm-12 col-xs-12">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>Crear Privilegio</h2>
-                      <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <br />
+
                       <?php
                       include_once 'conex.php';
                       $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
@@ -219,18 +213,18 @@
 
                       ?>
                       <form class="form-horizontal form-label-left input_mask" method="post">
-                        <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre del Privilegio <span class="required"></span>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre del Privilegio <span class="required"></span>
                           </label>
-                          <div class="col-md-12 col-sm-6 col-xs-12">
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="nombrepriv" name="nombrepriv" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
                         </div>
 
-                        <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Numero de Privilegio <span class="required"></span>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Numero de Privilegio <span class="required"></span>
                           </label>
-                          <div class="col-md-12 col-sm-6 col-xs-12">
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="number" id="numpriv" name="numpriv" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
                         </div>
@@ -239,8 +233,9 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                         <div class="form-group">
                           <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2">
+                            <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2" value="Agregar">
                             <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                            <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='tableInfoPriv.php'"/>
                             </div>
                           </div>
                           <?php
@@ -253,13 +248,15 @@
                             }
                         </script>
                         </form>
-                    </div>
+                      </div>
                       </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+
         <!-- /page content -->
 
         <!-- footer content -->
