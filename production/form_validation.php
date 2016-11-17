@@ -236,8 +236,9 @@
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <input type="submit" class="btn btn-success">
+                          <input type="submit" class="btn btn-success" value="Agregar">
                           <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
+                          <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
                           </div>
                         </div>
                         <?php
@@ -261,7 +262,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            <a href="../index.php">InfoFruit - Deivith Becerra</a>
+            <a href="../index.php">InfoFruit</a>
           </div>
           <div class="clearfix"></div>
         </footer>
