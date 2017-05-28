@@ -1,3 +1,24 @@
+<?php
+session_start();
+include 'conex.php';
+$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+if (isset($_SESSION['user'])){
+    $priv = $_SESSION['privil'];
+    $nom = $_SESSION['user'];
+    if ($priv != 1) {
+        session_unset();
+        echo '<script> window.location="../index.php"; </script>';
+    }
+} else {
+    echo '<script> window.location="../index.php"; </script>';
+}
+$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
+$busqueda=pg_query($sql);
+$row = pg_fetch_array($busqueda);
+
+$nombre = $row["nombre"];
+$apellido = $row["apellido"];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,7 +69,7 @@
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
-                <h2>Deivith Becerra</h2>
+                <h2><?php echo "$nombre $apellido" ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -60,33 +81,36 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="index.html"><i class="fa fa-home"></i> Inicio </a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.php">Información Usuario</a></li>
-                      <li><a href="form_validation.php">Productos</a></li>
-                      <li><a href="formPriv.php">Privilegios</a></li>
+                      <li><a href="index.php">Pagina Principal</a></li>
+                      </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="form.php">Ingresar Información Usuario</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableBuy.php"> Compras </a></li>
                       <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                       <li><a href="tableProDisp.php"> Productos </a></li>
                       <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                      <li><a href="tableBuy.php"> Compras </a></li>
                       <li><a href="tableMen.php"> Mensajes </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Modificar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="modInfo.php">Información Usuario</a></li>
-                      <li><a href="modProd.php">Productos</a></li>
-                      <li><a href="modBuy.php">Compra</a></li>
+                      <li><a href="modInfo.php">Modificar Información Usuario</a></li>
+                      <li><a href="modProd.php">Modificar Productos</a></li>
                     </ul>
                   </li>
+
 
               </div>
               <div class="menu_section">
@@ -94,7 +118,6 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Paginas Adicionales <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="invoice.html">Información</a></li>
                       <li><a href="profile.html">Perfil</a></li>
                       <li><a href="contacts.html">Contactos</a></li>
                     </ul>
@@ -106,7 +129,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" a href="../index.php" data-placement="top" title="Salir">
+              <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -125,7 +148,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/dei.jpg" alt="">Deivith Becerra
+                    <img src="images/dei.jpg" alt=""><?php echo "$nombre $apellido" ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -135,7 +158,7 @@
                         <span>Configuración</span>
                       </a>
                     </li>
-                    <li><a href="../index.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                   </ul>
                 </li>
               </ul>
@@ -262,7 +285,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Agregar">
+                        <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                         <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
                         <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='modInfo.php'"/>
 
@@ -293,7 +316,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            <a href="../index.php">InfoFruit</a>
+            <a href="../index.php">InfoFruit - Deivith Becerra</a>
           </div>
           <div class="clearfix"></div>
         </footer>

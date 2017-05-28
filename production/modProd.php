@@ -1,3 +1,24 @@
+<?php
+session_start();
+include 'conex.php';
+$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+if (isset($_SESSION['user'])){
+    $priv = $_SESSION['privil'];
+    $nom = $_SESSION['user'];
+    if ($priv != 1) {
+        session_unset();
+        echo '<script> window.location="../index.php"; </script>';
+    }
+} else {
+    echo '<script> window.location="../index.php"; </script>';
+}
+$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
+$busqueda=pg_query($sql);
+$row = pg_fetch_array($busqueda);
+
+$nombre = $row["nombre"];
+$apellido = $row["apellido"];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +47,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"></i> <span>InfoFruit!</span></a>
+              <a href="index.php" class="site_title"></i> <span>InfoFruit!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -38,7 +59,7 @@
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
-                <h2>Deivith Becerra</h2>
+                <h2><?php echo "$nombre $apellido" ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -50,7 +71,10 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="index.html"><i class="fa fa-home"></i> Inicio </a>
+                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="index.php">Pagina Principal</a></li>
+                      </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -84,7 +108,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Paginas Adicionales <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="invoice.html">Información</a></li>
+                      <li><a href="invoice.php">Información</a></li>
                       <li><a href="profile.html">Perfil</a></li>
                       <li><a href="contacts.html">Contactos</a></li>
                     </ul>
@@ -96,7 +120,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" a href="../index.php" data-placement="top" title="Salir">
+              <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -115,7 +139,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/dei.jpg" alt="">Deivith Becerra
+                    <img src="images/dei.jpg" alt=""><?php echo "$nombre $apellido" ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -125,7 +149,7 @@
                         <span>Configuración</span>
                       </a>
                     </li>
-                    <li><a href="../index.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                   </ul>
                 </li>
               </ul>
@@ -199,11 +223,11 @@
                                     <th>Tipo</th>
                                     <th>Estado Actual</th>
                                     <th>Cantidad</th>
-                                    <th>Costo Producto ($)</th>
-                                    <th>Costo Venta ($)</th>
+                                    <th>Costo Producto</th>
+                                    <th>Costo Venta</th>
                                   </tr>
                                 </thead>
-                                <tbody>
+
                                   <?php while ($row = pg_fetch_object($result2)) {
                                   ?>
                                   <tr>
@@ -244,8 +268,8 @@
                        <th>Tipo</th>
                        <th>Estado Actual</th>
                        <th>Cantidad</th>
-                       <th>Costo Producto ($)</th>
-                       <th>Costo Venta ($)</th>
+                       <th>Costo Producto</th>
+                       <th>Costo Venta</th>
                      </tr>
                    </thead>
                    <tbody>
@@ -343,13 +367,13 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo ($) <span class="required"></span>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['costo'] ?>">
                       </div>
                       </div>
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta ($) <span class="required"></span>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
@@ -359,7 +383,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <center>
-                          <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
+                          <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
                           <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
                         </center>
                           </div>
