@@ -63,7 +63,7 @@
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
-                        <li><a href="#features">Productos</a></li>
+                        <li><a href="#features">Frutas</a></li>
                     </ul>
                 </nav>
 				<!-- /main nav -->
@@ -92,9 +92,9 @@
 					<!-- single slide -->
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">InfoFruit</span>!</a></h2>
-							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">InfoFruit</span>!</h2>
+							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta sobrante en su cosecha</span> </h3>
+							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se deben perder las frutas que sobran!</p>
 
 							<ul class="social-links text-center">
 								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
@@ -107,225 +107,77 @@
 		</section><!--
         Features
         ==================================== -->
-        <section id="features" class="features">
+        <section id="features" class="features"
 			<div class="container">
 				<div class="row">
 
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-						<h2>Productos Disponibles para la Compra</h2>
+						<h2>Frutas Disponibles para la Compra</h2>
 						<div class="devider"></div>
 					</div>
 
 					<!-- service item -->
-
-        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+          <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
           </div>
 
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+						<div class="service-item">
+							<div class="service-desc">
+                <?php
+  $host = 'localhost';
+  $user = 'postgres';
+  $passwd = 'liz6625382';
+  $db = 'postgres';
+  $port = '5432';
+  $strCnx = "host=$host port=$port dbname=$db user=$user password=$passwd sslmode='allow'" ;
+  $cnx = pg_connect($strCnx) or die (print "Error de conexion.");
+  $sql = "SELECT * from public.frutas ORDER BY idfrut";
+  $rs = pg_query($cnx, $sql );
+  $ok = true;
+if ($rs) {
+  if (pg_num_rows($rs)>0) {
+    ?>
+    <?php
+    while ($obj = pg_fetch_object($rs)) {
+      ?>
+      <table border="2px" class= "table" >
+           <tr>
+              <td>Id Fruta</td>
+              <td>Nombre</td>
+              <td>Cantidad</td>
+              <td>Lugar</td>
+              <td>Vendedor</td>
+              <td>Fecha y hora finalizacion</td>
+          </tr>
+          <tr>
+              <td><?php echo $obj->idfrut ?></td>
+              <td><?php echo $obj->nombre ?></td>
+              <td><?php echo $obj->cantidad ?></td>
+              <td><?php echo $obj->lugar ?></td>
+              <td><?php echo $obj->vendedor ?></td>
+              <td><?php echo $obj->fechahora ?></td>
+          </tr>
+        </table>
+      <?php
+      }
+  }
+    else {
+      echo "<p>No hay frutas disponibles para la compra</p>";
+    }
 
+}
+  else {
+    $ok = false;
+    return $ok;
+  }
 
-                    <?php
-                    include_once 'conex.php';
-                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-
-                    $hccQuery = "SELECT * FROM public.productos ORDER BY idprod";
-                    $result = pg_query($cnx, $hccQuery);
-
-                    if($result){
-                      if(pg_num_rows($result)>0){
-                        ?>
-                        <center>
-                    <table border="2px" class="table" >
-                      <thead>
-                        <tr>
-                          <th>Id Producto</th>
-                          <th>Nombre Producto</th>
-                          <th>Tipo</th>
-                          <th>Estado</th>
-                          <th>Cantidad</th>
-                          <th>Costo Producto</th>
-                          <th>Valor Venta</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php while ($row = pg_fetch_object($result)) {
-                        ?>
-                        <tr>
-                          <td><?php echo $row->idprod ?></td>
-                          <td><?php echo $row->nombre ?></td>
-                          <td><?php echo $row->tipo ?></td>
-                          <td><?php echo $row->estado ?></td>
-                          <td><?php echo $row->cantidad ?></td>
-                          <td><?php echo $row->costo ?></td>
-                          <td><?php echo $row->venta ?></td>
-                        </tr>
-                        <?php
-                      }
-                    }
-                  }
-                        ?>
-                      </tbody>
-                    </table>
-                  </center>
-
-                </div>
-              </div>
-              <form class="form-horizontal form-label-left input_mask" method="post">
-                <br></br>
-                <center>
-                  <h3> Busca El Producto Que Quieras Comprar! </h3>
-                </center>
-                  <br></br>
-
-
-                  <span class="section"></span>
-
-                  <?php
-                  $desp = "SELECT nombrestado FROM public.estado";
-                  $lis = pg_query($desp);
-
-                  $bus = "SELECT idprod FROM public.productos";
-                  $bu = pg_query($bus);
-
-                  if ($_POST){
-
-                  $idproduc = $_POST["idprod"];
-                  if ($_POST["buscar"]){
-                  while($busq = pg_fetch_array($bu)){
-                      if ($busq ["idprod"] == $idproduc){
-                        $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
-                        $llenar = pg_query($llen);
-                        $row = pg_fetch_assoc($llenar);
-
-                  }
-                }
-              }
-              if ($_POST["comprar"]){
-              $iddelproductocompra = $_POST["idproduc"];
-              $idpr = (int) $iddelproductocompra;
-              $nomprod = $_POST["nomprod"];
-              $tipprod = $_POST["tip"];
-              $est = $_POST["est"];
-              $cantidaddisp = $_POST["cant"];
-              $costounitario = $_POST["costo"];
-              $cantidadcomp = $_POST["cantbuy"];
-              $numerocedula = $_POST["ced"];
-              $numerocelular = $_POST["tel"];
-              $cantdis = (int) $cantidaddisp;
-              $costun = (int) $costounitario;
-              $cantbuy = (int) $cantidadcomp;
-              $numced = (int) $numerocedula;
-              $tel = (int) $numerocelular;
-
-              $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, tipoprod, estado, cantdisp, costuni, cantbuy, numced, numcel) VALUES ($idpr,'$nomprod', '$tipprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel);");
-              echo"<script>alert('Compra Realizada Correctamente')</script>";
-              }
-            }
-
-                  ?>
-
-                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="idprod" name="idprod" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-                  <center>
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                  <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                      <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
-                    </div>
-                  </div>
-                </center>
-                <div class="item form-group">
-                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">ID<span class="required"></span>
-
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="idproduc" name="idproduc"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $row['idprod'] ?>">
-                  </div>
-                </div>
-                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre<span class="required"></span>
-
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
-                    </div>
-                  </div>
-                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Tipo de Producto<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
-                    </div>
-                  </div>
-                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
-                    </div>
-                  </div>
-                  <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible <span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
-                    </div>
-                  </div>
-                  <div class="item form-group">
-                  <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad <span class="required"></span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
-                  </div>
-                  </div>
-                      <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $row['nombre'] ?>">
-                      <input type="text" id="tip" name="tip"  style="display:none" value="<?php echo $row['tipo'] ?>">
-                      <input type="text" id="est" name="est" style="display:none" value="<?php echo $row['estado'] ?>">
-                      <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $row['cantidad'] ?>">
-                    <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $row['costo'] ?>">
-                  <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Cedula <span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="ced" name="ced"   class="form-control col-md-7 col-xs-12">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Celular <span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="tel" name="tel"   class="form-control col-md-7 col-xs-12">
-                      </div>
-                    </div>
-                    <center>
-                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                 <div class="form-group">
-                   <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                     <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
-                   </center>
-
-                   <?php
-                   pg_close($cnx)
-                   ?>
-
-</form>
-
-
+?>
+							</div>
+						</div>
+					</div>
+					<!-- end service item -->
+        </div>
 		</section>
-
-
 
         <!--
         End Features
@@ -369,7 +221,8 @@
         <script src="js/custom.js"></script>
 
 		<script type="text/javascript">
-
+			$(function(){
+      }
 		</script>
     </body>
 </html>
