@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if (isset($_SESSION['user']) and isset($_SESSION['privil'])){
+        echo '<script> window.location="production/index.php"; </script>';
+    }
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -261,9 +267,9 @@
 
 
 					<!-- contact form -->
+
 					<div class="col-lg-12 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
 						<div class="contact-form">
-
 							<form action="conexemail.php" id="contact-form" method="post">
 								<div class="input-group name-email">
 									<div class="input-field">
@@ -364,9 +370,6 @@
 						name: {
 							required: "come on, you have a name don't you?",
 							minlength: "your name must consist of at least 2 characters"
-						},
-						email: {
-							required: "no email, no message"
 						},
 						message: {
 							required: "um...yea, you have to write something to send this form.",
