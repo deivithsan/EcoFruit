@@ -187,6 +187,8 @@
                             <th>Nombre</th>
                             <th>Telefono</th>
                             <th>Mensaje</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -197,6 +199,8 @@
                             <td><?php echo $row->nombre ?></td>
                             <td><?php echo $row->telefono ?></td>
                             <td><?php echo $row->mensaje ?></td>
+                            <td><?php echo $row->fecha ?></td>
+                            <td><?php echo $row->hora ?></td>
                           </tr>
                           <?php
                         }
