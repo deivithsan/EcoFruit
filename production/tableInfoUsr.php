@@ -64,7 +64,7 @@ $apellido = $row["apellido"];
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/dei.jpg" alt="..." class="img-circle profile_img">
+                <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
@@ -105,8 +105,9 @@ $apellido = $row["apellido"];
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="modInfo.php">Modificar Información Usuario</a></li>
-                      <li><a href="modProd.php">Modificar Productos</a></li>
+                      <li><a href="modInfo.php">Información de Usuarios</a></li>
+                      <li><a href="modProd.php">Productos</a></li>
+                      <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
 
@@ -146,7 +147,7 @@ $apellido = $row["apellido"];
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/dei.jpg" alt=""><?php echo "$nombre $apellido" ?>
+                    <img src="images/<?php echo "$nom" ?>.jpg" alt=""><?php echo "$nombre $apellido" ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
