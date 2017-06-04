@@ -94,13 +94,13 @@ $apellido = $row["apellido"];
                   </li>
                   <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tableBuy.php"> Compras </a></li>
+                      <li><a href="tableBuy.php"> Compras </a>
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
                       <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                       <li><a href="tableProDisp.php"> Productos </a></li>
                       <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
                       <li><a href="tableMen.php"> Mensajes </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                      <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
