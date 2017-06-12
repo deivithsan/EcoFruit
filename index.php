@@ -150,6 +150,12 @@
 
 					<!-- service item -->
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <h3><a href="precioCor.php">Precios Corabastos</h3></a>
+                                <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                            </div>
+                        </div>
 					</div>
 					<!-- end service item -->
 
