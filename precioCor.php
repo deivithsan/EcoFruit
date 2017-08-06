@@ -113,12 +113,7 @@
 
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
 						<h2>Precios Actuales en Corabastos</h2>
-                        <?php
-                        $sources = file_get_contents("http://www.corabastos.com.co/sitio/historicoApp2/reportes/prueba.php");
-                        if (preg_match('|Actualizado el: 2017-06-09|is', $sources, $cap))
-                        {
-                        ?>
-                        <h3><?php echo $cap[0]; } else echo "No encontrado";?></h3>
+                        
 						<div class="devider"></div>
 					</div>
 
