@@ -136,7 +136,7 @@
                                     $trs = $html->getElementsByTagName("tr");
                                     ?>
                                     <tr>
-					    <h1>Informacion: los productos con precio 0$ es porque no se encuentran en cosecha</h1>    
+					    <h4>Informacion: los productos con precio 0 es porque no se encuentran en cosecha</h4>    
                                         <th>Nombre</th>
                                         <th>Presentación</th>
                                         <th>Cantidad</th>
