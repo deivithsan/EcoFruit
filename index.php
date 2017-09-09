@@ -15,7 +15,7 @@
 		<!-- Always force latest IE rendering engine or request Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<!-- Page Title -->
-        <title>InfoFruit</title>
+        <title>EcoFruit</title>
 		<!-- Meta Description -->
 
 		<!-- Mobile Specific Meta -->
