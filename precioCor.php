@@ -9,7 +9,7 @@
 		<!-- Always force latest IE rendering engine or request Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<!-- Page Title -->
-        <title>InfoFruit</title>
+        <title>EcoFruit</title>
 		<!-- Meta Description -->
 
 		<!-- Mobile Specific Meta -->
@@ -92,7 +92,7 @@
 					<!-- single slide -->
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">InfoFruit</span>!</a></h2>
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">EcoFruit</span>!</a></h2>
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
 							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
 
