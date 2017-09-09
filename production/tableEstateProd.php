@@ -30,7 +30,7 @@ $apellido = $row["apellido"];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>InfoFruit!</title>
+    <title>EcoFruit!</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,7 +57,7 @@ $apellido = $row["apellido"];
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"></i> <span>InfoFruit!</span></a>
+              <a href="index.php" class="site_title"></i> <span>EcoFruit!</span></a>
             </div>
             <div class="clearfix"></div>
 
@@ -234,7 +234,7 @@ $apellido = $row["apellido"];
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            <a href="../index.php">InfoFruit</a>
+            <a href="../index.php">EcoFruit</a>
           </div>
           <div class="clearfix"></div>
         </footer>
