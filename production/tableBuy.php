@@ -80,10 +80,7 @@ $apellido = $row["apellido"];
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.php">Pagina Principal</a></li>
-                      </ul>
+                  <li><a href="index.php"><i class="fa fa-home"></i> Inicio </a>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -110,7 +107,13 @@ $apellido = $row["apellido"];
                       <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
-
+                  <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="tableMen.php"> Mensajes </a></li>
+                    <li><a href="modProd.php">Productos</a></li>
+                    <li><a href="modBuy.php">Compras</a></li>
+                    </ul>
+                  </li>  
               </div>
               <div class="menu_section">
                 <h3>Extras</h3>
