@@ -27,7 +27,8 @@ echo "Campos vacios";
 					if ($igual["privil"]== 1){
 					header('Location: production/index.php');
 					}elseif ($igual["privil"]== 2){
-						header('Location: comprador.php');
+                        echo "<script> alert('Bienvenido Usuario');</script>";
+						header('Location: index.php');
 					}
 						}else{
 						header ('Location: logerror.php');
