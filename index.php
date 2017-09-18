@@ -1,7 +1,17 @@
 <?php
     session_start();
-    if (isset($_SESSION['user']) and isset($_SESSION['privil'])){
-        echo '<script> window.location="production/index.php"; </script>';
+    global $on;
+    if (isset($_SESSION['user'])){
+        global $priv, $nom;
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv == 1) {
+            session_unset();
+            echo '<script> window.location="production/index.php"; </script>';
+        }elseif ($priv == 2 ){
+            session_unset();
+            $on = 1;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -72,6 +82,17 @@
                         <li><a href="#features">Accede</a></li>
                         <li><a href="#facts"> Usuarios</a></li>
                         <li><a href="#contact">Contacto</a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><?php if ($on == 1){
+                            echo "<a>Bienvenido: ",$nom;
+                        }else
+                            echo "<a href='#features'>Registro</a>"; ?></li>
                     </ul>
                 </nav>
 				<!-- /main nav -->
