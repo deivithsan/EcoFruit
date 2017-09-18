@@ -90,7 +90,7 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><?php if ($on == 1){
-                            echo "<a>Bienvenido: ",$nom;
+                            echo "<a>Bienvenid@: ",$nom;
                         }else
                             echo "<a href='#features'>Registro</a>"; ?></li>
                     </ul>
