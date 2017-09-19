@@ -91,6 +91,18 @@
                         <li><a></a></li>
                         <li><?php if ($on == 1){
                             echo "<a>Bienvenid@: ",$nom;
+			    ?>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                                <li><a></a></li>
+                        <li><a href="index.php">Cerrar Sesión</a></li>
+                        <?php				
                         }else
                             echo "<a href='#features'>Registro</a>"; ?></li>
                     </ul>
