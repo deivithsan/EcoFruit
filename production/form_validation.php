@@ -201,8 +201,9 @@ $apellido = $row["apellido"];
                       $cant = (int) $cantidad;
                       $cost = (int) $costoprod;
                       $venta = (int) $ventaprod;
+                      $ubicacion = $_POST["ubicacion"];
 
-                        $result =pg_query($cnx, "INSERT INTO public.productos (nombre, tipo, estado, cantidad, costo, venta) VALUES('$nomprod','$tipoprod', '$estado', '$cant','$cost','$venta');");
+                        $result =pg_query($cnx, "INSERT INTO public.productos (nombre, tipo, estado, cantidad, costo, venta, ubicacion) VALUES('$nomprod','$tipoprod', '$estado', '$cant','$cost','$venta', '$ubicacion');");
                         echo"<script>alert('Registrio Agregado Correctamente')</script>";
                       }
                       ?>
@@ -257,6 +258,13 @@ $apellido = $row["apellido"];
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12">
                       </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                       <div class="form-group">
