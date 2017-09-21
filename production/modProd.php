@@ -388,10 +388,10 @@ $apellido = $row["apellido"];
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
                       </div>
                       </div>                      
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Ubicacion<span class="required"></span>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>" style="display:none">
+                      <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['ubicacion'] ?>">
                       </div>
                       </div> 
                       <div class="ln_solid"></div>
