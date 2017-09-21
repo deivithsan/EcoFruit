@@ -218,6 +218,7 @@ $apellido = $row["apellido"];
                           <th>Cantidad</th>
                           <th>Costo Producto</th>
                           <th>Costo Venta</th>
+                          <th>Ubicación</th>  
                         </tr>
                       </thead>
                       <tbody>
@@ -231,6 +232,7 @@ $apellido = $row["apellido"];
                           <td><?php echo $row->cantidad ?></td>
                           <td><?php echo $row->costo ?></td>
                           <td><?php echo $row->venta ?></td>
+                          <td><?php echo $row->ubicacion ?></td>  
                         </tr>
                         <?php
                       }
