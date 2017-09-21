@@ -260,11 +260,11 @@ $apellido = $row["apellido"];
                       </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación<span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación <span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
                       <div class="form-group">
