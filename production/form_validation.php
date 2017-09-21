@@ -181,7 +181,7 @@ $apellido = $row["apellido"];
                   </div>
                   <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" novalidate method="post">
+                    <form class="form-horizontal form-label-left" method="post">
 
 
                       <?php
