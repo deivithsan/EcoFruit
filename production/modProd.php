@@ -228,6 +228,7 @@ $apellido = $row["apellido"];
                                     <th>Cantidad</th>
                                     <th>Costo Producto</th>
                                     <th>Costo Venta</th>
+                                    <th>Ubicación</th>  
                                   </tr>
                                 </thead>
 
@@ -241,6 +242,7 @@ $apellido = $row["apellido"];
                                     <td><?php echo $row->cantidad ?></td>
                                     <td><?php echo $row->costo ?></td>
                                     <td><?php echo $row->venta ?></td>
+                                    <td><?php echo $row->ubicacion ?></td>
                                   </tr>
 
                                     <?php
@@ -273,6 +275,7 @@ $apellido = $row["apellido"];
                        <th>Cantidad</th>
                        <th>Costo Producto</th>
                        <th>Costo Venta</th>
+                       <th>Ubicación</th>  
                      </tr>
                    </thead>
                    <tbody>
@@ -286,6 +289,7 @@ $apellido = $row["apellido"];
                        <td><?php echo $row->cantidad ?></td>
                        <td><?php echo $row->costo ?></td>
                        <td><?php echo $row->venta ?></td>
+                       <td><?php echo $row->ubicacion ?></td>  
                      </tr>
                      <?php
                    }
@@ -317,8 +321,9 @@ $apellido = $row["apellido"];
                       $cant = (int) $cantidad;
                       $cost = (int) $costoprod;
                       $venta = (int) $ventaprod;
+                      $ubicacion = $_POST["ubicacion"];
 
-                        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoprod', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta where idprod =$idpro");
+                        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoprod', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta, ubicacion=$ubicacion where idprod =$idpro");
                         echo"<script>alert('Registrio Actualizado Correctamente')</script>";
                       }
                     }
@@ -376,12 +381,20 @@ $apellido = $row["apellido"];
                         <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['costo'] ?>">
                       </div>
                       </div>
+                      <div class="item form-group">    
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
                       </div>
                       </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Ubicacion<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>" style="display:none">
+                        </div>
+                      </div> 
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
