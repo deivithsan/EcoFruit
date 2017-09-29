@@ -98,6 +98,8 @@ $apellido = $row["apellido"];
                       <li><a href="tableMen.php"> Mensajes </a></li>
                       <li><a href="tableInfoPriv.php"> Privilegios </a></li>
                       <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                      <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -201,10 +203,10 @@ $apellido = $row["apellido"];
                         $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
                         $hccQuery4 = "SELECT * FROM public.privilegio ORDER BY privil";
-                        $result4 = pg_query($cnx, $hccQuery4);
+                        $result6 = pg_query($cnx, $hccQuery4);
 
-                        if($result4){
-                          if(pg_num_rows($result4)>0){
+                        if($result6){
+                          if(pg_num_rows($result6)>0){
                             ?>
                         <table id="datatable-priv" class="table table-striped table-bordered">
                           <thead>
@@ -214,7 +216,7 @@ $apellido = $row["apellido"];
                             </tr>
                           </thead>
                           <tbody>
-                            <?php while ($row = pg_fetch_object($result4)) {
+                            <?php while ($row = pg_fetch_object($result6)) {
                             ?>
                             <tr>
                               <td><?php echo $row->nombre ?></td>

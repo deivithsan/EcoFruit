@@ -98,6 +98,8 @@ $apellido = $row["apellido"];
                       <li><a href="tableMen.php"> Mensajes </a></li>
                       <li><a href="tableInfoPriv.php"> Privilegios </a></li>
                       <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                      <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -239,7 +241,7 @@ $apellido = $row["apellido"];
                     </div>
                   </div>
                 </div>
-        </div>
+              </div>
         <!-- /page content -->
 
         <!-- footer content -->

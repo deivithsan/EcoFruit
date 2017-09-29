@@ -98,6 +98,8 @@ $apellido = $row["apellido"];
                       <li><a href="tableMen.php"> Mensajes </a></li>
                       <li><a href="tableInfoPriv.php"> Privilegios </a></li>                      
                       <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                      <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -211,14 +213,14 @@ $apellido = $row["apellido"];
                           <th>Id Compra</th>
                           <th>Id del Producto Comprado</th>
                           <th>Nombre Producto</th>
-                          <th>Tipo de Producto</th>
                           <th>Estado del Producto</th>
                           <th>Cantidad Disponible del Producto</th>
                           <th>Costo Por Unidad</th>
                           <th>Cantidad Comprada</th>
-                          <th>Nùmero de Celular Comprador</th>
-                          <th>Nùmero de Cedula Comprador</th>
-
+                          <th>Número de Celular Comprador</th>
+                          <th>Número de Cedula Comprador</th>
+                          <th>Vendedor del Producto</th>
+                          <th>Comprador del Producto</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -228,13 +230,14 @@ $apellido = $row["apellido"];
                           <td><?php echo $row->idcompra ?></td>
                           <td><?php echo $row->idprod ?></td>
                           <td><?php echo $row->nombreprod ?></td>
-                          <td><?php echo $row->tipoprod ?></td>
                           <td><?php echo $row->estado ?></td>
                           <td><?php echo $row->cantdisp ?></td>
                           <td><?php echo $row->costuni ?></td>
                           <td><?php echo $row->cantbuy ?></td>
                           <td><?php echo $row->numced ?></td>
                           <td><?php echo $row->numcel ?></td>
+                          <td><?php echo $row->vendedorprod ?></td>
+                          <td><?php echo $row->comprador ?></td>
                         </tr>
                         <?php
                       }
@@ -250,13 +253,12 @@ $apellido = $row["apellido"];
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            <a href="../index.php">
-              </a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+            <footer>
+                <div class="pull-right">
+                    <a href="index.php">EcoFruit</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
         <!-- /footer content -->
       </div>
     </div>

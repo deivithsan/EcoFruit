@@ -90,17 +90,19 @@ $apellido = $row["apellido"];
                       <li><a href="formPriv.php">Privilegios</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tableUsers.php"> Usuarios </a></li>
-                      <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
-                      <li><a href="tableProDisp.php"> Productos </a></li>
-                      <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                      <li><a href="tableBuy.php"> Compras </a></li>
-                      <li><a href="tableMen.php"> Mensajes </a></li>
+                        <li><a href="tableBuy.php"> Compras </a></li>
+                        <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
+                        <li><a href="tableProDisp.php"> Productos </a></li>
+                        <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
+                        <li><a href="tableMen.php"> Mensajes </a></li>
+                        <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                        <li><a href="tableUsers.php"> Usuarios </a></li>
+                        <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                        <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
-                  </li>
+                </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Información de Usuarios</a></li>
@@ -239,13 +241,14 @@ $apellido = $row["apellido"];
                                         <th>Id Compra</th>
                                         <th>Id Producto</th>
                                         <th>Nombre Producto</th>
-                                        <th>Tipo de Producto</th>
                                         <th>Estado</th>
                                         <th>Cantidad Disponible</th>
                                         <th>Costo Unidad</th>
                                         <th>Cantidad Comprada</th>
                                         <th>Número de Cedula</th>
                                         <th>Número de Telefono</th>
+                                        <th>Vendedor del Producto</th>
+                                        <th>Comprador del Producto</th>
                                       </tr>
                                     </thead>
 
@@ -256,13 +259,14 @@ $apellido = $row["apellido"];
                           <td><?php echo $row->idcompra ?></td>
                           <td><?php echo $row->idprod ?></td>
                           <td><?php echo $row->nombreprod ?></td>
-                          <td><?php echo $row->tipoprod ?></td>
                           <td><?php echo $row->estado ?></td>
                           <td><?php echo $row->cantdisp ?></td>
                           <td><?php echo $row->costuni ?></td>
                           <td><?php echo $row->cantbuy ?></td>
                           <td><?php echo $row->numced ?></td>
                           <td><?php echo $row->numcel ?></td>
+                          <td><?php echo $row->vendedorprod ?></td>
+                          <td><?php echo $row->comprador ?></td>
                         </tr>
 
                         <?php
@@ -296,13 +300,14 @@ $apellido = $row["apellido"];
                      <th>Id Compra</th>
                      <th>Id Producto</th>
                      <th>Nombre Producto</th>
-                     <th>Tipo de Producto</th>
                      <th>Estado</th>
                      <th>Cantidad Disponible</th>
                      <th>Costo Unidad</th>
                      <th>Cantidad Comprada</th>
                      <th>Número de Cedula</th>
-                     <th>Número de Telefono</th>
+                     <th>Número de Telefono
+                     <th>Vendedor del Producto</th>
+                     <th>Comprador del Producto</th>
                    </tr>
                  </thead>
                  <tbody>
@@ -312,13 +317,14 @@ $apellido = $row["apellido"];
                      <td><?php echo $row->idcompra ?></td>
                      <td><?php echo $row->idprod ?></td>
                      <td><?php echo $row->nombreprod ?></td>
-                     <td><?php echo $row->tipoprod ?></td>
                      <td><?php echo $row->estado ?></td>
                      <td><?php echo $row->cantdisp ?></td>
                      <td><?php echo $row->costuni ?></td>
                      <td><?php echo $row->cantbuy ?></td>
                      <td><?php echo $row->numced ?></td>
-                     <td><?php echo $row->numcel ?></td>
+                     <td><?php echo $row->numcel ?>
+                     <td><?php echo $row->vendedorprod ?></td>
+                     <td><?php echo $row->comprador ?></td>
                    </tr>
                    <?php
                  }
@@ -339,107 +345,81 @@ $apellido = $row["apellido"];
 
                    if ($_POST){
                    if ($_POST["Enviar"]){
-                   $idcompraproducto =$_POST["idcompra"];
-                   $idproducto = $_POST["idprod"];
-                   $nomprod = $_POST["nomprod"];
-                   $tiprod = $_POST["tipoprod"];
-                   $estaprod = $_POST["estadoprod"];
-                   $cantidadisponible = $_POST["cantdisp"];
-                   $costounidad = $_POST["costunidad"];
-                   $cantidadcomprada = $_POST["cantcomprada"];
-                   $numerocedula = $_POST["numcedula"];
-                   $numerotelefono = $_POST["numtelefono"];
-                   $idc = (int) $idcompraproducto;
-                   $idp = (int) $idproducto;
-                   $cantd = (int) $cantidadisponible;
-                   $costou = (int) $costounidad;
-                   $cantc = (int) $cantidadcomprada;
-                   $numc = (int) $numerocedula;
-                   $numt = (int) $numerotelefono;
-                   $dat = 0;
-                   $result =pg_query($cnx, "UPDATE public.compra SET idprod ='$idp',nombreprod = '$nomprod', tipoprod='$tiprod', estado='$estaprod', cantdisp=$cantd, costuni=$costou, cantbuy=$cantc, numced=$numc, numcel=$numt where idcompra = $idc");
-                   echo"<script>alert('Registrio Actualizado Correctamente')</script>";
-
-
-                 }
-               }
-
+                       $idcompraproducto =$_POST["idcompra"];
+                       $idproducto = $_POST["idprod"];
+                       $nomprod = $_POST["nomprod"];
+                       $cantidadisponible = $_POST["cantdisp"];
+                       $cantidadcomprada = $_POST["cantcomprada"];
+                       $numerocedula = $_POST["numcedula"];
+                       $numerotelefono = $_POST["numtelefono"];
+                       $idc = (int) $idcompraproducto;
+                       $idp = (int) $idproducto;
+                       $cantd = (int) $cantidadisponible;
+                       $cantc = (int) $cantidadcomprada;
+                       $numc = (int) $numerocedula;
+                       $numt = (int) $numerotelefono;
+                       $dat = 0;
+                       $result =pg_query($cnx, "UPDATE public.compra SET idprod ='$idp',nombreprod = '$nomprod', cantdisp=$cantd, cantbuy=$cantc where idcompra = $idc");
+                       echo"<script>alert('Registrio Actualizado Correctamente'); 
+                        window.location.href='modBuy.php'; 
+                        </script>";
+                   }
+                   if ($_POST["Eliminar"]){
+                       $idcompraproducto =$_POST["idcompra"];
+                       $idc = (int) $idcompraproducto;
+                       if ($idc == 0){
+                           echo"<script>alert('Busque primero la id de la compra a eliminar'); 
+                      window.location.href='modBuy.php'; 
+                      </script>";
+                       } else
+                           $borrar = pg_query($cnx, "delete from public.compra where idcompra=$idc");
+                       echo"<script>alert('Compra Eliminada Correctamente'); 
+                        window.location.href='modBuy.php'; 
+                        </script>";
+                   }
+                   }
                     ?>
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de Compra</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="idcompra" name="idcompra"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $z['idcompra'] ?>">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de Compra</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" id="idcompra" name="idcompra"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $z['idcompra'] ?>">
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" id="idprod" DISABLED name="idprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>">
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="nomprod" name="nomprod" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['nombreprod'] ?>">
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['nombreprod'] ?>">
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo Producto <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="tipoprod" class="form-control col-md-7 col-xs-12" required="required" type="text" name="tipoprod" value="<?php echo $z['tipoprod'] ?>">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="cantdisp" DISABLED class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantdisp" value="<?php echo $z['cantdisp'] ?>">
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Estado <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="estadoprod" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="estadoprod" value="<?php echo $z['estado'] ?>">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantcomprada" value="<?php echo $z['cantbuy'] ?>">
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="cantdisp" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantdisp" value="<?php echo $z['cantdisp'] ?>">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Costo por Unidad <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="costunidad" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="costounidad" value="<?php echo $z['costuni'] ?>">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantcomprada" value="<?php echo $z['cantbuy'] ?>">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="numcedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="numcedula" value="<?php echo $z['numced'] ?>">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Telefono <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="numtelefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="numtelefono" value="<?php echo $z['numcel'] ?>">
-                        </div>
-                      </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <center>
+                        <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
                         <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
                         <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableBuy.php'"/>
                         </div>

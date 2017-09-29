@@ -1,4 +1,4 @@
-    <?php
+<?php
 session_start();
 include 'conex.php';
 $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
@@ -91,12 +91,12 @@ $apellido = $row["apellido"];
                   </li>
                   <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tableBuy.php"> Compras </a></li>                      
+                      <li><a href="tableBuy.php"> Compras </a></li>
                       <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                       <li><a href="tableProDisp.php"> Productos </a></li>
                       <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
                       <li><a href="tableMen.php"> Mensajes </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>   
+                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
                       <li><a href="tableUsers.php"> Usuarios </a></li>
                       <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
                       <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
@@ -184,55 +184,56 @@ $apellido = $row["apellido"];
             </div>
 
 
-                  <div class="clearfix"></div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="x_panel">
-                        <div class="x_title">
-                          <h2>Estado de los Productos</h2>
-                          <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                          </ul>
-                          <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                          <?php
-                          include_once 'conex.php';
-                          $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+                <div class="clearfix"></div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Tipos de Usuarios</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <?php
+                        include_once 'conex.php';
+                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-                          $hccQuery5 = "SELECT * FROM public.estado ORDER BY codest";
-                          $result5 = pg_query($cnx, $hccQuery5);
+                        $hccQuery4 = "SELECT * FROM public.tipousuarios";
+                        $result4 = pg_query($cnx, $hccQuery4);
 
-                          if($result5){
-                            if(pg_num_rows($result5)>0){
-                              ?>
-                          <table id="datatable-users" class="table table-striped table-bordered">
-                            <thead>
-                              <tr>
-                                  <th>Codigo Estado</th>
-                                  <th>Nombre</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <?php while ($row = pg_fetch_object($result5)) {
-                              ?>
-                              <tr>
-                                  <td><?php echo $row->codest ?></td>
-                                  <td><?php echo $row->nombrestado ?></td>
-                              </tr>
-                              <?php
-                            }
+                        if($result4){
+                          if(pg_num_rows($result4)>0){
+                            ?>
+                        <table id="datatable-tipusers" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Nombre del Tipo de Usuario</th>
+                              <th>Número de Privilegio al que Pertenece el Tipo de Usuario</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php while ($row = pg_fetch_object($result4)) {
+                            ?>
+                            <tr>
+                              <td><?php echo $row->nombretipousuario ?></td>
+                              <td><?php echo $row->privilegio ?></td>
+                            </tr>
+                            <?php
                           }
                         }
-                              ?>
-                            </tbody>
-                          </table>
-                        </div>
+                      }
+                            ?>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-          </div>
+                  </div>
+                  </div>
+
         <!-- /page content -->
 
         <!-- footer content -->

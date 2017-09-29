@@ -1,4 +1,4 @@
-<?php
+    <?php
 session_start();
 include 'conex.php';
 $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
@@ -97,7 +97,9 @@ $apellido = $row["apellido"];
                       <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
                       <li><a href="tableMen.php"> Mensajes </a></li>
                       <li><a href="tableInfoPriv.php"> Privilegios </a></li>   
-                      <li><a href="tableUsers.php"> Usuarios </a></li>  
+                      <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                      <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -200,7 +202,7 @@ $apellido = $row["apellido"];
                           include_once 'conex.php';
                           $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-                          $hccQuery5 = "SELECT * FROM public.usuarios ORDER BY privilegio";
+                          $hccQuery5 = "select usuarios.nombreuser, usuarios.contraseña, usuarios.privilegio, tipousuarios.nombretipousuario from usuarios, tipousuarios where usuarios.tipousuario = tipousuarios.idtipousuario";
                           $result5 = pg_query($cnx, $hccQuery5);
 
                           if($result5){
@@ -212,6 +214,7 @@ $apellido = $row["apellido"];
                                 <th>Nombre de Usuario</th>
                                 <th>Contraseña</th>
                                 <th>Privilegio</th>
+                                <th>Tipo de Usuario</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -221,6 +224,7 @@ $apellido = $row["apellido"];
                                 <td><?php echo $row->nombreuser ?></td>
                                 <td><?php echo $row->contraseña ?></td>
                                 <td><?php echo $row->privilegio ?></td>
+                                <td><?php echo $row->nombretipousuario ?></td>
                               </tr>
                               <?php
                             }
@@ -233,7 +237,6 @@ $apellido = $row["apellido"];
                       </div>
                     </div>
           </div>
-
         <!-- /page content -->
 
         <!-- footer content -->

@@ -188,7 +188,7 @@ $apellido = $row["apellido"];
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="x_panel">
                         <div class="x_title">
-                          <h2>Estado de los Productos</h2>
+                          <h2>Tipos de Productos</h2>
                           <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -202,7 +202,7 @@ $apellido = $row["apellido"];
                           include_once 'conex.php';
                           $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-                          $hccQuery5 = "SELECT * FROM public.estado ORDER BY codest";
+                          $hccQuery5 = "SELECT * FROM public.tipoprod ORDER BY idtipo";
                           $result5 = pg_query($cnx, $hccQuery5);
 
                           if($result5){
@@ -211,16 +211,18 @@ $apellido = $row["apellido"];
                           <table id="datatable-users" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                  <th>Codigo Estado</th>
-                                  <th>Nombre</th>
+                                <th>Id Tipo de Producto</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php while ($row = pg_fetch_object($result5)) {
                               ?>
                               <tr>
-                                  <td><?php echo $row->codest ?></td>
-                                  <td><?php echo $row->nombrestado ?></td>
+                                <td><?php echo $row->idtipo ?></td>
+                                <td><?php echo $row->nombretipo ?></td>
+                                <td><?php echo $row->estado ?></td>
                               </tr>
                               <?php
                             }

@@ -80,17 +80,19 @@ $apellido = $row["apellido"];
                       <li><a href="formPriv.php">Privilegios</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tableUsers.php"> Usuarios </a></li>
-                      <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
-                      <li><a href="tableProDisp.php"> Productos </a></li>
-                      <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                      <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                      <li><a href="tableBuy.php"> Compras </a></li>
-                      <li><a href="tableMen.php"> Mensajes </a></li>
-                    </ul>
-                  </li>
+                    <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="tableBuy.php"> Compras </a></li>
+                            <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
+                            <li><a href="tableProDisp.php"> Productos </a></li>
+                            <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
+                            <li><a href="tableMen.php"> Mensajes </a></li>
+                            <li><a href="tableInfoPriv.php"> Privilegios </a></li>
+                            <li><a href="tableUsers.php"> Usuarios </a></li>
+                            <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                            <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
+                        </ul>
+                    </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Información de Usuarios</a></li>
@@ -203,6 +205,8 @@ $apellido = $row["apellido"];
                       $bu = pg_query($bus);
                       $desp = "SELECT nombrestado FROM public.estado";
                       $lis = pg_query($desp);
+                      $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4";
+                      $vend = pg_query($usrVend);
                       if ($_POST){
                         $idproducto = $_POST["idprod"];
                         $idprod = (int) $idproducto;
@@ -210,7 +214,7 @@ $apellido = $row["apellido"];
 
                             while($busq = pg_fetch_array($bu)){
                                 if ($busq ["idprod"] == $idprod){
-                                  $llen = "SELECT * from public.productos where idprod =$idprod ";
+                                  $llen = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod =$idprod ";
                                   $result2 = pg_query($llen);
                                   if($result2){
                                     if(pg_num_rows($result2)>0){
@@ -229,6 +233,7 @@ $apellido = $row["apellido"];
                                     <th>Costo Producto</th>
                                     <th>Costo Venta</th>
                                     <th>Ubicación</th>  
+                                    <th>Vendedor</th>
                                   </tr>
                                 </thead>
 
@@ -237,26 +242,27 @@ $apellido = $row["apellido"];
                                   <tr>
                                     <td><?php echo $row->idprod ?></td>
                                     <td><?php echo $row->nombre ?></td>
-                                    <td><?php echo $row->tipo ?></td>
+                                    <td><?php echo $row->nombretipo ?></td>
                                     <td><?php echo $row->estado ?></td>
                                     <td><?php echo $row->cantidad ?></td>
                                     <td><?php echo $row->costo ?></td>
                                     <td><?php echo $row->venta ?></td>
                                     <td><?php echo $row->ubicacion ?></td>
+                                    <td><?php echo $row->vendedor ?></td>
                                   </tr>
 
                                     <?php
                           }
                        }
                      }
-                     $llenarcas = "SELECT * from public.productos where idprod = '$idprod' ";
+                     $llenarcas = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod = '$idprod' ";
                                $llen = pg_query($llenarcas);
                                $z = pg_fetch_assoc($llen);
                    }
                  }
                }
                }else {
-                 $hccQuery2 = "SELECT * FROM public.productos ORDER BY idprod";
+                 $hccQuery2 = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo ORDER BY idprod";
                  $result2 = pg_query($cnx, $hccQuery2);
 
                  if($result2){
@@ -276,6 +282,7 @@ $apellido = $row["apellido"];
                        <th>Costo Producto</th>
                        <th>Costo Venta</th>
                        <th>Ubicación</th>  
+                       <th>Vendedor</th>
                      </tr>
                    </thead>
                    <tbody>
@@ -284,19 +291,19 @@ $apellido = $row["apellido"];
                      <tr>
                        <td><?php echo $row->idprod ?></td>
                        <td><?php echo $row->nombre ?></td>
-                       <td><?php echo $row->tipo ?></td>
+                       <td><?php echo $row->nombretipo ?></td>
                        <td><?php echo $row->estado ?></td>
                        <td><?php echo $row->cantidad ?></td>
                        <td><?php echo $row->costo ?></td>
                        <td><?php echo $row->venta ?></td>
                        <td><?php echo $row->ubicacion ?></td>  
+                       <td><?php echo $row->vendedor ?></td>
                      </tr>
                      <?php
                    }
                  }
                }
              }
-
                      ?>
                      <form class="form-horizontal form-label-left input_mask" method="post">
                        <center>
@@ -308,12 +315,19 @@ $apellido = $row["apellido"];
              </div>
            </div>
                 <?php
+                      $tipoprod = "SELECT idtipo, nombretipo from public.tipoprod";
+                      $listip = pg_query($tipoprod);
+
                       if ($_POST){
                       if ($_POST["Enviar"]){
                       $idedelproducto = $_POST["idproduc"];
                       $idpro = (int) $idedelproducto;
                       $nomprod = $_POST["nomprod"];
-                      $tipoprod = $_POST["tip"];
+                      $tipoprod = $_POST["tiposlist"];
+                      $tp = "select idtipo from public.tipoprod WHERE nombretipo = '$tipoprod'";
+                      $qtp = pg_query($tp);
+                      $tipofetch = pg_fetch_array($qtp);
+                      $tipoproducto = $tipofetch['idtipo'];
                       $cantidad = $_POST["cant"];
                       $costoprod = $_POST["costo"];
                       $ventaprod = $_POST["venta"];
@@ -322,9 +336,25 @@ $apellido = $row["apellido"];
                       $cost = (int) $costoprod;
                       $venta = (int) $ventaprod;
                       $ubicacion = $_POST["ubicacion"];
+                      $vendedor = $_POST["vendedoreslist"];
 
-                        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoprod', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta, ubicacion=$ubicacion where idprod =$idpro");
-                        echo"<script>alert('Registrio Actualizado Correctamente')</script>";
+                        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoproducto', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta, ubicacion='$ubicacion', vendedor='$vendedor' where idprod =$idpro");
+                        echo"<script>alert('Registrio Actualizado Correctamente'); 
+                        window.location.href='modProd.php'; 
+                        </script>";
+                      }
+                      if ($_POST["Eliminar"]){
+                      $idedelproducto = $_POST["idproduc"];
+                      $idpro = (int) $idedelproducto;
+                      if ($idpro == 0){
+                          echo"<script>alert('Busque primero la id del producto a eliminar'); 
+                          window.location.href='modProd.php'; 
+                          </script>";
+                      } else
+                      $borrar = pg_query($cnx, "delete from public.productos where idprod=$idpro");
+                      echo"<script>alert('Registrio Eliminado Correctamente'); 
+                      window.location.href='modProd.php'; 
+                      </script>";
                       }
                     }
                       ?>
@@ -344,11 +374,20 @@ $apellido = $row["apellido"];
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="tip" name="tip" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['tipo'] ?>">
-                        </div>
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select name="tiposlist">
+                                  <?php
+                                  while ( $tipos = pg_fetch_array($listip)){
+                                      ?>
+                                      <option value="<?php echo $tipos['nombretipo'] ?>"><?php echo $tipos['nombretipo']; ?></option>
+
+                                      <?php
+                                  }
+                                  ?>
+                              </select>
+                          </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
@@ -387,17 +426,34 @@ $apellido = $row["apellido"];
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
                       </div>
-                      </div>                      
+                      </div>
+                      <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['ubicacion'] ?>">
                       </div>
-                      </div> 
+                      </div>
+                      <div class="item form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span class="required"></span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="vendedoreslist">
+                          <?php
+                          while ( $vendlis = pg_fetch_array($vend)){
+                          ?>
+                          <option value="<?php echo $vendlis['nombreuser'] ?>"><?php echo $vendlis['nombreuser']; ?></option>
+                          <?php
+                           }
+                                  ?>
+                              </select>
+                          </div>
+                      </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <center>
+                          <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
                           <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
                           <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
                         </center>
@@ -407,6 +463,10 @@ $apellido = $row["apellido"];
                         pg_close($cnx)
                         ?>
                     </form>
+    </div>
+    </div>
+    </div>
+    </div>
         <!-- /page content -->
 
         <!-- footer content -->

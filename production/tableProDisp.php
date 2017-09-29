@@ -98,6 +98,8 @@ $apellido = $row["apellido"];
                       <li><a href="tableMen.php"> Mensajes </a></li>
                       <li><a href="tableInfoPriv.php"> Privilegios </a></li>
                       <li><a href="tableUsers.php"> Usuarios </a></li>
+                      <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
+                      <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
@@ -180,10 +182,6 @@ $apellido = $row["apellido"];
                 </div>
               </div>
             </div>
-
-
-
-
             <div class="clearfix"></div>
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -202,7 +200,7 @@ $apellido = $row["apellido"];
                     include_once 'conex.php';
                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
-                    $hccQuery2 = "SELECT * FROM public.productos ORDER BY idprod";
+                    $hccQuery2 = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo order by idprod";
                     $result2 = pg_query($cnx, $hccQuery2);
 
                     if($result2){
@@ -219,6 +217,7 @@ $apellido = $row["apellido"];
                           <th>Costo Producto</th>
                           <th>Costo Venta</th>
                           <th>Ubicación</th>  
+                          <th>Vendedor</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -227,12 +226,13 @@ $apellido = $row["apellido"];
                         <tr>
                           <td><?php echo $row->idprod ?></td>
                           <td><?php echo $row->nombre ?></td>
-                          <td><?php echo $row->tipo ?></td>
+                          <td><?php echo $row->nombretipo ?></td>
                           <td><?php echo $row->estado ?></td>
                           <td><?php echo $row->cantidad ?></td>
                           <td><?php echo $row->costo ?></td>
                           <td><?php echo $row->venta ?></td>
                           <td><?php echo $row->ubicacion ?></td>  
+                          <td><?php echo $row->vendedor ?></td>
                         </tr>
                         <?php
                       }
@@ -244,9 +244,6 @@ $apellido = $row["apellido"];
                   </div>
                 </div>
               </div>
-
-
-
         </div>
         <!-- /page content -->
 
