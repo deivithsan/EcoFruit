@@ -72,7 +72,6 @@ $apellido = $row["apellido"];
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
 
             <!-- sidebar menu -->
@@ -86,7 +85,8 @@ $apellido = $row["apellido"];
                     <ul class="nav child_menu">
                       <li><a href="form.php">Ingresar Información Usuario</a></li>
                       <li><a href="form_validation.php">Ingresar Productos</a></li>
-                      <li><a href="formPriv.php">Ingresar Privilegio</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegios</a></li>
+                      <li><a href="adduser.php">Ingresar Usuarios</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -206,7 +206,7 @@ $apellido = $row["apellido"];
                     if($result2){
                       if(pg_num_rows($result2)>0){
                         ?>
-                    <table id="datatable-buttons2" class="table table-striped table-bordered">
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>Id Producto</th>
@@ -245,6 +245,7 @@ $apellido = $row["apellido"];
                 </div>
               </div>
         </div>
+
         <!-- /page content -->
 
         <!-- footer content -->

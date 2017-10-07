@@ -83,11 +83,12 @@ $apellido = $row["apellido"];
                 <ul class="nav side-menu">
                   <li><a href="index.php"><i class="fa fa-home"></i> Inicio </a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Agregar <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.php">Información Usuario</a></li>
-                      <li><a href="form_validation.php">Productos</a></li>
-                      <li><a href="formPriv.php">Privilegios</a></li>
+                      <li><a href="form.php">Ingresar Información Usuario</a></li>
+                      <li><a href="form_validation.php">Ingresar Productos</a></li>
+                      <li><a href="formPriv.php">Ingresar Privilegios</a></li>
+                      <li><a href="adduser.php">Ingresar Usuarios</a></li>
                     </ul>
                   </li>
                 <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
@@ -150,7 +151,6 @@ $apellido = $row["apellido"];
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

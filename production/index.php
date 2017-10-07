@@ -83,6 +83,7 @@ $apellido = $row["apellido"];
                       <li><a href="form.php">Ingresar Información Usuario</a></li>
                       <li><a href="form_validation.php">Ingresar Productos</a></li>
                       <li><a href="formPriv.php">Ingresar Privilegios</a></li>
+                      <li><a href="adduser.php">Ingresar Usuarios</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i>Visualizar<span class="fa fa-chevron-down"></span></a>
