@@ -34,6 +34,19 @@
 		<!-- media-queries -->
         <link rel="stylesheet" href="css/media-queries.css">
 
+        <!-- Esto es la copia del otro archivo
+
+        <!-- NProgress -->
+        <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="./vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- Datatables -->
+        <link href="./vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <link href="./vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+        <link href="./vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+        <link href="./vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+        <link href="./vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
 		<!-- Modernizer Script for old Browsers -->
         <script src="js/modernizr-2.6.2.min.js"></script>
 
@@ -131,7 +144,7 @@
                                 if($result3){
                                 if(pg_num_rows($result3)>0){
                                 ?>
-                                <table id="datatable-buttons" class="table table-striped table-bordered">
+                                <table id="datatable-buttons2" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>Id Producto</th>
@@ -312,34 +325,182 @@
                    ?>
         </form>
 		</section>
-
-
-
         <!--
         End Features
         ==================================== -->	<!-- Essential jQuery Plugins
 		================================================== -->
+
+        <!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="./vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- Single Page Nav -->
+        <script src="js/jquery.singlePageNav.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+		<!-- jquery.fancybox.pack -->
+        <script src="js/jquery.fancybox.pack.js"></script>
+		<!-- jquery.mixitup.min -->
+        <script src="js/jquery.mixitup.min.js"></script>
+		<!-- jquery.parallax -->
+        <script src="js/jquery.parallax-1.1.3.js"></script>
+		<!-- jquery.countTo -->
+        <script src="js/jquery-countTo.js"></script>
+		<!-- jquery.appear -->
+        <script src="js/jquery.appear.js"></script>
+		<!-- Contact form validation -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+		<!-- jquery easing -->
+        <script src="js/jquery.easing.min.js"></script>
+		<!-- jquery easing -->
+        <script src="js/wow.min.js"></script>
+		<script>
+			var wow = new WOW ({
+				boxClass:     'wow',      // animated element css class (default is wow)
+				animateClass: 'animated', // animation css class (default is animated)
+				offset:       120,          // distance to the element when triggering the animation (default is 0)
+				mobile:       false,       // trigger animations on mobile devices (default is true)
+				live:         true        // act on asynchronously loaded content (default is true)
+			  }
+			);
+			wow.init();
+		</script>
+
         <!-- Datatables -->
-        <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-        <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-        <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-        <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-        <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-        <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-        <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-        <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-        <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-        <script src="../vendors/jszip/dist/jszip.min.js"></script>
-        <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+        <script src="./vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="./vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="./vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="./vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="./vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+        <script src="./vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="./vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="./vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+        <script src="./vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script src="./vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="./vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+        <script src="./vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+        <script src="./vendors/jszip/dist/jszip.min.js"></script>
+        <script src="./vendors/pdfmake/build/pdfmake.min.js"></script>
+        <script src="./vendors/pdfmake/build/vfs_fonts.js"></script>
         <!-- Datatables -->
         <script>
             $(document).ready(function() {
                 var handleDataTableButtons = function() {
                     if ($("#datatable-buttons").length) {
-                        $("#datatable-buttons").DataTable({
+
+                    }
+                };
+
+                TableManageButtons = function() {
+                    "use strict";
+                    return {
+                        init: function() {
+                            handleDataTableButtons();
+                        }
+                    };
+                }();
+
+                $('#datatable').dataTable();
+
+                $('#datatable-keytable').DataTable({
+                    keys: true
+                });
+
+                $('#datatable-responsive').DataTable();
+
+                $('#datatable-scroller').DataTable({
+                    ajax: "js/datatables/json/scroller-demo.json",
+                    deferRender: true,
+                    scrollY: 380,
+                    scrollCollapse: true,
+                    scroller: true
+                });
+
+                $('#datatable-fixed-header').DataTable({
+                    fixedHeader: true
+                });
+
+                var $datatable = $('#datatable-checkbox');
+
+                $datatable.dataTable({
+                    'order': [[ 1, 'asc' ]],
+                    'columnDefs': [
+                        { orderable: false, targets: [0] }
+                    ]
+                });
+                $datatable.on('draw.dt', function() {
+                    $('input').iCheck({
+                        checkboxClass: 'icheckbox_flat-green'
+                    });
+                });
+
+                TableManageButtons.init();
+            });
+
+            $(document).ready(function() {
+                var handleDataTableButtons = function() {
+                    if ($("#datatable-buttons2").length) {
+                        $("#datatable-buttons2").DataTable({
+                            dom: "Bfrtip",
+                            buttons: [
+
+                            ],
+                            responsive: true
+                        });
+                    }
+                };
+
+                TableManageButtons = function() {
+                    "use strict";
+                    return {
+                        init: function() {
+                            handleDataTableButtons();
+                        }
+                    };
+                }();
+
+                $('#datatable').dataTable();
+
+                $('#datatable-keytable').DataTable({
+                    keys: true
+                });
+
+                $('#datatable-responsive').DataTable();
+
+                $('#datatable-scroller').DataTable({
+                    ajax: "js/datatables/json/scroller-demo.json",
+                    deferRender: true,
+                    scrollY: 380,
+                    scrollCollapse: true,
+                    scroller: true
+                });
+
+                $('#datatable-fixed-header').DataTable({
+                    fixedHeader: true
+                });
+
+                var $datatable = $('#datatable-checkbox');
+
+                $datatable.dataTable({
+                    'order': [[ 1, 'asc' ]],
+                    'columnDefs': [
+                        { orderable: false, targets: [0] }
+                    ]
+                });
+                $datatable.on('draw.dt', function() {
+                    $('input').iCheck({
+                        checkboxClass: 'icheckbox_flat-green'
+                    });
+                });
+
+                TableManageButtons.init();
+            });
+
+            $(document).ready(function() {
+                var handleDataTableButtons = function() {
+                    if ($("#datatable-buttons3").length) {
+                        $("#datatable-buttons3").DataTable({
                             dom: "Bfrtip",
                             buttons: [
                                 {
@@ -413,41 +574,89 @@
 
                 TableManageButtons.init();
             });
-            </script>
-            <!-- Main jQuery -->
-        <script src="js/jquery-1.11.1.min.js"></script>
-		<!-- Single Page Nav -->
-        <script src="js/jquery.singlePageNav.min.js"></script>
-		<!-- Twitter Bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
-		<!-- jquery.fancybox.pack -->
-        <script src="js/jquery.fancybox.pack.js"></script>
-		<!-- jquery.mixitup.min -->
-        <script src="js/jquery.mixitup.min.js"></script>
-		<!-- jquery.parallax -->
-        <script src="js/jquery.parallax-1.1.3.js"></script>
-		<!-- jquery.countTo -->
-        <script src="js/jquery-countTo.js"></script>
-		<!-- jquery.appear -->
-        <script src="js/jquery.appear.js"></script>
-		<!-- Contact form validation -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
-		<!-- jquery easing -->
-        <script src="js/jquery.easing.min.js"></script>
-		<!-- jquery easing -->
-        <script src="js/wow.min.js"></script>
-		<script>
-			var wow = new WOW ({
-				boxClass:     'wow',      // animated element css class (default is wow)
-				animateClass: 'animated', // animation css class (default is animated)
-				offset:       120,          // distance to the element when triggering the animation (default is 0)
-				mobile:       false,       // trigger animations on mobile devices (default is true)
-				live:         true        // act on asynchronously loaded content (default is true)
-			  }
-			);
-			wow.init();
-		</script>
+
+            $(document).ready(function() {
+                var handleDataTableButtons = function() {
+                    if ($("#datatable-users").length) {
+                        $("#datatable-users").DataTable({
+                            dom: "Bfrtip",
+                            buttons: [
+                                {
+                                    extend: "copy",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "csv",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "excel",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "pdfHtml5",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "print",
+                                    className: "btn-sm"
+                                },
+                            ],
+                            responsive: true
+                        });
+                    }
+                };
+
+                TableManageButtons = function() {
+                    "use strict";
+                    return {
+                        init: function() {
+                            handleDataTableButtons();
+                        }
+                    };
+                }();
+
+                $('#datatable').dataTable();
+
+                $('#datatable-keytable').DataTable({
+                    keys: true
+                });
+
+                $('#datatable-responsive').DataTable();
+
+                $('#datatable-scroller').DataTable({
+                    ajax: "js/datatables/json/scroller-demo.json",
+                    deferRender: true,
+                    scrollY: 380,
+                    scrollCollapse: true,
+                    scroller: true
+                });
+
+                $('#datatable-fixed-header').DataTable({
+                    fixedHeader: true
+                });
+
+                var $datatable = $('#datatable-checkbox');
+
+                $datatable.dataTable({
+                    'order': [[ 1, 'asc' ]],
+                    'columnDefs': [
+                        { orderable: false, targets: [0] }
+                    ]
+                });
+                $datatable.on('draw.dt', function() {
+                    $('input').iCheck({
+                        checkboxClass: 'icheckbox_flat-green'
+                    });
+                });
+
+                TableManageButtons.init();
+            });
+
+
+        </script>
+
+        <!-- /Datatables -->
 		<!-- Custom Functions -->
         <script src="js/custom.js"></script>
 
