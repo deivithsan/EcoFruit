@@ -238,7 +238,7 @@ $apellido = $row["apellido"];
                        }
                      }
                     ?>
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                    <form class="form-horizontal form-label-left" method="post">
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
                         </label>
@@ -264,14 +264,14 @@ $apellido = $row["apellido"];
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo">
+                          <input id="correo" class="form-control col-md-7 col-xs-12" type="text" name="correo">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono">
+                          <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" type="number" name="telefono">
                         </div>
                       </div>
                       <div class="form-group">
@@ -285,7 +285,7 @@ $apellido = $row["apellido"];
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula">
+                          <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" type="number" name="cedula">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
