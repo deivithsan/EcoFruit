@@ -131,12 +131,20 @@
           include_once 'conex.php';
           $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
 
+          $tipoprod = "select nombretipousuario, privilegio from public.tipousuarios where privilegio != 1";
+          $listip = pg_query($tipoprod);
+
           $desp = "SELECT privil FROM public.privilegio";
           $lis = pg_query($desp);
           if ($_POST) {
           if ($_POST["Enviar1"]) {
           $nomus2 = $_POST["nombreusuario2"];
           $pass = $_POST["contraseña"];
+          $tipoprod = $_POST["tiposlist"];
+          $tp = "select idtipousuario from public.tipousuarios where nombretipousuario = '$tipoprod'";
+          $qtp = pg_query($tp);
+          $atp = pg_fetch_array($qtp);
+          $idtipouser = $atp["idtipousuario"];
           $encripass = md5($pass);
           $val = 0;
           $validar2 = "SELECT nombreuser from public.usuarios";
@@ -152,7 +160,7 @@
             }
 
             if ($val == 0) {
-              $resublt2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio) VALUES('$nomus2', '$encripass', 2);");
+              $resublt2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio, tipousuario) VALUES('$nomus2', '$encripass', 2,$idtipouser);");
               echo"<script>alert('Registro Agregado Correctamente')</script>";
             }
         }
@@ -172,7 +180,21 @@
                 <input type="password" id="contraseña" name="contraseña" required="required" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
-            <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+            <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+              <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">¿Que eres? <span class="required"></span>
+              </label>
+              <div class="col-md-12 col-sm-6 col-xs-12">
+                <select name="tiposlist">
+                    <?php
+                    while ( $tipos = pg_fetch_array($listip)){
+                        ?>
+                        <option value="<?php echo $tipos['nombretipousuario'] ?>"><?php echo $tipos['nombretipousuario']; ?></option>
+                         <?php
+                      }
+                    ?>
+                  </select>
+              </div>
+            </div>
 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">
