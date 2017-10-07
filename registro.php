@@ -161,7 +161,7 @@
 
             if ($val == 0) {
               $resublt2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio, tipousuario) VALUES('$nomus2', '$encripass', 2,$idtipouser);");
-              echo"<script>alert('Registro Agregado Correctamente')</script>";
+              echo"<script>alert('Usuario Agregado Correctamente')</script>";
             }
         }
          }
