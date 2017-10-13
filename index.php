@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include 'conex.php';
+    $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
     global $on;
     if (isset($_SESSION['user'])){
         global $priv, $nom;
@@ -199,7 +201,7 @@
 								<h3>Login</h3>
 
 								<form name=f method=post action='conexlog.php'>
-                      <br />Nombre de Usuario:
+                                        <br />Nombre de Usuario:
  											<br />
  												<input type=text name=nomusuario id='nomusuario'>
  													<br />Contraseña:
@@ -207,8 +209,8 @@
  													<input type=password name=pass id='pass'>
  												<br />
  											<br />
-                      <input type=submit name=entrar value='Entrar'>
-                    </form>
+                                <input type=submit name=entrar value='Entrar'>
+                                </form>
                     <form name="a" action="registro.php">
                       <button onclick='registro.php'>Registro</button>
                                         </form>
@@ -238,39 +240,59 @@
 					<div class="row number-counters">
 
 						<div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
-							<h2>Usuarios Actuales!</h2>
+							<h2>Actualidad</h2>
 							<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
 						</div>
 
 						<!-- first count item -->
+                        <?php
+                        $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
+                        $result = pg_query($sql);
+                        $comp = pg_num_rows($result);
+                        ?>
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
 							<div class="counters-item">
 								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="200">0</strong>
+								<strong data-to="<?php echo $comp;?>">0</strong>
 								<!-- Set Your Number here. i,e. data-to="56" -->
 								<p>Compradores</p>
 							</div>
 						</div>
+                        <?php
+                        $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
+                        $result2 = pg_query($sql2);
+                        $comp2 = pg_num_rows($result2);
+                        ?>
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
 							<div class="counters-item">
 								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="120">0</strong>
+								<strong data-to="<?php echo $comp2;?>">0</strong>
 								<!-- Set Your Number here. i,e. data-to="56" -->
 								<p>Vendedores</p>
 							</div>
 						</div>
+                        <?php
+                        $sql3 = "select * from public.productos where estado='Activo'";
+                        $result3 = pg_query($sql3);
+                        $comp3 = pg_num_rows($result3);
+                        ?>
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
 							<div class="counters-item">
 								<i class="fa fa-shopping-cart fa-3x"></i>
-								<strong data-to="50">0</strong>
+								<strong data-to="<?php echo $comp3;?>">0</strong>
 								<!-- Set Your Number here. i,e. data-to="56" -->
 								<p> Frutas Disponibles</p>
 							</div>
 						</div>
+                        <?php
+                        $sql4 = "select * from public.compra";
+                        $result4 = pg_query($sql4);
+                        $comp4 = pg_num_rows($result4);
+                        ?>
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
 							<div class="counters-item">
 								<i class="fa fa-trophy fa-3x"></i>
-								<strong data-to="54">0</strong>
+								<strong data-to="<?php echo $comp4;?>">0</strong>
 								<!-- Set Your Number here. i,e. data-to="56" -->
 								<p>Compras Concretadas</p>
 							</div>
@@ -340,10 +362,6 @@
         <!--
         End Contact Us
         ==================================== -->
-
-
-
-
 		<!-- Essential jQuery Plugins
 		================================================== -->
 		<!-- Main jQuery -->
