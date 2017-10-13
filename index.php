@@ -11,7 +11,6 @@
             session_unset();
             echo '<script> window.location="production/index.php"; </script>';
         }elseif ($priv == 2 ){
-            session_unset();
             $on = 1;
         }
     }
@@ -103,11 +102,14 @@
                                 <li><a></a></li>
                                 <li><a></a></li>
                                 <li><a></a></li>
-                        <li><a href="index.php">Cerrar Sesión</a></li>
+                    </ul>
+
+                    <a href="logout.php">Cerrar Sesión</a>
+
                         <?php				
                         }else
-                            echo "<a href='#features'>Registro</a>"; ?></li>
-                    </ul>
+                            echo "<li><a href='#features'>Registro</a></li></ul>";
+                        ?>
                 </nav>
 				<!-- /main nav -->
 
