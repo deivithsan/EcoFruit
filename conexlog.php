@@ -23,10 +23,10 @@ echo "Campos vacios";
 		$sqlpriv = "SELECT tipousuario FROM public.usuarios WHERE nombreuser = '$nom'";
 				$busprov = pg_query($sqlpriv);
 				$igual = pg_fetch_array($busprov);
-				$_SESSION["privil"] = $igual['privil'];
-					if ($igual["privil"]== 1){
+				$_SESSION["privil"] = $igual['tipousuario'];
+					if ($igual["tipousuario"]== 1){
 					header('Location: production/index.php');
-					}elseif ($igual["privil"]== 3 or 4){
+					}elseif ($igual["tipousuario"]== 3 or 4){
 						header('Location: index.php');
 					}
 						}else{
