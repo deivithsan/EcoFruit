@@ -1,3 +1,20 @@
+<?php
+session_start();
+include 'conex.php';
+$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+global $on;
+if (isset($_SESSION['user'])){
+    global $priv, $nom;
+    $priv = $_SESSION['privil'];
+    $nom = $_SESSION['user'];
+    if ($priv == 1) {
+        session_unset();
+        echo '<script> window.location="production/index.php"; </script>';
+    }elseif ($priv == 3 or 4 ){
+        $on = 1;
+    }
+}
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -77,7 +94,41 @@
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
                         <li><a href="#features">Productos</a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><?php if ($on == 1){
+                            $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
+                            $result = pg_query($sql);
+                            $array = pg_fetch_array($result);
+                            $nombre = $array["nombre"];
+                            $apellido = $array["apellido"];
+                            echo "<a>$nombre $apellido";
+                            ?>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
                     </ul>
+
+                    <a href="logout.php">Cerrar Sesión</a>
+
+                    <?php
+                    }else
+                        echo "</ul>"
+                    ?>
                 </nav>
 				<!-- /main nav -->
 
@@ -180,7 +231,11 @@
                     </div>
                 </div>
 
+                <?php
+                if ($on == 1){
 
+
+                ?>
               <form class="form-horizontal form-label-left input_mask" method="post">
                 <center>
                   <h3> Busca El Producto Que Quieras Comprar! </h3>
@@ -324,6 +379,18 @@
                    pg_close($cnx)
                    ?>
         </form>
+                <?php
+
+                }else{
+                    echo "
+                    <br><br>
+                    <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
+						<h2>Si deseas comprar ingresa a tu cuenta o registrate!</h2>
+						<div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
+					</div>
+                    ";
+                }
+                ?>
 		</section>
         <!--
         End Features

@@ -10,7 +10,7 @@
         if ($priv == 1) {
             session_unset();
             echo '<script> window.location="production/index.php"; </script>';
-        }elseif ($priv == 2 ){
+        }elseif ($priv == 3 or 4 ){
             $on = 1;
         }
     }

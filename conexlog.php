@@ -20,14 +20,13 @@ echo "Campos vacios";
 	$compara = pg_fetch_array($busqueda);
 		if ($compara["nombreuser"] ==$nom && $compara["contraseña"]==$pasencrip){
 			$_SESSION["user"] = $compara['nombreuser'];
-		$sqlpriv = "SELECT privilegio.privil FROM public.usuarios, public.privilegio WHERE usuarios.nombreuser = '$nom' and usuarios.privilegio=privilegio.privil";
+		$sqlpriv = "SELECT tipousuario FROM public.usuarios WHERE nombreuser = '$nom'";
 				$busprov = pg_query($sqlpriv);
 				$igual = pg_fetch_array($busprov);
 				$_SESSION["privil"] = $igual['privil'];
 					if ($igual["privil"]== 1){
 					header('Location: production/index.php');
-					}elseif ($igual["privil"]== 2){
-                        echo "<script> alert('Bienvenido Usuario');</script>";
+					}elseif ($igual["privil"]== 3 or 4){
 						header('Location: index.php');
 					}
 						}else{
