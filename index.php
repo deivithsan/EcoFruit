@@ -197,6 +197,11 @@
 					<!-- end service item -->
 
 					<!-- service item -->
+                    <?php
+                    if ($on != 1){
+
+
+                    ?>
 					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
 						<div class="service-item">
 							<div class="service-desc">
@@ -222,6 +227,11 @@
                                       </div>
 						</div>
 					</div>
+                    <?php
+                    }else{
+
+                    }
+                    ?>
 					<!-- end service item -->
 
 				</div>
