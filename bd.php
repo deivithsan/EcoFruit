@@ -233,8 +233,6 @@ if (isset($_SESSION['user'])){
 
                 <?php
                 if ($on == 1){
-
-
                 ?>
               <form class="form-horizontal form-label-left input_mask" method="post">
                 <center>
@@ -265,19 +263,28 @@ if (isset($_SESSION['user'])){
               $iddelproductocompra = $_POST["idproduc"];
               $idpr = (int) $iddelproductocompra;
               $nomprod = $_POST["nomprod"];
-              $tipprod = $_POST["tip"];
               $est = $_POST["est"];
               $cantidaddisp = $_POST["cant"];
               $costounitario = $_POST["costo"];
               $cantidadcomp = $_POST["cantbuy"];
-              $numerocedula = $_POST["ced"];
-              $numerocelular = $_POST["tel"];
+              $vendedor = $_POST["vendedor"];
+
+              $ced = "select cedula from public.infousuarios where nombreuser='$nom'";
+              $query = pg_query($ced);
+              $array = pg_fetch_array($query);
+              $numerocedula = $array["cedula"];
+
+              $tel = "select telefono from public.infousuarios where nombreuser='$nom'";
+              $query1 = pg_query($tel);
+              $array1 = pg_fetch_array($query1);
+              $numerocelular = $array1["telefono"];
+
               $cantdis = (int) $cantidaddisp;
               $costun = (int) $costounitario;
               $cantbuy = (int) $cantidadcomp;
               $numced = (int) $numerocedula;
               $tel = (int) $numerocelular;
-              $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, tipoprod, estado, cantdisp, costuni, cantbuy, numced, numcel) VALUES ($idpr,'$nomprod', '$tipprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel);");
+              $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, estado, cantdisp, costuni, cantbuy, numced, numcel, vendedorprod, comprador) VALUES ($idpr,'$nomprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel,'$vendedor','$nom');");
               echo"<script>alert('Compra Realizada Correctamente')</script>";
               }
             }
@@ -315,13 +322,6 @@ if (isset($_SESSION['user'])){
                     </div>
                   </div>
                   <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Tipo de Producto<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['tipo'] ?>">
-                    </div>
-                  </div>
-                  <div class="item form-group">
                     <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -343,29 +343,15 @@ if (isset($_SESSION['user'])){
                   </div>
                   </div>
                       <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $row['nombre'] ?>">
-                      <input type="text" id="tip" name="tip"  style="display:none" value="<?php echo $row['tipo'] ?>">
                       <input type="text" id="est" name="est" style="display:none" value="<?php echo $row['estado'] ?>">
                       <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $row['cantidad'] ?>">
                     <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $row['costo'] ?>">
+                    <input type="text" id="vendedor" name="vendedor"  style="display:none" value="<?php echo $row['vendedor'] ?>">
                   <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Cedula <span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="ced" name="ced"   class="form-control col-md-7 col-xs-12">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Número de Celular <span class="required"></span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="tel" name="tel"   class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
                     <center>
@@ -374,7 +360,6 @@ if (isset($_SESSION['user'])){
                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                      <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
                    </center>
-
                    <?php
                    pg_close($cnx)
                    ?>
