@@ -359,7 +359,7 @@ $apellido = $row["apellido"];
                        $numc = (int) $numerocedula;
                        $numt = (int) $numerotelefono;
                        $dat = 0;
-                       $result =pg_query($cnx, "UPDATE public.compra SET idprod ='$idp',nombreprod = '$nomprod', cantdisp=$cantd, cantbuy=$cantc where idcompra = $idc");
+                       $result =pg_query($cnx, "UPDATE public.compra SET idprod = $idp,nombreprod = '$nomprod', cantdisp=$cantd, cantbuy=$cantc where idcompra = $idc");
                        echo"<script>alert('Registrio Actualizado Correctamente'); 
                         window.location.href='modBuy.php'; 
                         </script>";
