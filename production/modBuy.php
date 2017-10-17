@@ -108,13 +108,11 @@ $apellido = $row["apellido"];
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Información de Usuarios</a></li>
                       <li><a href="modProd.php">Productos</a></li>
-                      <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="tableMen.php"> Mensajes </a></li>
-                    <li><a href="modProd.php">Productos</a></li>
                     <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>  
@@ -249,6 +247,8 @@ $apellido = $row["apellido"];
                                         <th>Número de Telefono</th>
                                         <th>Vendedor del Producto</th>
                                         <th>Comprador del Producto</th>
+                                        <th>Valoración de la Compra</th>
+                                        <th>Detalle de la Valoración</th>
                                       </tr>
                                     </thead>
 
@@ -267,6 +267,8 @@ $apellido = $row["apellido"];
                           <td><?php echo $row->numcel ?></td>
                           <td><?php echo $row->vendedorprod ?></td>
                           <td><?php echo $row->comprador ?></td>
+                          <td><?php echo $row->valoracion ?></td>
+                          <td><?php echo $row->infoval ?></td>
                         </tr>
 
                         <?php
@@ -308,6 +310,8 @@ $apellido = $row["apellido"];
                      <th>Número de Telefono
                      <th>Vendedor del Producto</th>
                      <th>Comprador del Producto</th>
+                     <th>Valoración de la Compra</th>
+                     <th>Detalle de la Valoración</th>
                    </tr>
                  </thead>
                  <tbody>
@@ -325,6 +329,8 @@ $apellido = $row["apellido"];
                      <td><?php echo $row->numcel ?>
                      <td><?php echo $row->vendedorprod ?></td>
                      <td><?php echo $row->comprador ?></td>
+                     <td><?php echo $row->valoracion ?></td>
+                     <td><?php echo $row->infoval ?></td>
                    </tr>
                    <?php
                  }
@@ -343,6 +349,9 @@ $apellido = $row["apellido"];
               </div>
                     <?php
 
+                    $valoraciones = "SELECT nombreval from public.valoraciones";
+                    $listval = pg_query($valoraciones);
+
                    if ($_POST){
                    if ($_POST["Enviar"]){
                        $idcompraproducto =$_POST["idcompra"];
@@ -352,6 +361,15 @@ $apellido = $row["apellido"];
                        $cantidadcomprada = $_POST["cantcomprada"];
                        $numerocedula = $_POST["numcedula"];
                        $numerotelefono = $_POST["numtelefono"];
+                       $infoval = $_POST["detval"];
+
+                       $val = $_POST["tiposlist"];
+                       $idv = "select idvaloracion from public.valoraciones WHERE nombreval = '$val'";
+                       $qidv = pg_query($idv);
+                       $valfetch = pg_fetch_array($qidv);
+                       $idvaloracion = $valfetch['idvaloracion'];
+
+                       $idval = (int) $idvaloracion;
                        $idc = (int) $idcompraproducto;
                        $idp = (int) $idproducto;
                        $cantd = (int) $cantidadisponible;
@@ -359,7 +377,7 @@ $apellido = $row["apellido"];
                        $numc = (int) $numerocedula;
                        $numt = (int) $numerotelefono;
                        $dat = 0;
-                       $result =pg_query($cnx, "UPDATE public.compra SET idprod = $idp,nombreprod = '$nomprod', cantdisp=$cantd, cantbuy=$cantc where idcompra = $idc");
+                       $result =pg_query($cnx, "UPDATE public.compra SET cantbuy=$cantc, valoracion=$idval, infoval='$infoval' where idcompra = $idc");
                        echo"<script>alert('Registrio Actualizado Correctamente'); 
                         window.location.href='modBuy.php'; 
                         </script>";
@@ -391,21 +409,21 @@ $apellido = $row["apellido"];
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="idprod" DISABLED name="idprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>">
+                                <input type="number" id="idprod" DISABLED name="idprod"  class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['nombreprod'] ?>">
+                                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12"  type="text" value="<?php echo $z['nombreprod'] ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="cantdisp" DISABLED class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantdisp" value="<?php echo $z['cantdisp'] ?>">
+                                <input id="cantdisp" DISABLED class="date-picker form-control col-md-7 col-xs-12"  type="number" name="cantdisp" value="<?php echo $z['cantdisp'] ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -413,6 +431,29 @@ $apellido = $row["apellido"];
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantcomprada" value="<?php echo $z['cantbuy'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra<span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="tiposlist">
+                                    <?php
+                                    while ( $tipos = pg_fetch_array($listval)){
+                                        ?>
+                                        <option value="<?php echo $tipos['nombreval'] ?>"><?php echo $tipos['nombreval']; ?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalle de la Valoración<span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="detval" class="form-control" required="required" name="detval"><?php echo $z['infoval'] ?></textarea>
                             </div>
                         </div>
                       <div class="ln_solid"></div>

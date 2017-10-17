@@ -108,13 +108,11 @@ $apellido = $row["apellido"];
                         <ul class="nav child_menu">
                             <li><a href="modInfo.php">Información de Usuarios</a></li>
                             <li><a href="modProd.php">Productos</a></li>
-                            <li><a href="modBuy.php">Compras</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="tableMen.php"> Mensajes </a></li>
-                            <li><a href="modProd.php">Productos</a></li>
                             <li><a href="modBuy.php">Compras</a></li>
                         </ul>
                     </li>

@@ -98,13 +98,11 @@ $apellido = $row["apellido"];
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Información de Usuarios</a></li>
                       <li><a href="modProd.php">Productos</a></li>
-                      <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="tableMen.php"> Mensajes </a></li>
-                    <li><a href="modProd.php">Productos</a></li>
                     <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
@@ -267,21 +265,21 @@ $apellido = $row["apellido"];
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12">
                       </div>
                       </div>
                       <div class="item form-group">
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta Total <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12">
                       </div>
                       </div>
                       <div class="item form-group">

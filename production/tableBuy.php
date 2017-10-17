@@ -107,13 +107,11 @@ $apellido = $row["apellido"];
                     <ul class="nav child_menu">
                       <li><a href="modInfo.php">Información de Usuarios</a></li>
                       <li><a href="modProd.php">Productos</a></li>
-                      <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="tableMen.php"> Mensajes </a></li>
-                    <li><a href="modProd.php">Productos</a></li>
                     <li><a href="modBuy.php">Compras</a></li>
                     </ul>
                   </li>  
@@ -222,6 +220,8 @@ $apellido = $row["apellido"];
                           <th>Número de Cedula Comprador</th>
                           <th>Vendedor del Producto</th>
                           <th>Comprador del Producto</th>
+                          <th>Valoración de la Compra</th>
+                          <th>Detalle de la Valoración</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -239,6 +239,8 @@ $apellido = $row["apellido"];
                           <td><?php echo $row->numcel ?></td>
                           <td><?php echo $row->vendedorprod ?></td>
                           <td><?php echo $row->comprador ?></td>
+                          <td><?php echo $row->valoracion ?></td>
+                          <td><?php echo $row->infoval ?></td>
                         </tr>
                         <?php
                       }
