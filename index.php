@@ -199,14 +199,11 @@
 					<!-- service item -->
                     <?php
                     if ($on != 1){
-
-
                     ?>
 					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
 						<div class="service-item">
 							<div class="service-desc">
 								<h3>Login</h3>
-
 								<form name=f method=post action='conexlog.php'>
                                         <br />Nombre de Usuario:
  											<br />
@@ -229,7 +226,17 @@
 					</div>
                     <?php
                     }else{
+                    ?>
+                    <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <h3><a href="usuarios.php">Perfiles</h3></a>
+                                <p>Mira los perfiles de nuestros vendedores!</p>
+                            </div>
+                        </div>
+                    </div>
 
+                    <?php
                     }
                     ?>
 					<!-- end service item -->
@@ -395,8 +402,6 @@
 		<!-- Contact form validation -->
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
-		<!-- Google Map -->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
 		<!-- jquery easing -->
