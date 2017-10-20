@@ -108,7 +108,7 @@
 
                         <?php				
                         }else
-                            echo "<li><a href='#features'>Registro</a></li></ul>";
+                            echo "<li><a href='#features'>Ingresar</a></li></ul>";
                         ?>
                 </nav>
 				<!-- /main nav -->
