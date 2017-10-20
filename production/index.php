@@ -174,23 +174,40 @@ $apellido = $row["apellido"];
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <?php
+                $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
+                $result = pg_query($sql);
+                $comp = pg_num_rows($result);
+                ?>
               <span class="count_top"><i class="fa fa-users"></i>  Compradores</span>
-              <div class="count green">200</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> Ultima Semana</span>
+              <div class="count green"><?php echo $comp;?></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <?php
+                $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
+                $result2 = pg_query($sql2);
+                $comp2 = pg_num_rows($result2);
+                ?>
               <span class="count_top"><i class="fa fa-users"></i> Vendedores</span>
-              <div class="count">120</div>
+              <div class="count"><?php echo $comp2;?></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <?php
+                $sql4 = "select * from public.compra";
+                $result4 = pg_query($sql4);
+                $comp4 = pg_num_rows($result4);
+                ?>
               <span class="count_top"><i class="fa fa-trophy"></i> Compras Concretadas</span>
-              <div class="count green">54</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>12% </i> Ultima Semana</span>
+              <div class="count green"><?php echo $comp4;?></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <?php
+                $sql3 = "select * from public.productos where estado='Activo'";
+                $result3 = pg_query($sql3);
+                $comp3 = pg_num_rows($result3);
+                ?>
               <span class="count_top"><i class="fa fa-shopping-cart"></i> Frutas disponibles</span>
-              <div class="count green">50</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Ultima Semana</span>
+              <div class="count"><?php echo $comp3;?></div>
             </div>
           </div>
           <!-- /top tiles -->
@@ -199,113 +216,16 @@ $apellido = $row["apellido"];
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
 
-                <div class="row x_title">
-                  <div class="col-md-6">
-                    <h3>Visitas a la pagina</h3>
-                  </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div id="placeholder33" style="height: 260px; display: none" class="demo-placeholder"></div>
-                  <div style="width: 100%;">
-                    <div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <br />
+
 
 
             <div class="row">
               <div class="row">
                 <!-- start of weather widget -->
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <div class="x_panel">
-                    <div class="x_title">
                       <h2>Clima</h2>
-                      <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <div class="weather-icon">
-                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-8">
-                          <div class="weather-text">
-                            <h2>Girardot <br></h2>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="weather-text pull-right">
-                          <h3 class="degrees">39</h3>
-                        </div>
-                      </div>
-
-                      <div class="clearfix"></div>
-
-                      <div class="row weather-days">
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Mie</h2>
-                            <h3 class="degrees">38</h3>
-                            <canvas id="clear-day" width="32" height="32"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Jue</h2>
-                            <h3 class="degrees">32</h3>
-                            <canvas height="32" width="32" id="rain"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Vier</h2>
-                            <h3 class="degrees">34</h3>
-                            <canvas height="32" width="32" id="snow"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Sab</h2>
-                            <h3 class="degrees">32</h3>
-                            <canvas height="32" width="32" id="sleet"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Dom</h2>
-                            <h3 class="degrees">36</h3>
-                            <canvas height="32" width="32" id="wind"></canvas>
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="daily-weather">
-                            <h2 class="day">Lun</h2>
-                            <h3 class="degrees">35</h3>
-                            <canvas height="32" width="32" id="cloudy"></canvas>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-                    </div>
+                        <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
                   </div>
-
                 </div>
                 <!-- end of weather widget -->
               </div>
