@@ -112,18 +112,6 @@ $apellido = $row["apellido"];
                     </ul>
                   </li>  
               </div>
-              <div class="menu_section">
-                <h3>Extras</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Paginas Adicionales <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="invoice.html">Información</a></li>
-                      <li><a href="profile.html">Perfil</a></li>
-                      <li><a href="contacts.html">Contactos</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
             </div>
             <!-- /sidebar menu -->
 
