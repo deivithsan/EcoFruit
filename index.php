@@ -16,24 +16,12 @@
     }
 ?>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
     <head>
-    	<!-- meta charec set -->
         <meta charset="utf-8">
-		<!-- Always force latest IE rendering engine or request Chrome Frame -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<!-- Page Title -->
         <title>EcoFruit</title>
-		<!-- Meta Description -->
-
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<!-- Google Font -->
-
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
 		<!-- CSS
@@ -53,20 +41,13 @@
 
 		<!-- Modernizer Script for old Browsers -->
         <script src="js/modernizr-2.6.2.min.js"></script>
-
     </head>
 
-    <body id="body">
 
-		<!-- preloader -->
+    <body id="body">
 		<div id="preloader">
 			<img src="img/Fruta.gif" alt="Preloader">
 		</div>
-		<!-- end preloader -->
-
-        <!--
-        Fixed Navigation
-        ==================================== -->
         <header id="navigation" class="navbar-fixed-top navbar">
             <div class="container">
                 <div class="navbar-header">
@@ -75,8 +56,6 @@
                         <span class="sr-only">Toggle navigation</span>
                         <i class="fa fa-bars fa-2x"></i>
                     </button>
-
-				<!-- main nav -->
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
@@ -90,91 +69,51 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 1){
-                            echo "<a>Bienvenid@: ",$nom;
-			    ?>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
-                                <li><a></a></li>
+                        <li><?php if ($on == 1){  echo "<a>Bienvenid@: ",$nom;?>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
                     </ul>
-
                     <a href="logout.php">Cerrar Sesión</a>
-
-                        <?php				
-                        }else
-                            echo "<li><a href='#features'>Ingresar</a></li></ul>";
-                        ?>
+                        <?php }else echo "<li><a href='#features'>Ingresar</a></li></ul>";?>
                 </nav>
-				<!-- /main nav -->
-
             </div>
         </header>
-        <!--
-        End Fixed Navigation
-        ==================================== -->
-
-
-
-        <!--
-        Home Slider
-        ==================================== -->
 
 		<section id="slider">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-				<!-- Indicators bullet -->
 				<ol class="carousel-indicators">
 					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 				</ol>
-				<!-- End Indicators bullet -->
-
-				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
-
-					<!-- single slide -->
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
 							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">EcoFruit</span>!</h2>
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-							
-
 							<ul class="social-links text-center">
 								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
 								<li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
 							</ul>
 						</div>
 					</div>
-					<!-- end single slide -->
-
-
-
 				</div>
-				<!-- End Wrapper for slides -->
-
 			</div>
 		</section>
-
-        <!--
-        Features
-        ==================================== -->
 
 		<section id="features" class="features"
 			<div class="container">
 				<div class="row">
-
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
 						<h2>Accede</h2>
 						<div class="devider"></div>
 					</div>
-
-					<!-- service item -->
 					<div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
 						<div class="service-item">
 							<div class="service-desc">
@@ -183,9 +122,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- end service item -->
-
-					<!-- service item -->
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
                         <div class="service-item">
                             <div class="service-desc">
@@ -194,39 +130,29 @@
                             </div>
                         </div>
 					</div>
-					<!-- end service item -->
-
-					<!-- service item -->
-                    <?php
-                    if ($on != 1){
-                    ?>
+                    <?php if ($on != 1){ ?>
 					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
 						<div class="service-item">
 							<div class="service-desc">
 								<h3>Login</h3>
 								<form name=f method=post action='conexlog.php'>
-                                        <br />Nombre de Usuario:
+                                    <br />Nombre de Usuario:
+ 										<br />
+ 											<input type=text name=nomusuario id='nomusuario'>
+ 												<br />Contraseña:
+ 									 				<br />
+ 												<input type=password name=pass id='pass'>
  											<br />
- 												<input type=text name=nomusuario id='nomusuario'>
- 													<br />Contraseña:
- 										 				<br />
- 													<input type=password name=pass id='pass'>
- 												<br />
- 											<br />
-                                <input type=submit name=entrar value='Entrar'>
+ 										<br />
+                                    <input type=submit name=entrar value='Entrar'>
                                 </form>
-                    <form name="a" action="registro.php">
-                      <button onclick='registro.php'>Registro</button>
-                                        </form>
-
-
-
-                                      </div>
+                                <form name="a" action="registro.php">
+                                    <button onclick='registro.php'>Registro</button>
+                                </form>
+                            </div>
 						</div>
 					</div>
-                    <?php
-                    }else{
-                    ?>
+                    <?php }else{ ?>
                     <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
                         <div class="service-item">
                             <div class="service-desc">
@@ -235,118 +161,82 @@
                             </div>
                         </div>
                     </div>
-
-                    <?php
-                    }
-                    ?>
-					<!-- end service item -->
-
+                    <?php } ?>
 				</div>
 			</div>
 		</section>
-
-        <!--
-        End Features
-        ==================================== -->
-
-		<!--
-        Some fun facts
-        ==================================== -->
 
 		<section id="facts" class="facts">
 			<div class="parallax-overlay">
 				<div class="container">
 					<div class="row number-counters">
-
 						<div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
 							<h2>Actualidad</h2>
 							<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
 						</div>
-
-						<!-- first count item -->
                         <?php
                         $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
                         $result = pg_query($sql);
                         $comp = pg_num_rows($result);
                         ?>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
-							<div class="counters-item">
-								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="<?php echo $comp;?>">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Compradores</p>
-							</div>
-						</div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
+						    <div class="counters-item">
+							    <i class="fa fa-users fa-3x"></i>
+							    <strong data-to="<?php echo $comp;?>">0</strong>
+							    <p>Compradores</p>
+						    </div>
+					    </div>
                         <?php
                         $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
                         $result2 = pg_query($sql2);
                         $comp2 = pg_num_rows($result2);
                         ?>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
-							<div class="counters-item">
-								<i class="fa fa-users fa-3x"></i>
-								<strong data-to="<?php echo $comp2;?>">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Vendedores</p>
-							</div>
-						</div>
+					    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
+    						<div class="counters-item">
+	    						<i class="fa fa-users fa-3x"></i>
+    							<strong data-to="<?php echo $comp2;?>">0</strong>
+    							<p>Vendedores</p>
+	    					</div>
+		    			</div>
                         <?php
                         $sql3 = "select * from public.productos where estado='Activo'";
                         $result3 = pg_query($sql3);
                         $comp3 = pg_num_rows($result3);
                         ?>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
-							<div class="counters-item">
-								<i class="fa fa-shopping-cart fa-3x"></i>
-								<strong data-to="<?php echo $comp3;?>">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p> Frutas Disponibles</p>
-							</div>
-						</div>
+		    			<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
+			    			<div class="counters-item">
+				    			<i class="fa fa-shopping-cart fa-3x"></i>
+					    		<strong data-to="<?php echo $comp3;?>">0</strong>
+						    	<p> Frutas Disponibles</p>
+    						</div>
+	    				</div>
                         <?php
                         $sql4 = "select * from public.compra";
                         $result4 = pg_query($sql4);
                         $comp4 = pg_num_rows($result4);
                         ?>
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
-							<div class="counters-item">
-								<i class="fa fa-trophy fa-3x"></i>
-								<strong data-to="<?php echo $comp4;?>">0</strong>
-								<!-- Set Your Number here. i,e. data-to="56" -->
-								<p>Compras Concretadas</p>
-							</div>
-						</div>
-						<!-- end first count item -->
-
-					</div>
-				</div>
-			</div>
-		</section>
-
-        <!--
-        End Some fun facts
-        ==================================== -->
-
-
-		<!--
-        Contact Us
-        ==================================== -->
+	    				<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
+		    				<div class="counters-item">
+			    				<i class="fa fa-trophy fa-3x"></i>
+				    			<strong data-to="<?php echo $comp4;?>">0</strong>
+					    		<p>Compras Concretadas</p>
+    						</div>
+    				    </div>
+	    		    </div>
+		        </div>
+	        </div>
+        </section>
 
 		<section id="contact" class="contact">
 			<div class="container">
 				<div class="row mb50">
-
 					<div class="sec-title text-center mb50 wow fadeInDown animated" data-wow-duration="500ms">
 						<h2>Contactenos!</h2>
 						<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
 					</div>
-
 					<div class="sec-sub-title text-center wow rubberBand animated" data-wow-duration="1000ms">
 						<p>Si deseea ponerse en contacto con nosotros para la venta de sus productos o para la compra, llene el siguiente formulario y sera respondido en el menor tiempo posible. Gracias!</p>
 					</div>
-
-
-					<!-- contact form -->
 
 					<div class="col-lg-12 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
 						<div class="contact-form">
@@ -368,21 +258,11 @@
 							</form>
 						</div>
 					</div>
-					<!-- end contact form -->
-
-
 				</div>
 			</div>
-
-
-
 		</section>
 
-        <!--
-        End Contact Us
-        ==================================== -->
-		<!-- Essential jQuery Plugins
-		================================================== -->
+
 		<!-- Main jQuery -->
         <script src="js/jquery-1.11.1.min.js"></script>
 		<!-- Single Page Nav -->
@@ -422,15 +302,10 @@
 
 		<script type="text/javascript">
 			$(function(){
-				/* ========================================================================= */
-				/*	Contact Form
-				/* ========================================================================= */
-
 				$('#contact-form').validate({
 					rules: {
 						name: {
 							required: true,
-							minlength: 2
 						},
 						tel: {
 							required: true,
@@ -442,15 +317,12 @@
 					},
 					messages: {
 						name: {
-							required: "come on, you have a name don't you?",
-							minlength: "your name must consist of at least 2 characters"
+							required: "Escribe tu nómbre",
 						},
 						message: {
-							required: "um...yea, you have to write something to send this form.",
-							minlength: "thats all? really?"
+							required: "Escribe tu mensaje",
 						}
 					},
-
 				});
 			});
 		</script>
