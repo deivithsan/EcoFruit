@@ -180,15 +180,16 @@ if (isset($_SESSION['user'])){
                                     $res2 = pg_query($cnx, $selVal);
                                     $x = pg_num_rows($res2);
                                     if ($x == 0){
-                                        $valoracion = 0;
+                                        $val = 0;
                                     } elseif ($x == 1){
-                                        $valoracion = 1;
+                                        $val = 1;
                                     } elseif ($x >= 2){
                                         $selSum = "select sum(valoracion) as promedio from compra where vendedorprod = '$nomuser'";
                                         $res3 = pg_query($selSum);
                                         $row2 = pg_fetch_array($res3);
                                         $z = $row2["promedio"];
                                         $valoracion = $z/$x ;
+                                        $val = round($valoracion);
                                     }
 
                             ?>
@@ -203,12 +204,58 @@ if (isset($_SESSION['user'])){
                                         <br>
                                         <h5>Valoración Promedio:</h5>
                                         <p class="ratings">
-                                            <a><?php echo $valoracion; ?></a>
-                                            <a href="#"><span class="fa fa-star"></span></a>
-                                            <a href="#"><span class="fa fa-star"></span></a>
-                                            <a href="#"><span class="fa fa-star"></span></a>
-                                            <a href="#"><span class="fa fa-star"></span></a>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
+                                            <a><?php echo $val; ?></a>
+                                            <?php
+                                            if ($val == 5){
+                                                ?>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <?php
+                                            } elseif ($val == 4){
+                                                ?>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <?php
+                                            } elseif ($val == 3){
+                                                ?>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <?php
+                                            } elseif ($val == 2){
+                                                ?>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <?php
+                                            } elseif ($val == 1){
+                                                ?>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <?php
+                                            } elseif ($val == 0){
+                                            ?>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                            <?php
+                                            }
+                                            ?>
                                         </p>
                                     </figcaption>
                                 </div>
@@ -222,6 +269,11 @@ if (isset($_SESSION['user'])){
                         </div>
                     </div>
                 </div>
+            <br><br>
+            <div class="sec-title text-center mb50 wow fadeInDown animated" data-wow-duration="500ms">
+                <h2>Los usuarios con valoracion 0 es porque aun no han realizado una venta o no ha sido valorada</h2>
+                <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
+            </div>
 
 		</section>
         <!--
