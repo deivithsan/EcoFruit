@@ -155,7 +155,7 @@ $apellido = $row["apellido"];
                                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                                     $desp = "SELECT nombrestado FROM public.estado";
                                     $lis = pg_query($desp);
-                                    $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4";
+                                    $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC";
                                     $vend = pg_query($usrVend);
                                     $tipoprod = "SELECT idtipo, nombretipo from public.tipoprod";
                                     $listip = pg_query($tipoprod);
