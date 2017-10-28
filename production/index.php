@@ -49,7 +49,14 @@ $apellido = $row["apellido"];
                 <div class="clearfix"></div>
                 <div class="profile">
                     <div class="profile_pic">
-                        <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
+                        <?php
+                        $dir = "images/$nom.jpg";
+                        $existe = file_exists($dir);
+                        if ($existe == true){  ?>
+                            <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
+                        <?php  } else {  ?>
+                            <img src="images/user.jpg" alt="..." class="img-circle profile_img">
+                        <?php  }  ?>
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>
@@ -116,7 +123,11 @@ $apellido = $row["apellido"];
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/<?php echo "$nom" ?>.jpg" alt=""><?php echo "$nombre $apellido" ?>
+                                <?php  if ($existe == true) { ?>
+                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                <?php  } else { ?>
+                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                <?php  } ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -222,6 +233,5 @@ $apellido = $row["apellido"];
     <script src="js/datepicker/daterangepicker.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
     </body>
 </html>
