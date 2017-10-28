@@ -49,7 +49,14 @@ $apellido = $row["apellido"];
                     <div class="clearfix"></div>
                     <div class="profile">
                         <div class="profile_pic">
-                            <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
+                            <?php
+                            $dir = "images/$nom.jpg";
+                            $existe = file_exists($dir);
+                            if ($existe == true){  ?>
+                                <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
+                            <?php  } else {  ?>
+                                <img src="images/user.jpg" alt="..." class="img-circle profile_img">
+                            <?php  }  ?>
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
@@ -114,7 +121,11 @@ $apellido = $row["apellido"];
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/<?php echo "$nom" ?>.jpg" alt=""><?php echo "$nombre $apellido" ?>
+                                    <?php  if ($existe == true) { ?>
+                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <?php  } else { ?>
+                                        <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <?php  } ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -155,7 +166,7 @@ $apellido = $row["apellido"];
                                     $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                                     $desp = "SELECT nombrestado FROM public.estado";
                                     $lis = pg_query($desp);
-                                    $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC";
+                                    $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC ";
                                     $vend = pg_query($usrVend);
                                     $tipoprod = "SELECT idtipo, nombretipo from public.tipoprod";
                                     $listip = pg_query($tipoprod);
