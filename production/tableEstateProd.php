@@ -138,12 +138,6 @@ $apellido = $row["apellido"];
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="profile.html"> Perfil</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span>Configuración</span>
-                                        </a>
-                                    </li>
                                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                 </ul>
                             </li>
