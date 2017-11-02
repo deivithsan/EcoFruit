@@ -123,6 +123,9 @@ if (isset($_SESSION['user'])){
                     <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
+                            <h4>Información: los productos con precio 0 es porque no se encuentran en cosecha.</h4>
+                            <h4>Si desea buscar un producto especifico use la herramienta de busqueda de su correspondiente navegador. <a href="https://support.mozilla.org/es/kb/Hacer%20b%C3%BAsquedas%20dentro%20de%20una%20p%C3%A1gina%20web">(Firefox</a> o <a href="https://support.google.com/chrome/answer/95440?co=GENIE.Platform%3DDesktop&hl=es">Google Chrome)</a> </h4>
+
                             <table id="datatable-buttons" class="table table-striped table-bordered">
                                 <thead>
                                     <?php
@@ -136,7 +139,6 @@ if (isset($_SESSION['user'])){
                                     $trs = $html->getElementsByTagName("tr");
                                     ?>
                                     <tr>
-                                        <h4>Información: los productos con precio 0 es porque no se encuentran en cosecha</h4>
                                         <th>Nombre</th>
                                         <th>Presentación</th>
                                         <th>Cantidad</th>
