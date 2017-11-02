@@ -143,10 +143,8 @@ if (isset($_SESSION['user'])){
                                                 $val = round($valoracion);
                                             }
                                 ?>
-                                <figure class="team-member col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                                <figure class="team-member col-md-3 col-sm-6 col-xs-12 text-center fa-border">
                                     <div class="member-thumb">
-                                        <img src="img/logo.jpg" alt="Team Member" class="img-responsive">
-                                        <figcaption class="overlay">
                                             <h5>Nombre:</h5>
                                             <p><?php echo $row->nombre." ".$row->apellido?></p>
                                             <h5>Ubicación:</h5>
@@ -158,46 +156,46 @@ if (isset($_SESSION['user'])){
                                                 <?php
                                                 if ($val == 5){
                                                 ?>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
                                                 <?php
                                                 } elseif ($val == 4){ ?>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
                                                 <?php
                                                 } elseif ($val == 3){ ?>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
                                                 <?php
                                                 } elseif ($val == 2){ ?>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
                                                 <?php
                                                 } elseif ($val == 1){ ?>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
                                                 <?php
                                                 } elseif ($val == 0){ ?>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
+                                                <span class="fa fa-star-o"></span></a>
                                                 <?php } ?>
                                             </p>
                                         </figcaption>
