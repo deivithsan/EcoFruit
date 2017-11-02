@@ -43,7 +43,6 @@
         <script src="js/modernizr-2.6.2.min.js"></script>
     </head>
 
-
     <body id="body">
 		<div id="preloader">
 			<img src="img/Fruta.gif" alt="Preloader">
@@ -80,7 +79,7 @@
                         <li><a></a></li>
                     </ul>
                     <a href="logout.php">Cerrar Sesión</a>
-                        <?php }else echo "<li><a href='#features'>Ingresar</a></li></ul>";?>
+                        <?php } ?>
                 </nav>
             </div>
         </header>
