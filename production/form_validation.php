@@ -84,7 +84,6 @@ $apellido = $row["apellido"];
                                         <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                                         <li><a href="tableProDisp.php"> Productos </a></li>
                                         <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                                        <li><a href="tableMen.php"> Mensajes </a></li>
                                         <li><a href="tableInfoPriv.php"> Privilegios </a></li>
                                         <li><a href="tableUsers.php"> Usuarios </a></li>
                                         <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
