@@ -1,17 +1,17 @@
 <?php
-    session_start();
-    include 'conex.php';
-    $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-    if (isset($_SESSION['user'])){
-        $priv = $_SESSION['privil'];
-        $nom = $_SESSION['user'];
-        if ($priv != 1) {
-            session_unset();
-            echo '<script> window.location="../index.php"; </script>';
-        }
-    } else {
+session_start();
+include 'conex.php';
+$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+if (isset($_SESSION['user'])){
+    $priv = $_SESSION['privil'];
+    $nom = $_SESSION['user'];
+    if ($priv != 1) {
+        session_unset();
         echo '<script> window.location="../index.php"; </script>';
     }
+} else {
+    echo '<script> window.location="../index.php"; </script>';
+}
 $sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
 $busqueda=pg_query($sql);
 $row = pg_fetch_array($busqueda);
@@ -21,10 +21,12 @@ $apellido = $row["apellido"];
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EcoFruit!</title>
+    <title>Tipos de Usuario</title>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -33,11 +35,16 @@ $apellido = $row["apellido"];
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
+
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
@@ -47,6 +54,7 @@ $apellido = $row["apellido"];
                     <a href="index.php" class="site_title"></i> <span>EcoFruit!</span></a>
                 </div>
                 <div class="clearfix"></div>
+
                 <div class="profile">
                     <div class="profile_pic">
                         <?php
@@ -64,6 +72,7 @@ $apellido = $row["apellido"];
                     </div>
                 </div>
                 <br />
+
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <h3>General</h3>
@@ -78,7 +87,7 @@ $apellido = $row["apellido"];
                                     <li><a href="adduser.php">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-table"></i>Visualizar<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy.php"> Compras </a></li>
                                     <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
@@ -106,8 +115,8 @@ $apellido = $row["apellido"];
                 </div>
 
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir" ">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
             </div>
@@ -130,8 +139,7 @@ $apellido = $row["apellido"];
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir
-                                    </a></li>
+                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -140,55 +148,54 @@ $apellido = $row["apellido"];
         </div>
 
         <div class="right_col" role="main">
-            <div class="row tile_count">
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
-                    $result = pg_query($sql);
-                    $comp = pg_num_rows($result);
-                    ?>
-                    <span class="count_top"><i class="fa fa-users"></i>  Compradores</span>
-                    <div class="count green"><?php echo $comp;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
-                    $result2 = pg_query($sql2);
-                    $comp2 = pg_num_rows($result2);
-                    ?>
-                    <span class="count_top"><i class="fa fa-users"></i> Vendedores</span>
-                    <div class="count"><?php echo $comp2;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql4 = "select * from public.compra";
-                    $result4 = pg_query($sql4);
-                    $comp4 = pg_num_rows($result4);
-                    ?>
-                    <span class="count_top"><i class="fa fa-trophy"></i> Compras Concretadas</span>
-                    <div class="count green"><?php echo $comp4;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql3 = "select * from public.productos where estado='Activo'";
-                    $result3 = pg_query($sql3);
-                    $comp3 = pg_num_rows($result3);
-                    ?>
-                    <span class="count_top"><i class="fa fa-shopping-cart"></i> Frutas disponibles</span>
-                    <div class="count"><?php echo $comp3;?></div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="dashboard_graph">
-                        <div class="row">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <h2>Clima</h2>
-                                    <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
-                                </div>
+            <div class="">
+                <div class="page-title">
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Tipos de Usuarios</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <?php
+                            include_once 'conex.php';
+                            $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
+                            $hccQuery4 = "SELECT * FROM public.tipousuarios";
+                            $result4 = pg_query($cnx, $hccQuery4);
+                            if($result4){
+                                if(pg_num_rows($result4)>0){
+                            ?>
+                            <table id="datatable-buttons" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Nombre del Tipo de Usuario</th>
+                                    <th>Número de Privilegio al que Pertenece el Tipo de Usuario</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php while ($row = pg_fetch_object($result4)) { ?>
+                                    <tr>
+                                        <td><?php echo $row->nombretipousuario ?></td>
+                                        <td><?php echo $row->privilegio ?></td>
+                                    </tr>
+                                    <?php  }  }  }  ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -211,20 +218,96 @@ $apellido = $row["apellido"];
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- DateJS -->
-    <script src="../vendors/DateJS/build/date.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="js/moment/moment.min.js"></script>
-    <script src="js/datepicker/daterangepicker.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    </body>
+
+    <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+        var $datatable = $('#datatable-checkbox');
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+        TableManageButtons.init();
+      });
+    </script>
+</body>
 </html>
