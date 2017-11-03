@@ -2,229 +2,324 @@
     session_start();
     include 'conex.php';
     $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+    global $on;
     if (isset($_SESSION['user'])){
+        global $priv, $nom;
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
-        if ($priv != 1) {
+        if ($priv == 1) {
             session_unset();
-            echo '<script> window.location="../index.php"; </script>';
+            echo '<script> window.location="production/index.php"; </script>';
+        }elseif ($priv == 3 or 4 ){
+            $on = 1;
         }
-    } else {
-        echo '<script> window.location="../index.php"; </script>';
     }
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EcoFruit!</title>
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-</head>
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.php" class="site_title"></i> <span>EcoFruit!</span></a>
-                </div>
-                <div class="clearfix"></div>
-                <div class="profile">
-                    <div class="profile_pic">
-                        <?php
-                        $dir = "images/$nom.jpg";
-                        $existe = file_exists($dir);
-                        if ($existe == true){  ?>
-                            <img src="images/<?php echo "$nom" ?>.jpg" alt="..." class="img-circle profile_img">
-                        <?php  } else {  ?>
-                            <img src="images/user.jpg" alt="..." class="img-circle profile_img">
-                        <?php  }  ?>
-                    </div>
-                    <div class="profile_info">
-                        <span>Bienvenido,</span>
-                        <h2><?php echo "$nombre $apellido" ?></h2>
-                    </div>
-                </div>
-                <br />
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>General</h3>
-                        <ul class="nav side-menu">
-                            <li><a href="index.php"><i class="fa fa-home"></i> Inicio </a>
-                            </li>
-                            <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation.php">Ingresar Productos</a></li>
-                                    <li><a href="formPriv.php">Ingresar Privilegios</a></li>
-                                    <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-table"></i>Visualizar<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tableBuy.php"> Compras </a></li>
-                                    <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp.php"> Productos </a></li>
-                                    <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                                    <li><a href="tableUsers.php"> Usuarios </a></li>
-                                    <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
-                                    <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="modInfo.php">Información de Usuarios</a></li>
-                                    <li><a href="modProd.php">Productos</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tableMen.php"> Mensajes </a></li>
-                                    <li><a href="modBuy.php">Compras</a></li>
-                                </ul>
-                            </li>
-                    </div>
-                </div>
+    <head>
+        <meta charset="utf-8">
+        <title>EcoFruit</title>
+		<!-- Mobile Specific Meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Google Font -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir" ">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+		<!-- CSS
+		================================================== -->
+		<!-- Fontawesome Icon font -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- Twitter Bootstrap css -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- jquery.fancybox  -->
+        <link rel="stylesheet" href="css/jquery.fancybox.css">
+		<!-- animate -->
+        <link rel="stylesheet" href="css/animate.css">
+		<!-- Main Stylesheet -->
+        <link rel="stylesheet" href="css/main.css">
+		<!-- media-queries -->
+        <link rel="stylesheet" href="css/media-queries.css">
 
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <?php  if ($existe == true) { ?>
-                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
-                                <?php  } else { ?>
-                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
-                                <?php  } ?>
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir
-                                    </a></li>
-                            </ul>
-                        </li>
+		<!-- Modernizer Script for old Browsers -->
+        <script src="js/modernizr-2.6.2.min.js"></script>
+    </head>
+
+    <body id="body">
+		<div id="preloader">
+			<img src="img/Fruta.gif" alt="Preloader">
+		</div>
+        <header id="navigation" class="navbar-fixed-top navbar">
+            <div class="container">
+                <div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars fa-2x"></i>
+                    </button>
+                <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                    <ul id="nav" class="nav navbar-nav">
+                        <li class="current"><a href="#body">Inicio</a></li>
+                        <li><a href="#features">Accede</a></li>
+                        <li><a href="#facts"> Usuarios</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><?php if ($on == 1){  echo "<a>Bienvenid@: ",$nom;?>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
                     </ul>
+                    <a href="logout.php">Cerrar Sesión</a>
+                        <?php } ?>
                 </nav>
             </div>
-        </div>
+        </header>
 
-        <div class="right_col" role="main">
-            <div class="row tile_count">
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
-                    $result = pg_query($sql);
-                    $comp = pg_num_rows($result);
-                    ?>
-                    <span class="count_top"><i class="fa fa-users"></i>  Compradores</span>
-                    <div class="count green"><?php echo $comp;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
-                    $result2 = pg_query($sql2);
-                    $comp2 = pg_num_rows($result2);
-                    ?>
-                    <span class="count_top"><i class="fa fa-users"></i> Vendedores</span>
-                    <div class="count"><?php echo $comp2;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql4 = "select * from public.compra";
-                    $result4 = pg_query($sql4);
-                    $comp4 = pg_num_rows($result4);
-                    ?>
-                    <span class="count_top"><i class="fa fa-trophy"></i> Compras Concretadas</span>
-                    <div class="count green"><?php echo $comp4;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $sql3 = "select * from public.productos where estado='Activo'";
-                    $result3 = pg_query($sql3);
-                    $comp3 = pg_num_rows($result3);
-                    ?>
-                    <span class="count_top"><i class="fa fa-shopping-cart"></i> Frutas disponibles</span>
-                    <div class="count"><?php echo $comp3;?></div>
-                </div>
-            </div>
+		<section id="slider">
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				</ol>
+				<div class="carousel-inner" role="listbox">
+					<div class="item active" style="background-image: url(img/log3.png);">
+						<div class="carousel-caption">
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">EcoFruit</span>!</h2>
+							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
+							<ul class="social-links text-center">
+								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
+								<li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="dashboard_graph">
-                        <div class="row">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <h2>Clima</h2>
-                                    <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
-                                </div>
+		<section id="features" class="features"
+			<div class="container">
+				<div class="row">
+					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
+						<h2>Accede</h2>
+						<div class="devider"></div>
+					</div>
+					<div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+						<div class="service-item">
+							<div class="service-desc">
+								<h3><a href="bd.php">Frutas Disponibles</h3></a>
+								<p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <h3><a href="precioCor.php">Precios Corabastos</h3></a>
+                                <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                            </div>
+                        </div>
+					</div>
+                    <?php if ($on != 1){ ?>
+					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+						<div class="service-item">
+							<div class="service-desc">
+								<h3>Login</h3>
+								<form name=f method=post action='conexlog.php'>
+                                    <br />Nombre de Usuario:
+ 										<br />
+ 											<input type=text name=nomusuario id='nomusuario'>
+ 												<br />Contraseña:
+ 									 				<br />
+ 												<input type=password name=pass id='pass'>
+ 											<br />
+ 										<br />
+                                    <input type=submit name=entrar value='Entrar'>
+                                </form>
+                                <form name="a" action="registro.php">
+                                    <button onclick='registro.php'>Registro</button>
+                                </form>
+                            </div>
+						</div>
+					</div>
+                    <?php }else{ ?>
+                    <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <h3><a href="usuarios.php">Perfiles</h3></a>
+                                <p>Mira los perfiles de nuestros vendedores!</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <?php } ?>
+				</div>
+			</div>
+		</section>
 
-            <footer>
-                <div class="pull-right">
-                    <a href="../index.php">EcoFruit</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-        </div>
-    </div>
+		<section id="facts" class="facts">
+			<div class="parallax-overlay">
+				<div class="container">
+					<div class="row number-counters">
+						<div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
+							<h2>Actualidad</h2>
+							<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
+						</div>
+                        <?php
+                        $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
+                        $result = pg_query($sql);
+                        $comp = pg_num_rows($result);
+                        ?>
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
+						    <div class="counters-item">
+							    <i class="fa fa-users fa-3x"></i>
+							    <strong data-to="<?php echo $comp;?>">0</strong>
+							    <p>Compradores</p>
+						    </div>
+					    </div>
+                        <?php
+                        $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
+                        $result2 = pg_query($sql2);
+                        $comp2 = pg_num_rows($result2);
+                        ?>
+					    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
+    						<div class="counters-item">
+	    						<i class="fa fa-users fa-3x"></i>
+    							<strong data-to="<?php echo $comp2;?>">0</strong>
+    							<p>Vendedores</p>
+	    					</div>
+		    			</div>
+                        <?php
+                        $sql3 = "select * from public.productos where estado='Activo'";
+                        $result3 = pg_query($sql3);
+                        $comp3 = pg_num_rows($result3);
+                        ?>
+		    			<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
+			    			<div class="counters-item">
+				    			<i class="fa fa-shopping-cart fa-3x"></i>
+					    		<strong data-to="<?php echo $comp3;?>">0</strong>
+						    	<p> Frutas Disponibles</p>
+    						</div>
+	    				</div>
+                        <?php
+                        $sql4 = "select * from public.compra";
+                        $result4 = pg_query($sql4);
+                        $comp4 = pg_num_rows($result4);
+                        ?>
+	    				<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
+		    				<div class="counters-item">
+			    				<i class="fa fa-trophy fa-3x"></i>
+				    			<strong data-to="<?php echo $comp4;?>">0</strong>
+					    		<p>Compras Concretadas</p>
+    						</div>
+    				    </div>
+	    		    </div>
+		        </div>
+	        </div>
+        </section>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- DateJS -->
-    <script src="../vendors/DateJS/build/date.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="js/moment/moment.min.js"></script>
-    <script src="js/datepicker/daterangepicker.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+		<section id="contact" class="contact">
+			<div class="container">
+				<div class="row mb50">
+					<div class="sec-title text-center mb50 wow fadeInDown animated" data-wow-duration="500ms">
+						<h2>Contactenos!</h2>
+						<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
+					</div>
+					<div class="sec-sub-title text-center wow rubberBand animated" data-wow-duration="1000ms">
+						<p>Si deseea ponerse en contacto con nosotros para la venta de sus productos o para la compra, llene el siguiente formulario y sera respondido en el menor tiempo posible. Gracias!</p>
+					</div>
+
+					<div class="col-lg-12 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
+						<div class="contact-form">
+							<form action="conexemail.php" id="contact-form" method="post">
+								<div class="input-group name-email">
+									<div class="input-field">
+										<input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+									</div>
+									<div class="input-field">
+										<input type="number" name="tel" id="tel" placeholder="Telefono" class="form-control">
+									</div>
+								</div>
+								<div class="input-group">
+									<textarea name="message" id="message" placeholder="Mensaje" class="form-control"></textarea>
+								</div>
+								<div class="input-group">
+									<input type="submit" id="form-submit" class="pull-right" value="Enviar Mensaje">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+		<!-- Single Page Nav -->
+        <script src="js/jquery.singlePageNav.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+		<!-- jquery.fancybox.pack -->
+        <script src="js/jquery.fancybox.pack.js"></script>
+		<!-- jquery.mixitup.min -->
+        <script src="js/jquery.mixitup.min.js"></script>
+		<!-- jquery.parallax -->
+        <script src="js/jquery.parallax-1.1.3.js"></script>
+		<!-- jquery.countTo -->
+        <script src="js/jquery-countTo.js"></script>
+		<!-- jquery.appear -->
+        <script src="js/jquery.appear.js"></script>
+		<!-- Contact form validation -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+		<!-- jquery easing -->
+        <script src="js/jquery.easing.min.js"></script>
+		<!-- jquery easing -->
+        <script src="js/wow.min.js"></script>
+		<script>
+			var wow = new WOW ({
+				boxClass:     'wow',
+				animateClass: 'animated',
+				offset:       120,
+				mobile:       false,
+				live:         true
+			  }
+			);
+			wow.init();
+		</script>
+        <script src="js/custom.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#contact-form').validate({
+					rules: {
+						name: {
+							required: true,
+						},
+						tel: {
+							required: true,
+							tel: true
+						},
+						message: {
+							required: true
+						}
+					},
+					messages: {
+						name: {
+							required: "Escribe tu nómbre",
+						},
+						message: {
+							required: "Escribe tu mensaje",
+						}
+					},
+				});
+			});
+		</script>
     </body>
 </html>
