@@ -185,7 +185,6 @@ $apellido = $row["apellido"];
                                 <thead>
                                 <tr>
                                     <th>Nombre de Usuario</th>
-                                    <th>Contraseña</th>
                                     <th>Privilegio</th>
                                     <th>Tipo de Usuario</th>
                                 </tr>
@@ -194,7 +193,6 @@ $apellido = $row["apellido"];
                                 <?php while ($row = pg_fetch_object($result5)) { ?>
                                     <tr>
                                         <td><?php echo $row->nombreuser ?></td>
-                                        <td><?php echo $row->contraseña ?></td>
                                         <td><?php echo $row->privilegio ?></td>
                                         <td><?php echo $row->nombretipousuario ?></td>
                                     </tr>
