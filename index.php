@@ -19,6 +19,7 @@
     <head>
         <meta charset="utf-8">
         <title>EcoFruit</title>
+	<link rel="shortcut icon" href="img/icono.ico">    
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Google Font -->
