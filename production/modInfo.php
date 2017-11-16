@@ -173,7 +173,7 @@ $apellido = $row["apellido"];
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Usuario a Modificar <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-1">
-                                            <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12" placeholder="Nombre de Usuario">
                                             <center>
                                                 <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
                                             </center>
