@@ -155,7 +155,7 @@ $apellido = $row["apellido"];
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id del Producto a Modificar <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12" placeholder="Id">
                                             <center>
                                                 <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
                                             </center>
