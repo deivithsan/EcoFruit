@@ -24,10 +24,12 @@ echo "Campos vacios";
 				$busprov = pg_query($sqlpriv);
 				$igual = pg_fetch_array($busprov);
 				$_SESSION["privil"] = $igual['tipousuario'];
-					if ($igual["tipousuario"]== 1){
+					if ($igual["tipousuario"] == 1){
 					header('Location: production/index.php');
-					}elseif ($igual["tipousuario"]== 3 or 4){
-						header('Location: index.php');
+					}elseif ($igual["tipousuario"] == 2){
+                        header('Location: index.php');
+					} elseif ($igual["tipousuario"] == 3 or 4){
+                        header('Location: index.php');
 					}
 						}else{
 						header ('Location: logerror.php');

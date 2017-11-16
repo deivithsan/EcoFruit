@@ -10,7 +10,9 @@ if (isset($_SESSION['user'])){
     if ($priv == 1) {
         session_unset();
         echo '<script> window.location="production/index.php"; </script>';
-    }elseif ($priv == 3 or 4 ){
+    }elseif ($priv == 2 ){
+        $on = 2;
+    } elseif ($priv == 3 or 4){
         $on = 1;
     }
 }
@@ -78,7 +80,7 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 1){
+                        <li><?php if ($on == 1 or 2){
                             $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
                             $result = pg_query($sql);
                             $array = pg_fetch_array($result);
@@ -235,12 +237,13 @@ if (isset($_SESSION['user'])){
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                                <center>
+                                    <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
+                                </center>
                             </div>
                         </div>
                     </div>
                     </center>
-                    <?php //ARREGLAR DESDE AQUI?>
                     <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">ID<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -291,14 +294,21 @@ if (isset($_SESSION['user'])){
                    <?php pg_close($cnx) ?>
                 </form>
                 <?php
-                }else{
+                }elseif ($on == 1) {
                     echo "
                         <br><br>
                         <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
 						    <h2>Si deseas comprar ingresa a tu cuenta o registrate!</h2>
 						    <div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
 					    </div>";
-                    }
+                    } elseif ($on ==2){
+                    echo "
+                        <br><br>
+                        <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
+						    <h2>Hola $nombre $apellido Si deseas comprar debes ser vendedor!</h2>
+						    <div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
+					    </div>";
+                }
                 ?>
 		</section>
 
