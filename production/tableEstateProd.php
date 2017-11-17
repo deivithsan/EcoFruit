@@ -79,10 +79,10 @@ $apellido = $row["apellido"];
                                 </li>
                                 <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                         <li><a href="form_validation.php">Ingresar Productos</a></li>
                                         <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                         <li><a href="adduser.php">Ingresar Usuarios</a></li>
+                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
