@@ -70,15 +70,14 @@ $apellido = $row["apellido"];
                                         </li>
                                         <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="form.php">Ingresar Información Usuario</a></li>
                                                 <li><a href="form_validation.php">Ingresar Productos</a></li>
                                                 <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                                                 <li><a href="adduser.php">Ingresar Usuarios</a></li>
+                                                <li><a href="form.php">Ingresar Información Usuario</a></li>
                                             </ul>
                                         </li>
                                         <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="tableBuy.php"> Compras </a></li>
                                                 <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
                                                 <li><a href="tableProDisp.php"> Productos </a></li>
                                                 <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
@@ -97,7 +96,8 @@ $apellido = $row["apellido"];
                                         <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="tableMen.php"> Mensajes </a></li>
-                                                <li><a href="modBuy.php">Compras</a></li>
+                                                <li><a href="tableBuy.php"> Compras </a></li>
+                                                <li><a href="modBuy.php">Modificar Compras</a></li>
                                             </ul>
                                         </li>
                                     </ul>
