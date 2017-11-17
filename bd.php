@@ -221,8 +221,9 @@ if (isset($_SESSION['user'])){
                             $cantbuy = (int) $cantidadcomp;
                             $numced = (int) $numerocedula;
                             $tel = (int) $numerocelular;
-                            $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, estado, cantdisp, costuni, cantbuy, numced, numcel, vendedorprod, comprador) VALUES ($idpr,'$nomprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel,'$vendedor','$nom');");
-                            echo"<script>alert('Compra Realizada Correctamente')</script>";
+                            //$agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, estado, cantdisp, costuni, cantbuy, numced, numcel, vendedorprod, comprador) VALUES ($idpr,'$nomprod','$est',$cantdis,$costun,$cantbuy,$numced,$tel,'$vendedor','$nom');");
+                            //echo"<script>alert($idpr )</script>";
+                            echo "$idpr $nomprod $est $cantdis $costun $cantbuy $numced $tel $vendedor $nom" ;
                         }
                     }
                     ?>
