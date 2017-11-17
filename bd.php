@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])){
         $on = 1;
     }
 } else {
-	echo '<script> window.location="index.php"; </script>';
+    echo '<script> window.location="index.php"; </script>';
 }	
 ?>
 <!DOCTYPE html>
