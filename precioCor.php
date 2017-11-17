@@ -13,6 +13,8 @@ if (isset($_SESSION['user'])){
     }elseif ($priv == 3 or 4 ){
         $on = 1;
     }
+} else {
+    echo '<script> window.location="index.php"; </script>';
 }
 ?>
 <!DOCTYPE html>
