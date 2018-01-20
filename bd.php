@@ -80,7 +80,7 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 1 or 2){
+                        <li><?php if ($on == 2){
                             $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
                             $result = pg_query($sql);
                             $array = pg_fetch_array($result);
@@ -294,7 +294,7 @@ if (isset($_SESSION['user'])){
                    <?php pg_close($cnx) ?>
                 </form>
                 <?php
-                }elseif ($on == 1) {
+                }elseif ($on == 0) {
                     echo "
                         <br><br>
                         <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
