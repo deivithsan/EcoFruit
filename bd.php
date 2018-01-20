@@ -80,7 +80,7 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 2 or 1){
+                        <li><?php if ($on == 2 or $on == 1){
                             $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
                             $result = pg_query($sql);
                             $array = pg_fetch_array($result);
