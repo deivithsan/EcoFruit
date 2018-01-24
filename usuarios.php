@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+require_once "conexion.php";
+$conex = new Conexion();
 global $on;
 if (isset($_SESSION['user'])){
     global $priv, $nom;
@@ -13,8 +13,6 @@ if (isset($_SESSION['user'])){
     }elseif ($priv == 3 or 4 ){
         $on = 1;
     }
-} else {
-    echo '<script> window.location="index.php"; </script>';
 }
 ?>
 <!DOCTYPE html>
@@ -67,12 +65,8 @@ if (isset($_SESSION['user'])){
                             <li><a></a></li>
                             <li><a></a></li>
                             <li><?php if ($on == 1){
-                                $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
-                                $result = pg_query($sql);
-                                $array = pg_fetch_array($result);
-                                $nombre = $array["nombre"];
-                                $apellido = $array["apellido"];
-                                echo "<a>$nombre $apellido";
+                                $nom = $conex->get_NombreApellido();
+                                echo "<a>$nom";
                                 ?>
                             <li><a></a></li>
                             <li><a></a></li>
@@ -123,87 +117,8 @@ if (isset($_SESSION['user'])){
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <?php
-                                $selUser = "select infousuarios.nombre, infousuarios.apellido, infousuarios.direccion, usuarios.tipousuario, infousuarios.nombreuser from infousuarios, usuarios where usuarios.nombreuser = infousuarios.nombreuser and (usuarios.tipousuario = 2 or usuarios.tipousuario = 4) order by infousuarios.nombre";
-                                $res = pg_query($cnx, $selUser);
-                                if ($res){
-                                    if (pg_num_rows($res)>0){
-                                        while ($row = pg_fetch_object($res)){
-                                            $nomuser = $row->nombreuser;
-                                            $selVal = "select vendedorprod, valoracion from compra where vendedorprod = '$nomuser'";
-                                            $res2 = pg_query($cnx, $selVal);
-                                            $x = pg_num_rows($res2);
-                                            if ($x == 0){
-                                                $val = 0;
-                                            } elseif ($x == 1){
-                                                $val = 1;
-                                            } elseif ($x >= 2){
-                                                $selSum = "select sum(valoracion) as promedio from compra where vendedorprod = '$nomuser'";
-                                                $res3 = pg_query($selSum);
-                                                $row2 = pg_fetch_array($res3);
-                                                $z = $row2["promedio"];
-                                                $valoracion = $z/$x ;
-                                                $val = round($valoracion);
-                                            }
+                                $conex->get_Usuarios();
                                 ?>
-                                <figure class="team-member col-md-3 col-sm-6 col-xs-12 text-center fa-border">
-                                    <div class="member-thumb">
-                                            <h5>Nombre:</h5>
-                                            <p><?php echo $row->nombre." ".$row->apellido?></p>
-                                            <h5>Ubicación:</h5>
-                                            <p><?php echo $row->direccion?></p>
-                                            <br>
-                                            <h5>Valoración Promedio:</h5>
-                                            <p class="ratings">
-                                                <a><?php echo $val; ?></a>
-                                                <?php
-                                                if ($val == 5){
-                                                ?>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <?php
-                                                } elseif ($val == 4){ ?>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <?php
-                                                } elseif ($val == 3){ ?>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <?php
-                                                } elseif ($val == 2){ ?>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <?php
-                                                } elseif ($val == 1){ ?>
-                                                <span class="fa fa-star"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <?php
-                                                } elseif ($val == 0){ ?>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <span class="fa fa-star-o"></span></a>
-                                                <?php } ?>
-                                            </p>
-                                        </figcaption>
-                                    </div>
-                                </figure>
-                                <?php } } } ?>
                             </div>
                         </div>
                     </div>

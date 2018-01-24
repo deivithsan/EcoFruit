@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+require_once "conexion.php";
+$conex = new Conexion();
 global $on;
 if (isset($_SESSION['user'])){
     global $priv, $nom;
@@ -13,7 +13,7 @@ if (isset($_SESSION['user'])){
     }elseif ($priv == 3 or 4 ){
         $on = 1;
     }
-} 
+}
 ?>
 <!DOCTYPE html>
 <head>
@@ -70,12 +70,8 @@ if (isset($_SESSION['user'])){
                     <li><a></a></li>
                     <li><a></a></li>
                     <li><?php if ($on == 1){
-                        $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
-                        $result = pg_query($sql);
-                        $array = pg_fetch_array($result);
-                        $nombre = $array["nombre"];
-                        $apellido = $array["apellido"];
-                        echo "<a>$nombre $apellido";
+                        $nom = $conex->get_NombreApellido();
+                        echo "<a>$nom";
                         ?>
                     <li><a></a></li>
                     <li><a></a></li>

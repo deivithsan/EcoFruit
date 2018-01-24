@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+require_once "conexion.php";
+$conex = new Conexion();
 global $on;
 if (isset($_SESSION['user'])){
     global $priv, $nom;
@@ -14,8 +14,10 @@ if (isset($_SESSION['user'])){
         $on = 2;
     } elseif ($priv == 3 or 4){
         $on = 1;
+    } else{
+        $on = 0;
     }
-}	
+}
 ?>
 <!DOCTYPE html>
     <head>
@@ -50,7 +52,6 @@ if (isset($_SESSION['user'])){
         <link href="./vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
         <link href="./vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
         <link href="./vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
 		<!-- Modernizer Script for old Browsers -->
         <script src="js/modernizr-2.6.2.min.js"></script>
     </head>
@@ -81,12 +82,8 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><?php if ($on == 2 or $on == 1){
-                            $sql = "select nombre, apellido from public.infousuarios where nombreuser = '$nom'";
-                            $result = pg_query($sql);
-                            $array = pg_fetch_array($result);
-                            $nombre = $array["nombre"];
-                            $apellido = $array["apellido"];
-                            echo "<a>$nombre $apellido";
+                            $nom = $conex->get_NombreApellido();
+                            echo "<a>$nom";
                             ?>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -137,15 +134,6 @@ if (isset($_SESSION['user'])){
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_content">
-                                <?php
-                                include_once 'conex.php';
-                                $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                                $hccQuery3 = "SELECT * FROM public.productos ORDER BY idprod";
-                                $result3 = pg_query($cnx, $hccQuery3);
-
-                                if($result3){
-                                if(pg_num_rows($result3)>0){
-                                ?>
                                 <table id="datatable-buttons2" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -159,17 +147,20 @@ if (isset($_SESSION['user'])){
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php while ($row = pg_fetch_object($result3)) { ?>
+                                    <?php
+                                    $prod = $conex->get_ListaProductos();
+                                    for ($g=0; $g<sizeof($prod); $g++){
+                                     ?>
                                     <tr>
-                                         <td><?php echo $row->idprod ?></td>
-                                         <td><?php echo $row->nombre ?></td>
-                                         <td><?php echo $row->tipo ?></td>
-                                         <td><?php echo $row->estado ?></td>
-                                         <td><?php echo $row->cantidad ?></td>
-                                         <td><?php echo $row->costo ?></td>
-                                         <td><?php echo $row->venta ?></td>
+                                         <td align="center"><?php echo $prod[$g][0]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][1]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][8]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][2]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][3]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][4]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][5]; ?></td>
                                     </tr>
-                                    <?php }  }  }  ?>
+                                    <?php   }  ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -177,121 +168,94 @@ if (isset($_SESSION['user'])){
                     </div>
                 </div>
                 <?php if ($on == 1){ ?>
-                <form class="form-horizontal form-label-left input_mask" method="post">
+
                     <center>
                     <h3> Busca El Producto Que Quieras Comprar! </h3>
                     </center>
                     <br></br>
                     <span class="section"></span>
                     <?php
-                    $desp = "SELECT nombrestado FROM public.estado";
-                    $lis = pg_query($desp);
-                    $bus = "SELECT idprod FROM public.productos";
-                    $bu = pg_query($bus);
                     if ($_POST){
-                        $idproduc = $_POST["idprod"];
                         if ($_POST["buscar"]){
-                            while($busq = pg_fetch_array($bu)){
-                                if ($busq ["idprod"] == $idproduc){
-                                    $llen = "SELECT * from public.productos where idprod ='$idproduc' ";
-                                    $llenar = pg_query($llen);
-                                    $row = pg_fetch_assoc($llenar);
-                                }
-                            }
+                            $idBuscado = $conex->get_Id();
+                            $idProd = $idBuscado[0][0];
+                            $nomProd = $idBuscado[0][1];
+                            $estProd = $idBuscado[0][2];
+                            $cantProd = $idBuscado[0][3];
+                            $costProd = $idBuscado[0][4];
+                            $vendProd = $idBuscado[0][7];
                         }
                         if ($_POST["comprar"]){
-                            $iddelproductocompra = $_POST["idproduc"];
-                            $idpr = (int) $iddelproductocompra;
-                            $nomprod = $_POST["nomprod"];
-                            $est = $_POST["est"];
-                            $cantidaddisp = $_POST["cant"];
-                            $costounitario = $_POST["costo"];
-                            $cantidadcomp = $_POST["cantbuy"];
-                            $vendedor = $_POST["vendedor"];
-                            $ced = "select cedula from public.infousuarios where nombreuser='$nom'";
-                            $query = pg_query($ced);
-                            $array = pg_fetch_array($query);
-                            $numerocedula = $array["cedula"];
-                            $tel = "select telefono from public.infousuarios where nombreuser='$nom'";
-                            $query1 = pg_query($tel);
-                            $array1 = pg_fetch_array($query1);
-                            $numerocelular = $array1["telefono"];
-                            $cantdis = (int) $cantidaddisp;
-                            $costun = (int) $costounitario;
-                            $cantbuy = (int) $cantidadcomp;
-                            $numced = (int) $numerocedula;
-                            $telef = (int) $numerocelular;
-                            $agregar =pg_query($cnx, "INSERT INTO public.compra (idprod,nombreprod, estado, cantdisp, costuni, cantbuy, numced, numcel, vendedorprod, comprador) VALUES ($idpr,'$nomprod','$est',$cantdis,$costun,$cantbuy,$numced,$telef,'$vendedor','$nom');");
-                            echo"<script>alert('Compra Realizada Correctamente')</script>";
+                            $conex->make_Buy();
+                            exit;
                         }
                     }
                     ?>
+                <form class="form-horizontal form-label-left input_mask" method="post">
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto<span class="required"></span>
-                        </label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto:<span class="required"></span></label>                        </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="idprod" name="idprod" class="form-control col-md-7 col-xs-12">
+                            <input type="number" id="idprod" name="idprod" class="form-control col-md-7 col-xs-12" required>
                         </div>
                     </div>
                     <center>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <div class="form-group">
-                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                <center>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-9">
                                     <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
-                                </center>
                             </div>
                         </div>
                     </div>
-                    </center>
+
+                </form>
+                <form class="form-horizontal form-label-left input_mask" method="post">
                     <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">ID<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="idproduc" name="idproduc"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $row['idprod'] ?>">
+                                <input type="number" id="idproduc" name="idproduc"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $idProd; ?>">
                             </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre<span class="required"></span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre:<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['nombre'] ?>">
+                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $nomProd; ?>">
                             </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado<span class="required"></span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado:<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['estado'] ?>">
+                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $estProd; ?>">
                             </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible <span class="required"></span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible: <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['cantidad'] ?>">
+                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $cantProd; ?>">
                             </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad <span class="required"></span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad: $<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $row['costo'] ?>">
+                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $costProd; ?>">
                             </div>
                     </div>
-                    <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $row['nombre'] ?>">
-                    <input type="text" id="est" name="est" style="display:none" value="<?php echo $row['estado'] ?>">
-                    <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $row['cantidad'] ?>">
-                    <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $row['costo'] ?>">
-                    <input type="text" id="vendedor" name="vendedor"  style="display:none" value="<?php echo $row['vendedor'] ?>">
+                    <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $nomProd; ?>">
+                    <input type="text" id="est" name="est" style="display:none" value="<?php echo $estProd; ?>">
+                    <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $cantProd; ?>">
+                    <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $costProd; ?>">
+                    <input type="text" id="vendedor" name="vendedor"  style="display:none" value="<?php echo $vendProd; ?>">
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar <span class="required"></span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar: <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12" required>
                             </div>
                     </div>
                     <center>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                        <div class="form-group">
-                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
                    </center>
-                   <?php pg_close($cnx) ?>
                 </form>
                 <?php
                 }elseif ($on == 0) {
@@ -305,7 +269,7 @@ if (isset($_SESSION['user'])){
                     echo "
                         <br><br>
                         <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
-						    <h2>Hola $nombre $apellido Si deseas comprar debes ser comprador, si deseas cambiar tu tipo de cuenta comunicate con nuestros administradores.</h2>
+						    <h2>Hola $nom Si deseas comprar debes ser comprador, si deseas cambiar tu tipo de cuenta comunicate con nuestros administradores.</h2>
 						    <br>
 						    <h2>Gracias!</h2>
 						    <div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
@@ -337,20 +301,6 @@ if (isset($_SESSION['user'])){
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
-		<!-- jquery easing -->
-        <script src="js/wow.min.js"></script>
-		<script>
-			var wow = new WOW ({
-				boxClass:     'wow',
-				animateClass: 'animated',
-				offset:       120,
-				mobile:       false,
-				live:         true
-			  }
-			);
-			wow.init();
-		</script>
-
         <!-- Datatables -->
         <script src="./vendors/datatables.net/js/jquery.dataTables.min.js"></script>
         <script src="./vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -367,51 +317,21 @@ if (isset($_SESSION['user'])){
         <script src="./vendors/jszip/dist/jszip.min.js"></script>
         <script src="./vendors/pdfmake/build/pdfmake.min.js"></script>
         <script src="./vendors/pdfmake/build/vfs_fonts.js"></script>
+		<!-- jquery easing -->
+        <script src="js/wow.min.js"></script>
+		<script>
+			var wow = new WOW ({
+				boxClass:     'wow',
+				animateClass: 'animated',
+				offset:       120,
+				mobile:       false,
+				live:         true
+			  }
+			);
+			wow.init();
+		</script>
         <!-- Datatables -->
         <script>
-            $(document).ready(function() {
-                var handleDataTableButtons = function() {
-                    if ($("#datatable-buttons").length) {
-
-                    }
-                };
-                TableManageButtons = function() {
-                    "use strict";
-                    return {
-                        init: function() {
-                            handleDataTableButtons();
-                        }
-                    };
-                }();
-                $('#datatable').dataTable();
-                $('#datatable-keytable').DataTable({
-                    keys: true
-                });
-                $('#datatable-responsive').DataTable();
-                $('#datatable-scroller').DataTable({
-                    ajax: "js/datatables/json/scroller-demo.json",
-                    deferRender: true,
-                    scrollY: 380,
-                    scrollCollapse: true,
-                    scroller: true
-                });
-                $('#datatable-fixed-header').DataTable({
-                    fixedHeader: true
-                });
-                var $datatable = $('#datatable-checkbox');
-                $datatable.dataTable({
-                    'order': [[ 1, 'asc' ]],
-                    'columnDefs': [
-                        { orderable: false, targets: [0] }
-                    ]
-                });
-                $datatable.on('draw.dt', function() {
-                    $('input').iCheck({
-                        checkboxClass: 'icheckbox_flat-green'
-                    });
-                });
-                TableManageButtons.init();
-            });
             $(document).ready(function() {
                 var handleDataTableButtons = function() {
                     if ($("#datatable-buttons2").length) {
@@ -461,7 +381,6 @@ if (isset($_SESSION['user'])){
                         checkboxClass: 'icheckbox_flat-green'
                     });
                 });
-
                 TableManageButtons.init();
             });
         </script>
