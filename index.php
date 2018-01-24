@@ -67,7 +67,7 @@
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
                         <li><a href="#features">Accede</a></li>
-                        <li><a href="#facts"> Usuarios</a></li>
+                        <li><a href="#facts"> Actualidad</a></li>
                         <li><a href="#contact">Contacto</a></li>
                         <li><a></a></li>
                         <li><a></a></li>
