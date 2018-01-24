@@ -1,8 +1,9 @@
 <?php
     session_start();
-    include 'conex.php';
-    $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+    require_once "conexion.php";
     global $on;
+    $conex = new Conexion();
+
     if (isset($_SESSION['user'])){
         global $priv, $nom;
         $priv = $_SESSION['privil'];
@@ -10,21 +11,28 @@
         if ($priv == 1) {
             session_unset();
             echo '<script> window.location="production/index.php"; </script>';
-        }elseif ($priv == 3 or 4 ){
+        }elseif ($priv == 2 or 3 or 4 ){
             $on = 1;
         }
+    }
+    if (isset($_POST["Enviar"])){
+        $conex->enviarComentario();
+        exit;
+    }
+    if (isset($_POST["Login"])){
+        $conex->login();
+        exit;
     }
 ?>
 <!DOCTYPE html>
     <head>
         <meta charset="utf-8">
-        <title>EcoFruit</title>
-	<link rel="shortcut icon" href="img/icono.ico">    
+        <title>EcoFruit!</title>
+        <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Google Font -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-
 		<!-- CSS
 		================================================== -->
 		<!-- Fontawesome Icon font -->
@@ -134,16 +142,17 @@
 						<div class="service-item">
 							<div class="service-desc">
 								<h3>Login</h3>
-								<form name=f method=post action='conexlog.php'>
+								<form method="post" action="">
                                     <br />Nombre de Usuario:
  										<br />
- 											<input type=text name=nomusuario id='nomusuario'>
+ 											<input type=text name=nomusuario id='nomusuario' required>
  												<br />Contraseña:
  									 				<br />
- 												<input type=password name=pass id='pass'>
+ 												<input type=password name=pass id='pass' required>
  											<br />
  										<br />
-                                    <input type=submit name=entrar value='Entrar'>
+                                    <input type="hidden" name="Login" />
+                                    <input type="submit" name="Entrar" value="Entrar">
                                 </form>
                                 <form name="a" action="registro.php">
                                     <button onclick='registro.php'>Registro</button>
@@ -174,50 +183,42 @@
 							<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
 						</div>
                         <?php
-                        $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
-                        $result = pg_query($sql);
-                        $comp = pg_num_rows($result);
+                        $compradores = $conex->get_Compradores();
                         ?>
                         <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
 						    <div class="counters-item">
 							    <i class="fa fa-users fa-3x"></i>
-							    <strong data-to="<?php echo $comp;?>">0</strong>
+							    <strong data-to="<?php echo $compradores;?>">0</strong>
 							    <p>Compradores</p>
 						    </div>
 					    </div>
                         <?php
-                        $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
-                        $result2 = pg_query($sql2);
-                        $comp2 = pg_num_rows($result2);
+                        $vendedores = $conex->get_Vendedores();
                         ?>
 					    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
     						<div class="counters-item">
 	    						<i class="fa fa-users fa-3x"></i>
-    							<strong data-to="<?php echo $comp2;?>">0</strong>
+    							<strong data-to="<?php echo $vendedores;?>">0</strong>
     							<p>Vendedores</p>
 	    					</div>
 		    			</div>
                         <?php
-                        $sql3 = "select * from public.productos where estado='Activo'";
-                        $result3 = pg_query($sql3);
-                        $comp3 = pg_num_rows($result3);
+                        $frutas = $conex->get_Frutas();
                         ?>
 		    			<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="600ms">
 			    			<div class="counters-item">
 				    			<i class="fa fa-shopping-cart fa-3x"></i>
-					    		<strong data-to="<?php echo $comp3;?>">0</strong>
+					    		<strong data-to="<?php echo $frutas;?>">0</strong>
 						    	<p> Frutas Disponibles</p>
     						</div>
 	    				</div>
                         <?php
-                        $sql4 = "select * from public.compra";
-                        $result4 = pg_query($sql4);
-                        $comp4 = pg_num_rows($result4);
+                        $compras = $conex->get_Compras();
                         ?>
 	    				<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="900ms">
 		    				<div class="counters-item">
 			    				<i class="fa fa-trophy fa-3x"></i>
-				    			<strong data-to="<?php echo $comp4;?>">0</strong>
+				    			<strong data-to="<?php echo $compras;?>">0</strong>
 					    		<p>Compras Concretadas</p>
     						</div>
     				    </div>
@@ -239,7 +240,15 @@
 
 					<div class="col-lg-12 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
 						<div class="contact-form">
-							<form action="conexemail.php" id="contact-form" method="post">
+                            <?php
+                            require_once "conexion.php";
+                            $email = new Conexion();
+                            if (isset($_POST["Enviar"])){
+                                $email->enviarComentario();
+                                exit;
+                            }
+                            ?>
+							<form action="" id="contact-form" method="post">
 								<div class="input-group name-email">
 									<div class="input-field">
 										<input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
@@ -252,7 +261,8 @@
 									<textarea name="message" id="message" placeholder="Mensaje" class="form-control"></textarea>
 								</div>
 								<div class="input-group">
-									<input type="submit" id="form-submit" class="pull-right" value="Enviar Mensaje">
+                                    <input type="hidden" name="Enviar" />
+									<input type="submit" id="form-submit" class="pull-right" value="Enviar Mensaje" name="Enviar Mensaje">
 								</div>
 							</form>
 						</div>
