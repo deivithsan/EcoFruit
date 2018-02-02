@@ -51,7 +51,7 @@ class Conexion{
     }
 
     public function get_Frutas(){
-        $frutas=$this->conexion->prepare("select * from productos where estado='Activo'");
+        $frutas=$this->conexion->prepare("select * from productos where estado='En Cola'");
         $frutas->execute();
         $fetch = $frutas->fetchAll();
         $rows = count($fetch);
