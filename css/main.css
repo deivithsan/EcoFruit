@@ -9,8 +9,7 @@ body {
     line-height: 21px;
 	font-size: 13px;
     color: #6a737b;
-	alink="#000000";
-	vlink="#000000";
+
 }
 
 ol, ul {
@@ -44,7 +43,7 @@ a, a:focus, a:hover {
 }
 
 a:focus, a:hover {
-    color: #6CB670;
+    color: #0feb9e;
 }
 
 h1, h2, h3,
@@ -148,11 +147,6 @@ body > section,
   border: 0 none;
   margin: 0;
 
-    -webkit-transition: background-color 800ms linear;
-       -moz-transition: background-color 800ms linear;
-	    -ms-transition: background-color 800ms linear;
-         -o-transition: background-color 800ms linear;
-			transition: background-color 800ms linear;
 }
 
 .navbar-toggle i {
@@ -170,8 +164,8 @@ body > section,
 .navbar-nav li a.current,
 .navbar-nav li a:focus,
 .navbar-nav li a:hover {
-	background-color: transparent;
-	border-top: 1px solid #32B0EE;
+	background-color: #0eb493;
+	border-top: 3px solid #32B0EE;
 	color: #fff;
 }
 
@@ -184,6 +178,8 @@ body > section,
 
 #slider {
 	padding: 0;
+    background-color: #f4f7f9;
+
 }
 
 #slider .carousel-inner .item {
@@ -242,13 +238,13 @@ top: -8px;
 }
 
 .social-links li a {
-  color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
   display: block;
   margin: 0 6px;
 }
 
 .social-links li a:hover {
-  color: #fff;
+  color: #0feb9e;
 }
 
 .carousel-indicators {
@@ -261,7 +257,7 @@ top: -8px;
 }
 
 .carousel-indicators li {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid white;
   height: 8px;
   width: 8px;
 }
