@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +23,7 @@ $apellido = $row["apellido"];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modificar Productos</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -56,7 +55,7 @@ $apellido = $row["apellido"];
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>
-                        <h2><?php echo "$nombre $apellido" ?></h2>
+                        <h2><?php echo $nombreyapellido; ?></h2>
                     </div>
                 </div>
                 <br />
@@ -68,10 +67,10 @@ $apellido = $row["apellido"];
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     <li><a href="form_validation.php">Ingresar Productos</a></li>
                                     <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                     <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -117,9 +116,9 @@ $apellido = $row["apellido"];
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <?php  if ($existe == true) { ?>
-                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } else { ?>
-                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -155,7 +154,7 @@ $apellido = $row["apellido"];
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id del Producto a Modificar <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12" placeholder="Id">
+                                            <input type="text" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
                                             <center>
                                                 <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
                                             </center>
@@ -164,24 +163,25 @@ $apellido = $row["apellido"];
                                 </div>
                         </div>
                         <?php
-                        include_once 'conex.php';
-                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                        $bus = "SELECT idprod FROM public.productos";
-                        $bu = pg_query($bus);
-                        $desp = "SELECT nombrestado FROM public.estado";
-                        $lis = pg_query($desp);
-                        $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4";
-                        $vend = pg_query($usrVend);
                         if ($_POST){
-                        $idproducto = $_POST["idprod"];
-                        $idprod = (int) $idproducto;
-                        if ($_POST["buscar"]){
-                        while($busq = pg_fetch_array($bu)){
-                        if ($busq ["idprod"] == $idprod){
-                        $llen = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod =$idprod ";
-                        $result2 = pg_query($llen);
-                        if($result2){
-                        if(pg_num_rows($result2)>0){
+                            $idproducto = $_POST["idprod"];
+                            $idprod = (int) $idproducto;
+                            if ($_POST["buscar"]){
+                                $prod = $admin->get_Productos();
+                                $rows = count($prod);
+                                for ($i = 0; $i < $rows; $i++){
+                                    if ($prod[$i][0] == $idprod){
+                                        $on = 1;
+                                        $admin->find_Prod($idprod);
+                                        $datos = $admin->get_LlenarFormProd($idprod);
+                                    }
+                                }
+                                if ($on == 0){
+                                    echo "<script>alert('No existe un producto con ese número de Id, intente de nuevo por favor.')</script>";
+                                    echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+                                }
+                            }
+                        }else {
                         ?>
                     </div>
                 </div>
@@ -192,226 +192,159 @@ $apellido = $row["apellido"];
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Estado Actual</th>
-                <th>Cantidad</th>
-                <th>Costo Producto</th>
-                <th>Costo Venta</th>
+                <th>Cantidad (Kilos)</th>
+                <th>Costo Producto ($)</th>
+                <th>Costo Total ($)</th>
                 <th>Ubicación</th>
                 <th>Vendedor</th>
             </tr>
             </thead>
-            <?php while ($row = pg_fetch_object($result2)) { ?>
+            <tbody>
+            <?php
+            $product = $admin->get_Productos();
+            $rows = count($product);
+            for ($i = 0; $i < $rows; $i++){  ?>
                 <tr>
-                    <td><?php echo $row->idprod ?></td>
-                    <td><?php echo $row->nombre ?></td>
-                    <td><?php echo $row->nombretipo ?></td>
-                    <td><?php echo $row->estado ?></td>
-                    <td><?php echo $row->cantidad ?></td>
-                    <td><?php echo $row->costo ?></td>
-                    <td><?php echo $row->venta ?></td>
-                    <td><?php echo $row->ubicacion ?></td>
-                    <td><?php echo $row->vendedor ?></td>
+                    <td><?php echo $product[$i][0]; ?></td>
+                    <td><?php echo $product[$i][1]; ?></td>
+                    <td><?php echo $product[$i][2]; ?></td>
+                    <td><?php echo $product[$i][3]; ?></td>
+                    <td><?php echo $product[$i][4]; ?></td>
+                    <td><?php echo $product[$i][5]; ?></td>
+                    <td><?php echo $product[$i][6]; ?></td>
+                    <td><?php echo $product[$i][7]; ?></td>
+                    <td><?php echo $product[$i][8]; ?></td>
                 </tr>
                 <?php
             }
+                             }
+                             ?>
+            <form class="form-horizontal form-label-left input_mask" method="post">
+                <center>
+                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form_validation.php'"/>
+            </form>
+            </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+            <?php
+            if ($_POST){
+                if ($_POST["Enviar"]){
+                    $admin->update_Productos();
+                }
+                if ($_POST["Eliminar"]){
+                    $admin->delete_Prod();
+                }
             }
-            }
-            $llenarcas = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod = '$idprod' ";
-            $llen = pg_query($llenarcas);
-            $z = pg_fetch_assoc($llen);
-            }
-            }
-            }
-            }else {
-            $hccQuery2 = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo ORDER BY idprod";
-            $result2 = pg_query($cnx, $hccQuery2);
-            if($result2){
-            if(pg_num_rows($result2)>0){
             ?>
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id del Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][0] ?>" style="display:none">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][1] ?>">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="tiposlist">
+                            <?php
+                            $tipoProd = $admin->get_TipoProducto();
+                            $rows = count($tipoProd);
+                            for ($i = 0; $i < $rows; $i++) {
+                                ?>
+                                <option value="<?php echo $tipoProd[$i][1] ?>"><?php echo $tipoProd[$i][1]; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="estadolist">
+                            <?php
+                            $est = $admin->get_EstadosProd();
+                            $rows = count($est);
+                            for ($i = 0; $i < $rows; $i++) {
+                                ?>
+                                <option value="<?php echo $est[$i][0] ?>"><?php echo $est[$i][0]; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos) <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($) <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($) <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6] ?>">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][7] ?>">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="vendedoreslist">
+                            <?php
+                            $vendedores = $admin->get_Vendedores();
+                            $rows = count($vendedores);
+                            for ($i = 0; $i < $rows; $i++){
+                                ?>
+                                <option value="<?php echo $vendedores[$i][0] ?>"><?php echo $vendedores[$i][0]; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <center>
+                            <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
+                            <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Actualizar">
+                            <input type=button value="Ver Productos" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
+                        </center>
+                    </div>
+                </div
+            </form>
         </div>
     </div>
-</div>
-<thead>
-<tr>
-    <th>Id Producto</th>
-    <th>Nombre</th>
-    <th>Tipo</th>
-    <th>Estado Actual</th>
-    <th>Cantidad</th>
-    <th>Costo Producto</th>
-    <th>Costo Venta</th>
-    <th>Ubicación</th>
-    <th>Vendedor</th>
-</tr>
-</thead>
-<tbody>
-<?php while ($row = pg_fetch_object($result2)) {  ?>
-    <tr>
-        <td><?php echo $row->idprod ?></td>
-        <td><?php echo $row->nombre ?></td>
-        <td><?php echo $row->nombretipo ?></td>
-        <td><?php echo $row->estado ?></td>
-        <td><?php echo $row->cantidad ?></td>
-        <td><?php echo $row->costo ?></td>
-        <td><?php echo $row->venta ?></td>
-        <td><?php echo $row->ubicacion ?></td>
-        <td><?php echo $row->vendedor ?></td>
-    </tr>
-    <?php
-}
-            }
-}
-                        }
-?>
-<form class="form-horizontal form-label-left input_mask" method="post">
-    <center>
-        <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form_validation.php'"/>
-</form>
-</tbody>
-</table>
-<?php
-$tipoprod = "SELECT idtipo, nombretipo from public.tipoprod";
-$listip = pg_query($tipoprod);
-if ($_POST){
-    if ($_POST["Enviar"]){
-        $idedelproducto = $_POST["idproduc"];
-        $idpro = (int) $idedelproducto;
-        $nomprod = $_POST["nomprod"];
-        $tipoprod = $_POST["tiposlist"];
-        $tp = "select idtipo from public.tipoprod WHERE nombretipo = '$tipoprod'";
-        $qtp = pg_query($tp);
-        $tipofetch = pg_fetch_array($qtp);
-        $tipoproducto = $tipofetch['idtipo'];
-        $cantidad = $_POST["cant"];
-        $costoprod = $_POST["costo"];
-        $ventaprod = $_POST["venta"];
-        $estado = $_POST["estadolist"];
-        $cant = (int) $cantidad;
-        $cost = (int) $costoprod;
-        $venta = (int) $ventaprod;
-        $ubicacion = $_POST["ubicacion"];
-        $vendedor = $_POST["vendedoreslist"];
-        $result =pg_query($cnx, "UPDATE public.productos SET nombre = '$nomprod', tipo='$tipoproducto', estado='$estado', cantidad=$cant, costo=$cost, venta=$venta, ubicacion='$ubicacion', vendedor='$vendedor' where idprod =$idpro");
-        echo"<script>alert('Registrio Actualizado Correctamente');
-        window.location.href='modProd.php';
-            </script>";
-    }
-    if ($_POST["Eliminar"]){
-        $idedelproducto = $_POST["idproduc"];
-        $idpro = (int) $idedelproducto;
-        if ($idpro == 0){
-            echo"<script>alert('Busque primero la id del producto a eliminar');
-            window.location.href='modProd.php';
-                 </script>";
-        } else
-            $borrar = pg_query($cnx, "delete from public.productos where idprod=$idpro");
-        echo"<script>alert('Registrio Eliminado Correctamente');
-             window.location.href='modProd.php';
-             </script>";
-    }
-}
-?>
-<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id del Producto<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['idprod'] ?>" style="display:none">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['nombre'] ?>">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="tiposlist">
-                <?php
-                while ( $tipos = pg_fetch_array($listip)){
-                    ?>
-                    <option value="<?php echo $tipos['nombretipo'] ?>"><?php echo $tipos['nombretipo']; ?></option>
-                    <?php
-                }
-                ?>
-            </select>
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="estadolist">
-                <?php
-                while ( $lisdesp = pg_fetch_array($lis)){
-                    ?>
-                    <option value="<?php echo $lisdesp['nombrestado'] ?>"><?php echo $lisdesp['nombrestado']; ?></option>
-                    <?php
-                }
-                ?>
-            </select>
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['cantidad'] ?>">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['costo'] ?>">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['venta'] ?>">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['ubicacion'] ?>">
-        </div>
-    </div>
-    <div class="item form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="vendedoreslist">
-                <?php
-                while ( $vendlis = pg_fetch_array($vend)){
-                    ?>
-                    <option value="<?php echo $vendlis['nombreuser'] ?>"><?php echo $vendlis['nombreuser']; ?></option>
-                    <?php
-                }
-                ?>
-            </select>
-        </div>
-    </div>
-    <div class="ln_solid"></div>
-    <div class="form-group">
-        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-            <center>
-                <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
-                <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
-                <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
-            </center>
-        </div>
-    </div
-    <?php pg_close($cnx) ?>
-</form>
-</div>
-</div>
 </div>
 </div>
 <footer>

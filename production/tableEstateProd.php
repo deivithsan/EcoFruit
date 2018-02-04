@@ -1,22 +1,20 @@
-    <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+<?php
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +25,7 @@ $apellido = $row["apellido"];
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Estado de los Productos</title>
+        <link rel="shortcut icon" href="../img/icono.ico">
         <!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -67,7 +66,7 @@ $apellido = $row["apellido"];
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
-                            <h2><?php echo "$nombre $apellido" ?></h2>
+                            <h2><?php echo $nombreyapellido; ?></h2>
                         </div>
                     </div>
                     <br />
@@ -79,10 +78,10 @@ $apellido = $row["apellido"];
                                 </li>
                                 <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                         <li><a href="form_validation.php">Ingresar Productos</a></li>
                                         <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                         <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -130,9 +129,9 @@ $apellido = $row["apellido"];
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <?php  if ($existe == true) { ?>
-                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                     <?php  } else { ?>
-                                        <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                     <?php  } ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
@@ -147,15 +146,6 @@ $apellido = $row["apellido"];
 
             <div class="right_col" role="main">
                 <div class="">
-                    <div class="page-title">
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="clearfix"></div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
@@ -170,14 +160,6 @@ $apellido = $row["apellido"];
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <?php
-                                include_once 'conex.php';
-                                $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                                $hccQuery5 = "SELECT * FROM public.estado ORDER BY codest";
-                                $result5 = pg_query($cnx, $hccQuery5);
-                                if($result5){
-                                    if(pg_num_rows($result5)>0){
-                                ?>
                                 <table id="datatable-users" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -185,21 +167,23 @@ $apellido = $row["apellido"];
                                         <th>Nombre</th>
                                     </tr>
                                     </thead>
-                                    <?php while ($row = pg_fetch_object($result5)) { ?>
-                                    <tr>
-                                        <td><?php echo $row->codest ?></td>
-                                        <td><?php echo $row->nombrestado ?></td>
-                                    </tr>
-                                        <?php
-                                    }
-                                        }
-                                    }
+                                    <?php
+                                    $estado = $admin->get_EstadosProd();
+                                    $rows = count($estado);
+                                    for ($i = 0; $i < $rows; $i++){
                                     ?>
+                                    <tr>
+                                        <td><?php echo $estado[$i][1] ?></td>
+                                        <td><?php echo $estado[$i][0] ?></td>
+                                    </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+                </div>
+                </div>
                 </div>
 
                 <footer>

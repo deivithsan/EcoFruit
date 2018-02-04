@@ -1,7 +1,8 @@
 <?php
     session_start();
-    include 'conex.php';
-    $cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
     if (isset($_SESSION['user'])){
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
@@ -12,12 +13,8 @@
     } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
-?>
+    $nombreyapellido = $admin->get_NombreApellido();
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +58,7 @@ $apellido = $row["apellido"];
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>
-                        <h2><?php echo "$nombre $apellido" ?></h2>
+                        <h2><?php echo $nombreyapellido; ?></h2>
                     </div>
                 </div>
                 <br />
@@ -73,10 +70,10 @@ $apellido = $row["apellido"];
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     <li><a href="form_validation.php">Ingresar Productos</a></li>
                                     <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                     <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-table"></i>Visualizar<span class="fa fa-chevron-down"></span></a>
@@ -124,9 +121,9 @@ $apellido = $row["apellido"];
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <?php  if ($existe == true) { ?>
-                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } else { ?>
-                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -144,39 +141,31 @@ $apellido = $row["apellido"];
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <?php
-                    $sql = "select tipousuario from public.usuarios where tipousuario = 3 OR tipousuario = 4";
-                    $result = pg_query($sql);
-                    $comp = pg_num_rows($result);
+                    $compradores = $conex->get_Compradores();
                     ?>
                     <span class="count_top"><i class="fa fa-users"></i>  Compradores</span>
-                    <div class="count green"><?php echo $comp;?></div>
+                    <div class="count green"><?php echo $compradores;?></div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <?php
-                    $sql2 = "select tipousuario from public.usuarios where tipousuario = 2 OR tipousuario = 4";
-                    $result2 = pg_query($sql2);
-                    $comp2 = pg_num_rows($result2);
+                    $vendedores = $conex->get_Vendedores();
                     ?>
                     <span class="count_top"><i class="fa fa-users"></i> Vendedores</span>
-                    <div class="count"><?php echo $comp2;?></div>
+                    <div class="count"><?php echo $vendedores;?></div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <?php
-                    $sql4 = "select * from public.compra";
-                    $result4 = pg_query($sql4);
-                    $comp4 = pg_num_rows($result4);
+                    $compras = $conex->get_Compras();
                     ?>
                     <span class="count_top"><i class="fa fa-trophy"></i> Compras Concretadas</span>
-                    <div class="count green"><?php echo $comp4;?></div>
+                    <div class="count green"><?php echo $compras;?></div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <?php
-                    $sql3 = "select * from public.productos where estado='Activo'";
-                    $result3 = pg_query($sql3);
-                    $comp3 = pg_num_rows($result3);
+                    $frutas = $conex->get_Frutas();
                     ?>
                     <span class="count_top"><i class="fa fa-shopping-cart"></i> Frutas disponibles</span>
-                    <div class="count"><?php echo $comp3;?></div>
+                    <div class="count"><?php echo $frutas;?></div>
                 </div>
             </div>
 
@@ -194,14 +183,13 @@ $apellido = $row["apellido"];
                     </div>
                 </div>
             </div>
-
-            <footer>
-                <div class="pull-right">
-                    <a href="../index.php">EcoFruit</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
         </div>
+        <footer>
+            <div class="pull-right">
+                <a href="../index.php">EcoFruit</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
     </div>
 
     <!-- jQuery -->

@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +25,7 @@ $apellido = $row["apellido"];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Compras</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -66,7 +65,7 @@ $apellido = $row["apellido"];
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>
-                        <h2><?php echo "$nombre $apellido" ?></h2>
+                        <h2><?php echo $nombreyapellido; ?></h2>
                     </div>
                 </div>
                 <br />
@@ -79,13 +78,13 @@ $apellido = $row["apellido"];
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     <li><a href="form_validation.php">Ingresar Productos</a></li>
                                     <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                     <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-table"></i> Visualizar <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy.php"> Compras </a></li>
                                     <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
@@ -130,9 +129,9 @@ $apellido = $row["apellido"];
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <?php  if ($existe == true) { ?>
-                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } else { ?>
-                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -147,14 +146,7 @@ $apellido = $row["apellido"];
 
         <div class="right_col" role="main">
             <div class="">
-                <div class="page-title">
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -170,14 +162,6 @@ $apellido = $row["apellido"];
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <?php
-                            include_once 'conex.php';
-                            $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                            $hccQuery = "SELECT * FROM public.compra ORDER BY idcompra";
-                            $result = pg_query($cnx, $hccQuery);
-                            if($result){
-                                if(pg_num_rows($result)>0){
-                            ?>
                             <table id="datatable-buttons" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
@@ -186,8 +170,8 @@ $apellido = $row["apellido"];
                                     <th>Nombre Producto</th>
                                     <th>Estado del Producto</th>
                                     <th>Cantidad Disponible del Producto</th>
-                                    <th>Costo Por Unidad</th>
-                                    <th>Cantidad Comprada</th>
+                                    <th>Costo Por Unidad ($)</th>
+                                    <th>Cantidad Comprada (Kilos)</th>
                                     <th>Número de Celular Comprador</th>
                                     <th>Número de Cedula Comprador</th>
                                     <th>Vendedor del Producto</th>
@@ -197,28 +181,39 @@ $apellido = $row["apellido"];
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php while ($row = pg_fetch_object($result)) { ?>
+                                <?php
+                                $compras= $admin->get_Compras();
+                                $rows = count($compras);
+                                for ($i = 0; $i < $rows; $i++) {?>
                                 <tr>
-                                    <td><?php echo $row->idcompra ?></td>
-                                    <td><?php echo $row->idprod ?></td>
-                                    <td><?php echo $row->nombreprod ?></td>
-                                    <td><?php echo $row->estado ?></td>
-                                    <td><?php echo $row->cantdisp ?></td>
-                                    <td><?php echo $row->costuni ?></td>
-                                    <td><?php echo $row->cantbuy ?></td>
-                                    <td><?php echo $row->numced ?></td>
-                                    <td><?php echo $row->numcel ?></td>
-                                    <td><?php echo $row->vendedorprod ?></td>
-                                    <td><?php echo $row->comprador ?></td>
-                                    <td><?php echo $row->valoracion ?></td>
-                                    <td><?php echo $row->infoval ?></td>
+                                    <td><?php echo $compras[$i][0] ?></td>
+                                    <td><?php echo $compras[$i][1] ?></td>
+                                    <td><?php echo $compras[$i][2] ?></td>
+                                    <td><?php echo $compras[$i][3] ?></td>
+                                    <td><?php echo $compras[$i][4] ?></td>
+                                    <td><?php echo $compras[$i][5] ?></td>
+                                    <td><?php echo $compras[$i][6] ?></td>
+                                    <td><?php echo $compras[$i][7] ?></td>
+                                    <td><?php echo $compras[$i][8] ?></td>
+                                    <td><?php echo $compras[$i][9] ?></td>
+                                    <td><?php echo $compras[$i][10] ?></td>
+                                    <td><?php echo $compras[$i][11] ?></td>
+                                    <td><?php echo $compras[$i][12] ?></td>
                                 </tr>
-                                    <?php } } }  ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <center>
+                                        <input type=button value="Modificar Compras" class="btn btn-success" onclick = "location='modBuy.php'"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
 
             <footer>

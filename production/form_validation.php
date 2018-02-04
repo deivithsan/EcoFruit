@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +24,7 @@ $apellido = $row["apellido"];
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Ingresar Productos</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +59,7 @@ $apellido = $row["apellido"];
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
-                            <h2><?php echo "$nombre $apellido" ?></h2>
+                            <h2><?php echo $nombreyapellido; ?></h2>
                         </div>
                     </div>
                     <br />
@@ -72,10 +71,10 @@ $apellido = $row["apellido"];
                                 </li>
                                 <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                         <li><a href="form_validation.php">Ingresar Productos</a></li>
                                         <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                         <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                        <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -121,9 +120,9 @@ $apellido = $row["apellido"];
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <?php  if ($existe == true) { ?>
-                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                     <?php  } else { ?>
-                                        <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                     <?php  } ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
@@ -137,9 +136,17 @@ $apellido = $row["apellido"];
             </div>
             <div class="right_col" role="main">
                 <div class="">
-                </div>
+                    <div class="page-title">
+                        <div class="title_left">
+                        </div>
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <div class="clearfix"></div>
-                <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
@@ -155,33 +162,11 @@ $apellido = $row["apellido"];
                             <div class="x_content">
                                 <form class="form-horizontal form-label-left" method="post">
                                     <?php
-                                    include_once 'conex.php';
-                                    $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                                    $desp = "SELECT nombrestado FROM public.estado";
-                                    $lis = pg_query($desp);
-                                    $usrVend = "SELECT nombreuser from public.usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC ";
-                                    $vend = pg_query($usrVend);
-                                    $tipoprod = "SELECT idtipo, nombretipo from public.tipoprod";
-                                    $listip = pg_query($tipoprod);
+                                    $tipoProd= $admin->get_TipoProducto();
+                                    $estadosProd = $admin->get_EstadosProd();
+                                    $vendedores = $admin->get_Vendedores();
                                     if ($_POST){
-                                        $nomprod = $_POST["nomprod"];
-                                        $tipoprod = $_POST["tiposlist"];
-                                        $tp = "select idtipo from public.tipoprod WHERE nombretipo = '$tipoprod'";
-                                        $qtp = pg_query($tp);
-                                        $tipofetch = pg_fetch_array($qtp);
-                                        $tipoproducto = $tipofetch['idtipo'];
-                                        $cantidad = $_POST["cant"];
-                                        $costoprod = $_POST["costo"];
-                                        $ventaprod = $_POST["venta"];
-                                        $estado = $_POST["estadolist"];
-                                        $cant = (int) $cantidad;
-                                        $cost = (int) $costoprod;
-                                        $venta = (int) $ventaprod;
-                                        $ubicacion = $_POST["ubicacion"];
-                                        $vendedor = $_POST["vendedoreslist"];
-                                        $result =pg_query($cnx, "INSERT INTO public.productos (nombre, tipo, estado, cantidad, costo, venta, ubicacion, vendedor) VALUES('$nomprod',$tipoproducto, '$estado', '$cant','$cost','$venta', '$ubicacion','$vendedor');");
-                                        echo"<script>alert('Registrio Agregado Correctamente');
-                                        window.location.href='form_validation.php';</script>";
+                                        $admin->insert_Productos();
                                     }
                                     ?>
                                     <div class="item form-group">
@@ -196,8 +181,8 @@ $apellido = $row["apellido"];
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="tiposlist">
-                                                <?php while ( $tipos = pg_fetch_array($listip)){?>
-                                                    <option value="<?php echo $tipos['nombretipo'] ?>"><?php echo $tipos['nombretipo']; ?></option>
+                                                <?php for ($i=0; $i<sizeof($tipoProd); $i++){?>
+                                                    <option value="<?php echo $tipoProd[$i]["nombretipo"] ?>"><?php echo $tipoProd[$i]['nombretipo']; ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -210,9 +195,9 @@ $apellido = $row["apellido"];
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="estadolist">
                                                 <?php
-                                                while ( $lisdesp = pg_fetch_array($lis)){
+                                                for ($i=0; $i<sizeof($estadosProd); $i++){
                                                     ?>
-                                                    <option value="<?php echo $lisdesp['nombrestado'] ?>"><?php echo $lisdesp['nombrestado']; ?></option>
+                                                    <option value="<?php echo $estadosProd[$i]["nombrestado"] ?>"><?php echo $estadosProd[$i]["nombrestado"]; ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -220,21 +205,21 @@ $apellido = $row["apellido"];
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad <span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad <span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad ($)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Venta Total <span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Valor Total ($)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12">
@@ -253,23 +238,24 @@ $apellido = $row["apellido"];
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="vendedoreslist">
                                                 <?php
-                                                while ( $vendlis = pg_fetch_array($vend)){
+                                                for ($i=0; $i<sizeof($vendedores); $i++){
                                                     ?>
-                                                    <option value="<?php echo $vendlis['nombreuser'] ?>"><?php echo $vendlis['nombreuser']; ?></option>
+                                                    <option value="<?php echo $vendedores[$i]["nombreuser"] ?>"><?php echo $vendedores[$i]["nombreuser"]; ?></option>
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                                    <div class="ln_solid"></div>
                                     <div class="form-group">
-                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <center>
                                             <input type="submit" class="btn btn-success">
                                             <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                                            <input type=button value="Ver Productos" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
                                         </div>
                                     </div>
-                                    <?php pg_close($cnx) ?>
                                     <script language=javascript>
                                         function limpiar3(){
                                             document.getElementById('nomprod').value = "";
@@ -283,6 +269,8 @@ $apellido = $row["apellido"];
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    </div>
                     </div>
                     <footer>
                         <div class="pull-right">

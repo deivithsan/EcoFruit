@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +23,7 @@ $apellido = $row["apellido"];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modificar Información de Usuarios</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -65,7 +64,7 @@ $apellido = $row["apellido"];
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>
-                        <h2><?php echo "$nombre $apellido" ?></h2>
+                        <h2><?php echo $nombreyapellido; ?></h2>
                     </div>
                 </div>
                 <br />
@@ -77,10 +76,10 @@ $apellido = $row["apellido"];
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                     <li><a href="form_validation.php">Ingresar Productos</a></li>
                                     <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                     <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                    <li><a href="form.php">Ingresar Información Usuario</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -126,9 +125,9 @@ $apellido = $row["apellido"];
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <?php  if ($existe == true) { ?>
-                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } else { ?>
-                                    <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                    <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                 <?php  } ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -143,16 +142,6 @@ $apellido = $row["apellido"];
 
         <div class="right_col" role="main">
             <div class="">
-                <div class="page-title">
-                    <div class="title_left">
-                    </div>
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -173,7 +162,7 @@ $apellido = $row["apellido"];
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Usuario a Modificar <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-1">
-                                            <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12" placeholder="Nombre de Usuario">
+                                            <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12" placeholder="Nombre De Usuario">
                                             <center>
                                                 <input type="submit" class="btn btn-success" style="display:inline" name="buscar" id="buscar" value="Buscar">
                                             </center>
@@ -189,14 +178,23 @@ $apellido = $row["apellido"];
                         if ($_POST){
                             if ($_POST["buscar"]){
                                 $nomus = $_POST["nombreusuario"];
-                                while($busq = pg_fetch_array($bu)){
-                                    if ($busq ["nombreuser"] == $nomus){
-                                    $llen = "SELECT * from public.infousuarios where nombreuser ='$nomus' ";
-                                    $llenar = pg_query($llen);
-                                        if($llenar){
-                                            if(pg_num_rows($llenar)>0){
-                                                ?>
-                                    </div>
+                                $infouser = $admin->get_InfoUsers();
+                                $rows = count($infouser);
+                                for ($i = 0; $i < $rows; $i++){
+                                    if ($infouser[$i][1] == $nomus){
+                                        $on = 1;
+                                        $admin->get_UserfromInfo($nomus);
+                                        $datos = $admin->get_LlenarFormInfoUsers($nomus);
+                                    }
+                                }
+                                if ($on == 0){
+                                    echo "<script>alert('No existe una cuenta con ese nombre de usuario, intente de nuevo por favor.')</script>";
+                                    echo "<script type=\"text/javascript\">window.location='modInfo.php'</script>";
+                                }
+                            }
+                        }else {
+                            ?>
+                    </div>
                 </div>
             </div>
             <thead>
@@ -211,141 +209,90 @@ $apellido = $row["apellido"];
                 <th>Número de Cedula</th>
             </tr>
             </thead>
+            <tbody>
             <?php
-            while ($row = pg_fetch_object($llenar)) {
+            $infoUs = $admin->get_InfoUsers();
+            $rows = count($infoUs);
+            for ($i = 0; $i < $rows; $i++){
                 ?>
                 <tr>
-                    <td><?php echo $row->iduser ?></td>
-                    <td><?php echo $row->nombreuser ?></td>
-                    <td><?php echo $row->nombre ?></td>
-                    <td><?php echo $row->apellido ?></td>
-                    <td><?php echo $row->correo ?></td>
-                    <td><?php echo $row->telefono ?></td>
-                    <td><?php echo $row->direccion ?></td>
-                    <td><?php echo $row->cedula ?></td>
+                    <td><?php echo $infoUs[$i][0]; ?></td>
+                    <td><?php echo $infoUs[$i][1]; ?></td>
+                    <td><?php echo $infoUs[$i][2]; ?></td>
+                    <td><?php echo $infoUs[$i][3]; ?></td>
+                    <td><?php echo $infoUs[$i][4]; ?></td>
+                    <td><?php echo $infoUs[$i][5]; ?></td>
+                    <td><?php echo $infoUs[$i][6]; ?></td>
+                    <td><?php echo $infoUs[$i][7]; ?></td>
                 </tr>
                 <?php
             }
-            }
-            }
-            $llenarcas = "SELECT * from public.infousuarios where nombreuser ='$nomus' ";
-            $llen = pg_query($llenarcas);
-            $z = pg_fetch_assoc($llen);
-            }
-            }
-            }
-            }else {
-            $hccQuery = "SELECT * FROM public.infousuarios ORDER BY iduser";
-            $result = pg_query($cnx, $hccQuery);
-            if($result){
-            if(pg_num_rows($result)>0){
-            ?>
-        </div>
+                        }
+                        ?>
+            <form class="form-horizontal form-label-left input_mask" method="post">
+                <center>
+                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
+            </form>
+            </tbody>
+            </table>
+            </div>
     </div>
 </div>
-<thead>
-<tr>
-    <th>Id Usuario</th>
-    <th>Nombre de Usuario</th>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th>Correo</th>
-    <th>Telefono</th>
-    <th>Dirección</th>
-    <th>Número de Cedula</th>
-</tr>
-</thead>
-<tbody>
-<?php while ($row = pg_fetch_object($result)) {
-    ?>
-    <tr>
-        <td><?php echo $row->iduser ?></td>
-        <td><?php echo $row->nombreuser ?></td>
-        <td><?php echo $row->nombre ?></td>
-        <td><?php echo $row->apellido ?></td>
-        <td><?php echo $row->correo ?></td>
-        <td><?php echo $row->telefono ?></td>
-        <td><?php echo $row->direccion ?></td>
-        <td><?php echo $row->cedula ?></td>
-    </tr>
-    <?php
-}
+            <?php
+            if ($_POST){
+                if ($_POST["Enviar"]){
+                    $admin->update_InfoUser();
+                }
             }
-}
-                        }
-?>
-<form class="form-horizontal form-label-left input_mask" method="post">
-    <center>
-        <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form.php'"/>
-</form>
-</tbody>
-</table>
-<?php
-if ($_POST){
-    if ($_POST["Enviar"]){
-        $nameuser =$_POST["nomuser"];
-        $name = $_POST["nombre"];
-        $apell = $_POST["apellido"];
-        $email = $_POST["correo"];
-        $numerotel = $_POST["telefono"];
-        $dir = $_POST["direccion"];
-        $cedul = $_POST["cedula"];
-        $tel = (int) $numerotel;
-        $ced = (int) $cedul;
-        $dat = 0;
-        $result =pg_query($cnx, "UPDATE public.infousuarios SET nombre ='$name',apellido = '$apell', correo='$email', telefono=$tel, direccion='$dir', cedula=$ced where nombreuser = '$nameuser'");
-        echo"<script>alert('Registrio Actualizado Correctamente')</script>";
-    }
-}
-?>
+            ?>
 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
     <div class="form-group">
         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="nomuser" name="nomuser"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $z['nombreuser'] ?>">
+            <input type="text" id="nomuser" name="nomuser"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $datos[0][1]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $z['nombre'] ?>">
+            <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][2]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $z['apellido'] ?>">
+            <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $datos[0][3]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo" value="<?php echo $z['correo'] ?>">
+            <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo" value="<?php echo $datos[0][4]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono" value="<?php echo $z['telefono'] ?>">
+            <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono" value="<?php echo $datos[0][5]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion" value="<?php echo $z['direccion'] ?>">
+            <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion" value="<?php echo $datos[0][6]; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula" value="<?php echo $z['cedula'] ?>">
+            <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula" value="<?php echo $datos[0][7]; ?>">
         </div>
     </div>
     <div class="ln_solid"></div>
@@ -353,11 +300,12 @@ if ($_POST){
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
             <center>
                 <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
-                <input type=button value="Ver Cambios" class="btn btn-success" onclick = "location='tableInfoUsr.php'"/>
+                <input type=button value="Ver Información de Usuarios" class="btn btn-success" onclick = "location='tableInfoUsr.php'"/>
         </div>
     </div>
-    <?php pg_close($cnx)?>
 </form>
+</div>
+</div>
 </div>
 </div>
 </div>

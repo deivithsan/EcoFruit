@@ -1,31 +1,28 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EcoFruit!</title>
-
+    <title>Ingresar Información del Usuario</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -68,7 +65,7 @@ $apellido = $row["apellido"];
                             </div>
                             <div class="profile_info">
                                 <span>Bienvenido,</span>
-                                <h2><?php echo "$nombre $apellido" ?></h2>
+                                <h2><?php echo $nombreyapellido; ?></h2>
                             </div>
                         </div>
                         <br />
@@ -80,9 +77,9 @@ $apellido = $row["apellido"];
                                     </li>
                                     <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
+                                            <li><a href="form.php">Ingresar Información Usuario</a></li>
                                             <li><a href="form_validation.php">Ingresar Productos</a></li>
                                             <li><a href="formPriv.php">Ingresar Privilegios</a></li>
-                                            <li><a href="form.php">Ingresar Información Usuario</a></li>
                                             <li><a href="adduser.php">Ingresar Usuarios</a></li>
                                         </ul>
                                     </li>
@@ -129,9 +126,9 @@ $apellido = $row["apellido"];
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <?php  if ($existe == true) { ?>
-                                            <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                            <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                         <?php  } else { ?>
-                                            <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                            <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                         <?php  } ?>
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
@@ -156,7 +153,6 @@ $apellido = $row["apellido"];
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
                                     <div class="x_title">
@@ -172,37 +168,8 @@ $apellido = $row["apellido"];
                                     <div class="x_content">
                                         <br />
                                         <?php
-                                        include_once 'conex.php';
-                                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                                         if ($_POST){
-                                            if ($_POST["Enviar"]){
-                                                $nomus = $_POST["nombreusuario"];
-                                                $name = $_POST["nombre"];
-                                                $apell = $_POST["apellido"];
-                                                $email = $_POST["correo"];
-                                                $numerotel = $_POST["telefono"];
-                                                $dir = $_POST["direccion"];
-                                                $cedul = $_POST["cedula"];
-                                                $tel = (int) $numerotel;
-                                                $ced = (int) $cedul;
-                                                $dat = 0;
-                                                $validar = "SELECT nombreuser from public.usuarios";
-                                                $busqueda =pg_query($validar);
-                                                while($comparar = pg_fetch_array($busqueda)){
-                                                    if ($comparar ["nombreuser"] == $nomus){
-                                                        $dat = 0;
-                                                        break;
-                                                    }else{
-                                                        $dat = 1;
-                                                    }
-                                                }
-                                                if($dat == 0){
-                                                    $result =pg_query($cnx, "INSERT INTO public.infousuarios (nombreuser, nombre, apellido, correo, telefono, direccion, cedula) VALUES('$nomus', '$name', '$apell','$email',$tel,'$dir',$ced);");
-                                                    echo"<script>alert('Registrio Agregado Correctamente')</script>";
-                                                }elseif ($dat == 1) {
-                                                    echo"<script>alert('No existe una cuenta con ese nombre de usuario')</script>";
-                                                }
-                                            }
+                                            $admin->make_InfoUser();
                                         }
                                         ?>
                                         <form class="form-horizontal form-label-left" method="post">
@@ -258,14 +225,12 @@ $apellido = $row["apellido"];
                                             <div class="ln_solid"></div>
                                             <div class="form-group">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                    <center>
                                                     <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                                                     <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
-                                                    <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='modInfo.php'"/>
+                                                    <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='tableInfoUsr.php'"/>
                                                 </div>
                                             </div>
-                                            <?php
-                                            pg_close($cnx)
-                                            ?>
                                             <script language=javascript>
                                                 function limpiar(){
                                                     document.getElementById('nombreusuario').value = "";
@@ -281,6 +246,7 @@ $apellido = $row["apellido"];
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
 
                         <footer>

@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +23,8 @@ $apellido = $row["apellido"];
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Ingresar Privilegios</title>
+      <link rel="shortcut icon" href="../img/icono.ico">
+
 
       <!-- Bootstrap -->
       <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,7 +68,7 @@ $apellido = $row["apellido"];
                           </div>
                           <div class="profile_info">
                               <span>Bienvenido,</span>
-                              <h2><?php echo "$nombre $apellido" ?></h2>
+                              <h2><?php echo $nombreyapellido; ?></h2>
                           </div>
                       </div>
                       <br />
@@ -80,10 +80,10 @@ $apellido = $row["apellido"];
                                   </li>
                                   <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                       <ul class="nav child_menu">
+                                          <li><a href="form.php">Ingresar Información Usuario</a></li>
                                           <li><a href="form_validation.php">Ingresar Productos</a></li>
                                           <li><a href="formPriv.php">Ingresar Privilegios</a></li>
                                           <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                          <li><a href="form.php">Ingresar Información Usuario</a></li>
                                       </ul>
                                   </li>
                                   <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -129,9 +129,9 @@ $apellido = $row["apellido"];
                               <li class="">
                                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                       <?php  if ($existe == true) { ?>
-                                          <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                          <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                       <?php  } else { ?>
-                                          <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                          <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                       <?php  } ?>
                                       <span class=" fa fa-angle-down"></span>
                                   </a>
@@ -172,30 +172,8 @@ $apellido = $row["apellido"];
                                   </div>
                                   <div class="x_content">
                                       <?php
-                                      include_once 'conex.php';
-                                      $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
                                       if ($_POST){
-                                          if ($_POST["Enviar2"]){
-                                              $nompriv = $_POST["nombrepriv"];
-                                              $numeroprivilegio = $_POST["numpriv"];
-                                              $numpriv = (int) $numeroprivilegio;
-                                              $num = 0;
-                                              $validar3 = "SELECT privil from public.privilegio";
-                                              $busqueda3 =pg_query($validar3);
-                                              while($comparar3 = pg_fetch_array($busqueda3)){
-                                                  if ($comparar3 ["privil"] == $numpriv){
-                                                      echo"<script>alert('Ese Numero de Privilegio ya esta Asignado. ')</script>";
-                                                      $num = 1;
-                                                      break;
-                                                  }else{
-                                                      $num = 0;
-                                                  }
-                                              }
-                                              if ($num == 0){
-                                                  $result3 =pg_query($cnx, "INSERT INTO public.Privilegio (nombre, privil) VALUES('$nompriv', '$numpriv');");
-                                                  echo"<script>alert('Registrio Agregado Correctamente')</script>";
-                                              }
-                                          }
+                                          $admin->make_AddPrivilegio();
                                       }
                                       ?>
                                       <form class="form-horizontal form-label-left input_mask" method="post">
@@ -213,15 +191,15 @@ $apellido = $row["apellido"];
                                                   <input type="number" id="numpriv" name="numpriv" required="required" class="form-control col-md-7 col-xs-12">
                                               </div>
                                           </div>
-                                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                                          <div class="ln_solid"></div>
                                           <div class="form-group">
-                                              <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                  <center>
                                                   <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2" value="Agregar">
                                                   <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
-                                                  <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='tableInfoPriv.php'"/>
+                                                  <input type=button value="Ver Privilegios" class="btn btn-success" onclick = "location='tableInfoPriv.php'"/>
                                               </div>
                                           </div>
-                                          <?php pg_close($cnx) ?>
                                           <script language=javascript>
                                               function limpiar3(){
                                                   document.getElementById('nombrepriv').value = "";

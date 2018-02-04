@@ -1,22 +1,20 @@
 <?php
-session_start();
-include 'conex.php';
-$cnx = pg_connect($strCnx) or die (print "Error de conexion. ");
-if (isset($_SESSION['user'])){
-    $priv = $_SESSION['privil'];
-    $nom = $_SESSION['user'];
-    if ($priv != 1) {
-        session_unset();
+    require_once "../conexion.php";
+    $admin = new Admin();
+    $conex = new Conexion();
+    session_start();
+
+    if (isset($_SESSION['user'])){
+        $priv = $_SESSION['privil'];
+        $nom = $_SESSION['user'];
+        if ($priv != 1) {
+            session_unset();
+            echo '<script> window.location="../index.php"; </script>';
+        }
+    } else {
         echo '<script> window.location="../index.php"; </script>';
     }
-} else {
-    echo '<script> window.location="../index.php"; </script>';
-}
-$sql = "SELECT nombre,apellido FROM public.infousuarios WHERE nombreuser='$nom'";
-$busqueda=pg_query($sql);
-$row = pg_fetch_array($busqueda);
-$nombre = $row["nombre"];
-$apellido = $row["apellido"];
+    $nombreyapellido = $admin->get_NombreApellido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +23,8 @@ $apellido = $row["apellido"];
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>EcoFruit!</title>
+        <title>Ingresar Usuarios</title>
+        <link rel="shortcut icon" href="../img/icono.ico">
 
         <!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -58,7 +57,7 @@ $apellido = $row["apellido"];
                                 </div>
                                 <div class="profile_info">
                                     <span>Bienvenido,</span>
-                                    <h2><?php echo "$nombre $apellido" ?></h2>
+                                    <h2><?php echo $nombreyapellido; ?></h2>
                                 </div>
                             </div>
                             <br />
@@ -70,10 +69,10 @@ $apellido = $row["apellido"];
                                         </li>
                                         <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
+                                                <li><a href="form.php">Ingresar Información Usuario</a></li>
                                                 <li><a href="form_validation.php">Ingresar Productos</a></li>
                                                 <li><a href="formPriv.php">Ingresar Privilegio</a></li>
                                                 <li><a href="adduser.php">Ingresar Usuarios</a></li>
-                                                <li><a href="form.php">Ingresar Información Usuario</a></li>
                                             </ul>
                                         </li>
                                         <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
@@ -96,7 +95,7 @@ $apellido = $row["apellido"];
                                         </li>
                                         <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="tableMen.php"> Mensajes </a></li>                                           
+                                                <li><a href="tableMen.php"> Mensajes </a></li>
                                                 <li><a href="modBuy.php">Compras</a></li>
                                             </ul>
                                         </li>
@@ -123,9 +122,9 @@ $apellido = $row["apellido"];
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <?php  if ($existe == true) { ?>
-                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/<?php echo "$nom" ?>.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                         <?php  } else { ?>
-                                        <img src="images/user.jpg"  alt=""><?php echo "$nombre $apellido" ?>
+                                        <img src="images/user.jpg"  alt=""><?php echo $nombreyapellido; ?>
                                         <?php  } ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
@@ -139,9 +138,17 @@ $apellido = $row["apellido"];
             </div>
             <div class="right_col" role="main">
                 <div class="">
-                </div>
+                    <div class="page-title">
+                        <div class="title_left">
+                        </div>
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <div class="clearfix"></div>
-                    <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
@@ -158,34 +165,9 @@ $apellido = $row["apellido"];
                                     <form class="form-horizontal form-label-left" method="post">
                                         <?php
                                         include_once 'conex.php';
-                                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                                        $tipoprod = "select nombretipousuario, privilegio from public.tipousuarios where privilegio != 1";
-                                        $listip = pg_query($tipoprod);
+                                        $tiposUser = $conex->get_TiposUsers();
                                         if ($_POST){
-                                            $nomus2 = $_POST["nombreusuario2"];
-                                            $pass = $_POST["contraseña"];
-                                            $tipoprod = $_POST["tiposlist"];
-                                            $tp = "select idtipousuario from public.tipousuarios where nombretipousuario = '$tipoprod'";
-                                            $qtp = pg_query($tp);
-                                            $atp = pg_fetch_array($qtp);
-                                            $idtipouser = $atp["idtipousuario"];
-                                            $encripass = md5($pass);
-                                            $val = 0;
-                                            $validar2 = "SELECT nombreuser from public.usuarios";
-                                            $busqueda2 =pg_query($validar2);
-                                            while ($comparar2 = pg_fetch_array($busqueda2)){
-                                                if ($comparar2 ["nombreuser"] == $nomus2){
-                                                    echo "<script>alert('El nombre de usuario ya existe')</script>";
-                                                    $val = 1;
-                                                    break;
-                                                }else {
-                                                    $val = 0;
-                                                }
-                                            }
-                                            if ($val == 0) {
-                                                $resublt2 =pg_query($cnx, "INSERT INTO public.usuarios (nombreuser, contraseña, privilegio, tipousuario) VALUES('$nomus2', '$encripass', 2,$idtipouser);");
-                                                echo"<script>alert('Usuario Agregado Correctamente')</script>";
-                                            }
+                                            $admin->make_Usuario();
                                         }
                                         ?>
                                         <div class="item form-group">
@@ -208,23 +190,24 @@ $apellido = $row["apellido"];
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <select name="tiposlist">
                                                     <?php
-                                                    while ( $tipos = pg_fetch_array($listip)){
+                                                    for ($i=0; $i<sizeof($tiposUser); $i++){
                                                         ?>
-                                                        <option value="<?php echo $tipos['nombretipousuario'] ?>"><?php echo $tipos['nombretipousuario']; ?></option>
+                                                        <option value="<?php echo $tiposUser[$i]["nombretipousuario"] ?>"><?php echo $tiposUser[$i]["nombretipousuario"]; ?></option>
                                                         <?php
                                                     }
                                                     ?>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                                            <div class="form-group">
-                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                    <input type="submit" class="btn btn-success">
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <center>
+                                                    <input type="submit" class="btn btn-success" value="Agregar">
                                                     <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                                                    <input type=button value="Ver Usuarios" class="btn btn-success" onclick = "location='tableUsers.php'"/>
                                                 </div>
                                             </div>
-                                            <?php pg_close($cnx) ?>
                                         <script language=javascript>
                                             function limpiar3(){
                                                 document.getElementById('nomprod').value = "";
@@ -239,16 +222,16 @@ $apellido = $row["apellido"];
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        </div>
                         <footer>
                             <div class="pull-right">
                                 <a href="../index.php">EcoFruit</a>
                             </div>
                             <div class="clearfix"></div>
                             </footer>
-                </div>
-            </div>
         </div>
-    </body>
+        </div>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -261,4 +244,5 @@ $apellido = $row["apellido"];
     <script src="../vendors/validator/validator.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    </body>
 </html>
