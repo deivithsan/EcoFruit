@@ -15,7 +15,6 @@ class Conexion{
         $this->x=array();
     }
 
-
     public function obtenerConexion(){
         if (isset($conexion)){
             echo "Conexión Establecida";
@@ -63,7 +62,6 @@ class Conexion{
         $compras->execute();
         $fetch = $compras->fetchAll();
         $rows = count($fetch);
-        $this->conexion = null;
         return $rows;
     }
 
@@ -142,7 +140,7 @@ class Conexion{
             echo"<script>alert('Se presentan problemas con los productos disponibles')</script>";
             echo"<script type=\"text/javascript\">window.location='index.php'</script>";
         } else{
-            $sql2="SELECT * FROM productos ORDER BY idprod";
+            $sql2="select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo order by idprod";
             foreach ($this->conexion->query($sql2) as $row){
                 $this->x[]=$row;
             }
@@ -388,5 +386,687 @@ class Conexion{
         echo"<script>alert('Usuario Agregado Correctamente')</script>";
         echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
     }
+}
+
+class Admin{
+    private $conexion;
+    private $x;
+
+    public function __construct()
+    {
+        $this->conexion = new PDO('pgsql:host=' .NOMBRE_SERVIDOR. '; dbname=' .BASE_DE_DATOS, NOMBRE_USUARIO, PASSWORD);
+        $this->x=array();
+    }
+
+    public function get_NombreApellido(){
+        $nom = $_SESSION["user"];
+        $sql="select nombre, apellido from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $nombre= $datos[0][0];
+        $apellido = $datos[0][1];
+        $nombreyapellido = "$nombre $apellido";
+        unset($this->x);
+        return $nombreyapellido;
+    }
+
+    public function make_InfoUser(){
+        $nomus = $_POST["nombreusuario"];
+        $name = $_POST["nombre"];
+        $apell = $_POST["apellido"];
+        $email = $_POST["correo"];
+        $numerotel = $_POST["telefono"];
+        $dir = $_POST["direccion"];
+        $cedul = $_POST["cedula"];
+        $tel = (int) $numerotel;
+        $ced = (int) $cedul;
+        $dat = 0;
+        $sql2="SELECT nombreuser from usuarios";
+        foreach ($this->conexion->query($sql2) as $row2){
+            $this->y[]=$row2;
+        }
+        $datos2 = $this->y;
+        for ($i=0; $i<sizeof($datos2); $i++) {
+            if ($datos2[$i][0] == $nomus) {
+                $this->validar_NombreUsuarioInfo($nomus);
+                $sql="insert into infousuarios VALUES (DEFAULT,?,?,?,?,?,?,?);";
+                $envio=$this->conexion->prepare($sql);
+
+                $nomUser = strip_tags($nomus);
+                $nom = strip_tags($name);
+                $ape = strip_tags($apell);
+                $correo = strip_tags($email);
+                $movil = strip_tags($tel);
+                $direccion = strip_tags($dir);
+                $CC = strip_tags($ced);
+
+                $envio->bindValue(1, $nomUser, PDO::PARAM_STR);
+                $envio->bindValue(2, $nom, PDO::PARAM_STR);
+                $envio->bindValue(3, $ape, PDO::PARAM_STR);
+                $envio->bindValue(4, $correo, PDO::PARAM_STR);
+                $envio->bindValue(5, $movil, PDO::PARAM_STR);
+                $envio->bindValue(6, $direccion, PDO::PARAM_STR);
+                $envio->bindValue(7, $CC, PDO::PARAM_STR);
+
+                $envio->execute();
+                $this->conexion = null;
+                echo"<script>alert('Información agregada correctamente')</script>";
+                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+
+            } else{
+                $val = 0;
+            }
+        }
+        if ($val == 0){
+                echo"<script>alert('Ese nombre de usuario no existe, por favor verifique los datos ingresados.')</script>";
+                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+                exit;
+        }
+
+
+    }
+
+    public function validar_NombreUsuarioInfo($nombreUser){
+        $sql="SELECT nombreuser from infousuarios";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        for ($i=0; $i<sizeof($datos); $i++) {
+            if ($datos[$i][0] == $nombreUser){
+                echo"<script>alert('Ese usario ya dispone de información, si desea modificarla acceda a la parte de modificar datos, opción Información de Usuarios.')</script>";
+                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+                exit;
+            }
+        }
+    }
+
+    public function get_TipoProducto(){
+        $sql="SELECT idtipo, nombretipo, estado from tipoprod ORDER BY nombretipo";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+    }
+
+    public function get_EstadosProd(){
+        $sql="SELECT nombrestado, codest FROM estado ORDER BY nombrestado";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+    }
+
+    public function get_Vendedores(){
+        $sql="SELECT nombreuser from usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+    }
+
+    public function insert_Productos(){
+        $nomprod = $_POST["nomprod"];
+        $tipoprod = $_POST["tiposlist"];
+        $sql2="select idtipo from tipoprod WHERE nombretipo = '$tipoprod'";
+        foreach ($this->conexion->query($sql2) as $row2){
+            $this->y[]=$row2;
+        }
+        $datos2 = $this->y;
+        $tipoproducto = $datos2[0][0];
+        $cantidad = $_POST["cant"];
+        $costoprod = $_POST["costo"];
+        $ventaprod = $_POST["venta"];
+        $estado = $_POST["estadolist"];
+        $cant = (int) $cantidad;
+        $cost = (int) $costoprod;
+        $venta = (int) $ventaprod;
+        $ubicacion = $_POST["ubicacion"];
+        $vendedor = $_POST["vendedoreslist"];
+
+        $sql = "INSERT INTO productos VALUES (DEFAULT,?,?,?,?,?,?,?,?);";
+        $envio = $this->conexion->prepare($sql);
+
+        $nombreProd = strip_tags($nomprod);
+        $estProd = strip_tags($estado);
+        $cantProd = strip_tags($cant);
+        $costProd = strip_tags($cost);
+        $ventaProd = strip_tags($venta);
+        $ubiProd = strip_tags($ubicacion);
+        $vendProd = strip_tags($vendedor);
+        $tipoProd = strip_tags($tipoproducto);
+
+        $envio->bindValue(1, $nombreProd, PDO::PARAM_STR);
+        $envio->bindValue(2, $estProd, PDO::PARAM_STR);
+        $envio->bindValue(3, $cantProd, PDO::PARAM_STR);
+        $envio->bindValue(4, $costProd, PDO::PARAM_STR);
+        $envio->bindValue(5, $ventaProd, PDO::PARAM_STR);
+        $envio->bindValue(6, $ubiProd, PDO::PARAM_STR);
+        $envio->bindValue(7, $vendProd, PDO::PARAM_STR);
+        $envio->bindValue(8, $tipoProd, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+        echo "<script>alert('Producto agregado correctamente')</script>";
+        echo "<script type=\"text/javascript\">window.location='form_validation.php'</script>";
+    }
+
+    public function make_AddPrivilegio(){
+        $nompriv = $_POST["nombrepriv"];
+        $numeroprivilegio = $_POST["numpriv"];
+        $numpriv = (int) $numeroprivilegio;
+        $sql="SELECT privil from privilegio";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        for ($i=0; $i<sizeof($datos); $i++) {
+            if ($datos[$i][0] == $numpriv){
+                echo"<script>alert('Ese número de privilegio ya se encuentra asignado.')</script>";
+                echo"<script type=\"text/javascript\">window.location='formPriv.php'</script>";
+                exit;
+            }else{
+                $num = 0;
+            }
+        }
+        if ($num == 0){
+            $sql = "INSERT INTO privilegio VALUES (?,?);";
+            $envio = $this->conexion->prepare($sql);
+
+            $nomPriv = strip_tags($nompriv);
+            $numPriv = strip_tags($numpriv);
+
+            $envio->bindValue(1, $nomPriv, PDO::PARAM_STR);
+            $envio->bindValue(2, $numPriv, PDO::PARAM_STR);
+
+            $envio->execute();
+            $this->conexion = null;
+            echo "<script>alert('Privilegio agregado correctamente')</script>";
+            echo "<script type=\"text/javascript\">window.location='formPriv.php'</script>";
+        }
+
+    }
+
+    public function make_Usuario()
+    {
+        $nomus2 = $_POST["nombreusuario2"];
+        $pass = $_POST["contraseña"];
+        $tipoprod = $_POST["tiposlist"];
+        $sql = "select idtipousuario from tipousuarios where nombretipousuario = '$tipoprod'";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $datos = $this->x;
+        $tipousuario = $datos[0][0];
+        $encripass = md5($pass);
+        $val = $this->validate_NomUser($nomus2);
+        if ($val == 0) {
+            $sql = "INSERT INTO usuarios VALUES (?,?,?,?);";
+            $envio = $this->conexion->prepare($sql);
+
+            $nombre = strip_tags($nomus2);
+            $passUser = strip_tags($encripass);
+            $privUser = strip_tags(2);
+            $tipoUser = strip_tags($tipousuario);
+
+            $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+            $envio->bindValue(2, $passUser, PDO::PARAM_STR);
+            $envio->bindValue(3, $privUser, PDO::PARAM_STR);
+            $envio->bindValue(4, $tipoUser, PDO::PARAM_STR);
+
+            $envio->execute();
+            $this->conexion = null;
+            echo "<script>alert('Usuario agregado correctamente.')</script>";
+            echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
+        }
+    }
+
+    public function validate_NomUser($nomUser){
+        $users = $this->conexion->prepare("SELECT nombreuser FROM usuarios");
+        $users->execute();
+        while ($fetch = $users->fetchAll()) {
+            $rows = count($fetch);
+            for ($i = 0; $i < $rows; $i++) {
+                $nombreUser = $fetch[$i][0];
+                if ($nombreUser == $nomUser) {
+                    echo "<script>alert('El nombre de usuario ya existe.')</script>";
+                    echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
+                } else {
+                    return 0;
+                }
+            }
+
+        }
+    }
+
+    public function get_Compras(){
+        $sql="SELECT * FROM compra ORDER BY idcompra";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        return $this->x;
+    }
+
+    public function get_InfoUsers(){
+        $sql="SELECT * FROM infousuarios ORDER BY iduser";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $data = $this->x;
+        unset($this->x);
+        return $data;
+    }
+
+    public function  get_Privilegio(){
+        $sql="SELECT * FROM privilegio ORDER BY privil";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        return $this->x;
+    }
+
+    public function get_Users(){
+        $sql="select usuarios.nombreuser, usuarios.contraseña, usuarios.privilegio, tipousuarios.nombretipousuario from usuarios, tipousuarios where usuarios.tipousuario = tipousuarios.idtipousuario";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        return $this->x;
+    }
+
+    public function get_TiposUsuarios(){
+        $sql="SELECT * FROM tipousuarios";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        return $this->x;
+    }
+
+    public function get_UserfromInfo($nombreUser){
+        $sql="SELECT * from infousuarios where nombreuser ='$nombreUser' ";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $user = $this->x;
+        ?>
+        </div>
+        </div>
+        </div>
+        <thead>
+        <tr>
+            <th>Id Usuario</th>
+            <th>Nombre de Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Dirección</th>
+            <th>Número de Cedula</th>
+        </tr>
+        </thead>
+        <?php
+        $rows = count($user);
+        for ($i = 0; $i < $rows; $i++) {
+            ?>
+            <tr>
+                <td><?php echo $user[$i][0] ?></td>
+                <td><?php echo $user[$i][1] ?></td>
+                <td><?php echo $user[$i][2] ?></td>
+                <td><?php echo $user[$i][3] ?></td>
+                <td><?php echo $user[$i][4] ?></td>
+                <td><?php echo $user[$i][5] ?></td>
+                <td><?php echo $user[$i][6] ?></td>
+                <td><?php echo $user[$i][7] ?></td>
+            </tr>
+            <?php
+        }
+    }
+
+    public function get_LlenarFormInfoUsers($nombreUser){
+        $sql="SELECT * from infousuarios where nombreuser ='$nombreUser' ";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $data = $this->x;
+        unset($this->x);
+        return $data;
+    }
+
+    public function update_InfoUser(){
+        $nameuser =$_POST["nomuser"];
+        $name = $_POST["nombre"];
+        $apell = $_POST["apellido"];
+        $email = $_POST["correo"];
+        $numerotel = $_POST["telefono"];
+        $dir = $_POST["direccion"];
+        $cedul = $_POST["cedula"];
+        $tel = (int) $numerotel;
+        $ced = (int) $cedul;
+
+        $sql = "UPDATE infousuarios set nombre=?, apellido=?, correo=?, telefono=?, direccion=?, cedula=? WHERE nombreuser='$nameuser'";
+        $envio = $this->conexion->prepare($sql);
+
+        $nombre = strip_tags($name);
+        $apellido = strip_tags($apell);
+        $correo = strip_tags($email);
+        $telefono = strip_tags($tel);
+        $direccion = strip_tags($dir);
+        $cedula = strip_tags($ced);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+        $envio->bindValue(2, $apellido, PDO::PARAM_STR);
+        $envio->bindValue(3, $correo, PDO::PARAM_STR);
+        $envio->bindValue(4, $telefono, PDO::PARAM_STR);
+        $envio->bindValue(5, $direccion, PDO::PARAM_STR);
+        $envio->bindValue(6, $cedula, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+
+        echo "<script>alert('Información actualizada correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='modInfo.php'</script>";
+
+    }
+
+    public function get_Productos(){
+        $sql="SELECT productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor FROM productos, tipoprod WHERE productos.tipo = tipoprod.idtipo ORDER BY idprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $prod = $this->x;
+        unset($this->x);
+        return $prod;
+    }
+
+    public function find_Prod($id){
+        $sql = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod =$id ";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $prod = $this->x;
+
+        ?>
+        </div>
+        </div>
+        </div>
+        <thead>
+        <tr>
+            <th>Id Producto</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Estado Actual</th>
+            <th>Cantidad</th>
+            <th>Costo Producto</th>
+            <th>Costo Venta</th>
+            <th>Ubicación</th>
+            <th>Vendedor</th>
+        </tr>
+        </thead>
+        <?php
+        $rows = count($prod);
+        for ($i = 0; $i < $rows; $i++) {
+            ?>
+        <tr>
+            <td><?php echo $prod[$i][0]; ?></td>
+            <td><?php echo $prod[$i][1]; ?></td>
+            <td><?php echo $prod[$i][2]; ?></td>
+            <td><?php echo $prod[$i][3]; ?></td>
+            <td><?php echo $prod[$i][4]; ?></td>
+            <td><?php echo $prod[$i][5]; ?></td>
+            <td><?php echo $prod[$i][6]; ?></td>
+            <td><?php echo $prod[$i][7]; ?></td>
+            <td><?php echo $prod[$i][8]; ?></td>
+        </tr>
+        <?php
+        }
+    }
+
+    public function get_LlenarFormProd($id){
+        $sql = "select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo AND idprod = '$id' ";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $data = $this->x;
+        unset($this->x);
+        return $data;
+    }
+
+    public function update_Productos(){
+        $idedelproducto = $_POST["idproduc"];
+        $idpro = (int) $idedelproducto;
+        $nomprod = $_POST["nomprod"];
+        $tipoprod = $_POST["tiposlist"];
+        $tipo = $this->get_idTipoProd($tipoprod);
+        $cantidad = $_POST["cant"];
+        $costoprod = $_POST["costo"];
+        $ventaprod = $_POST["venta"];
+        $estado = $_POST["estadolist"];
+        $cant = (int) $cantidad;
+        $cost = (int) $costoprod;
+        $venta = (int) $ventaprod;
+        $ubicacion = $_POST["ubicacion"];
+        $vendedor = $_POST["vendedoreslist"];
+
+        $sql = "UPDATE productos set nombre=?, tipo=?, estado=?, cantidad=?, costo=?, venta=?, ubicacion=?, vendedor=? WHERE idprod=$idpro";
+        $envio = $this->conexion->prepare($sql);
+
+        $nombre = strip_tags($nomprod);
+        $tipoProd = strip_tags($tipo);
+        $est = strip_tags($estado);
+        $cantid = strip_tags($cant);
+        $costo = strip_tags($cost);
+        $ven = strip_tags($venta);
+        $ubic = strip_tags($ubicacion);
+        $vendedorProd = strip_tags($vendedor);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+        $envio->bindValue(2, $tipoProd, PDO::PARAM_STR);
+        $envio->bindValue(3, $est, PDO::PARAM_STR);
+        $envio->bindValue(4, $cantid, PDO::PARAM_STR);
+        $envio->bindValue(5, $costo, PDO::PARAM_STR);
+        $envio->bindValue(6, $ven, PDO::PARAM_STR);
+        $envio->bindValue(7, $ubic, PDO::PARAM_STR);
+        $envio->bindValue(8, $vendedorProd, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+
+        echo "<script>alert('Producto actualizado correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+    }
+
+    public function get_idTipoProd($tipo){
+        $sql = "select idtipo from tipoprod WHERE nombretipo = '$tipo'";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $data = $this->x;
+        unset($this->x);
+        $tipo = $data[0][0];
+        return $tipo;
+    }
+
+    public function delete_Prod(){
+        $idedelproducto = $_POST["idproduc"];
+        $idpro = (int) $idedelproducto;
+
+        if ($idpro == 0){
+            echo "<script>alert('Busque primero el producto que desea eliminar.')</script>";
+            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+        } else{
+            $sql = "delete from productos WHERE idprod=?";
+            $envio = $this->conexion->prepare($sql);
+
+            $id = strip_tags($idpro);
+
+            $envio->bindValue(1, $id, PDO::PARAM_STR);
+
+            $envio->execute();
+            $this->conexion = null;
+
+            echo "<script>alert('Producto eliminado correctamente.')</script>";
+            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+        }
+    }
+
+    public function get_ComprasProd(){
+        $sql = "select * from compra";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $compra = $this->x;
+        unset($this->x);
+        return $compra;
+    }
+
+    public function find_Compra($id){
+        $sql = "SELECT * from compra where idcompra ='$id'";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $compra = $this->x;
+        ?>
+        </center>
+        </div>
+        </div>
+        </div>
+        <thead>
+        <tr>
+            <th>Id Compra</th>
+            <th>Id Producto</th>
+            <th>Nombre Producto</th>
+            <th>Estado</th>
+            <th>Cantidad Disponible</th>
+            <th>Costo Unidad</th>
+            <th>Cantidad Comprada</th>
+            <th>Número de Cedula</th>
+            <th>Número de Telefono</th>
+            <th>Vendedor del Producto</th>
+            <th>Comprador del Producto</th>
+            <th>Valoración de la Compra</th>
+            <th>Detalle de la Valoración</th>
+        </tr>
+        </thead>
+        <?php
+        $rows = count($compra);
+        for ($i = 0; $i < $rows; $i++){
+            ?>
+            <tr>
+                <td><?php echo $compra[$i][0]; ?></td>
+                <td><?php echo $compra[$i][1]; ?></td>
+                <td><?php echo $compra[$i][2]; ?></td>
+                <td><?php echo $compra[$i][3]; ?></td>
+                <td><?php echo $compra[$i][4]; ?></td>
+                <td><?php echo $compra[$i][5]; ?></td>
+                <td><?php echo $compra[$i][6]; ?></td>
+                <td><?php echo $compra[$i][7]; ?></td>
+                <td><?php echo $compra[$i][8]; ?></td>
+                <td><?php echo $compra[$i][9]; ?></td>
+                <td><?php echo $compra[$i][10]; ?></td>
+                <td><?php echo $compra[$i][11]; ?></td>
+                <td><?php echo $compra[$i][12]; ?></td>
+            </tr>
+            <?php
+        }
+    }
+
+    public function get_LlenarFormCompra($id){
+        $sql = "SELECT * from compra where idcompra ='$id' ";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $compra = $this->x;
+        unset($this->x);
+        return $compra;
+    }
+
+    public function update_Compras(){
+        $idcompraproducto =$_POST["idcompra"];
+        $idproducto = $_POST["idprod"];
+        $nomprod = $_POST["nomprod"];
+        $cantidadisponible = $_POST["cantdisp"];
+        $cantidadcomprada = $_POST["cantcomprada"];
+        $numerocedula = $_POST["numcedula"];
+        $numerotelefono = $_POST["numtelefono"];
+        $infoval = $_POST["detval"];
+        $val = $_POST["tiposlist"];
+        $valoracion= $this->get_IdValoracion($val);
+        $idc = (int) $idcompraproducto;
+        $idp = (int) $idproducto;
+        $cantd = (int) $cantidadisponible;
+        $cantc = (int) $cantidadcomprada;
+        $numc = (int) $numerocedula;
+        $numt = (int) $numerotelefono;
+
+        $sql = "UPDATE compra set cantbuy=?, valoracion=?, infoval=? WHERE idcompra =$idc";
+        $envio = $this->conexion->prepare($sql);
+
+        $cantidad = strip_tags($cantc);
+        $valCompra = strip_tags($valoracion);
+        $infoVal = strip_tags($infoval);
+
+        $envio->bindValue(1, $cantidad, PDO::PARAM_STR);
+        $envio->bindValue(2, $valCompra, PDO::PARAM_STR);
+        $envio->bindValue(3, $infoVal, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+
+        echo "<script>alert('Compra actualizada correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+    }
+
+    public function  get_IdValoracion($val){
+        $sql = "select idvaloracion from valoraciones WHERE nombreval = '$val'";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $valoracion = $this->x;
+        $idvalor = $valoracion[0][0];
+        $idVal = (int) $idvalor;
+        unset($this->x);
+        return $idVal;
+    }
+
+    public function get_Valoraciones(){
+        $sql = "SELECT nombreval from valoraciones ORDER BY idvaloracion DESC ";
+        foreach ($this->conexion->query($sql) as $row) {
+            $this->x[] = $row;
+        }
+        $val = $this->x;
+        unset($this->x);
+        return $val;
+    }
+
+    public function delete_Compra(){
+        $idcompraproducto =$_POST["idcompra"];
+        $idc = (int) $idcompraproducto;
+
+        if ($idc == 0){
+            echo "<script>alert('Busque primero la compra que desea eliminar.')</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+        } else{
+            $sql = "delete from compra WHERE idcompra=?";
+            $envio = $this->conexion->prepare($sql);
+
+            $id = strip_tags($idc);
+
+            $envio->bindValue(1, $id, PDO::PARAM_STR);
+
+            $envio->execute();
+            $this->conexion = null;
+
+            echo "<script>alert('Compra eliminada correctamente.')</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+        }
+    }
+
 }
 ?>
