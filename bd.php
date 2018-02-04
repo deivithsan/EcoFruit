@@ -135,9 +135,9 @@ if (isset($_SESSION['user'])){
                                         <th>Nombre Producto</th>
                                         <th>Tipo</th>
                                         <th>Estado</th>
-                                        <th>Cantidad</th>
-                                        <th>Costo Producto</th>
-                                        <th>Valor Venta</th>
+                                        <th>Cantidad (Kilos)</th>
+                                        <th>Costo Producto ($)</th>
+                                        <th>Costo Total ($)</th>
                                         <th>Ubicación</th>
                                     </tr>
                                     </thead>
