@@ -59,16 +59,13 @@
         <header id="navigation" class="navbar-fixed-top navbar">
             <div class="container">
                 <div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <i class="fa fa-bars fa-2x"></i>
-                    </button>
-                <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                    <ul id="nav" class="nav navbar-nav">
+                    <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                        <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
                         <li><a href="#features">Accede</a></li>
                         <li><a href="#facts"> Actualidad</a></li>
                         <li><a href="#contact">Contacto</a></li>
+                        <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -88,25 +85,23 @@
                         <li><a></a></li>
                     </ul>
                     <a href="logout.php">Cerrar Sesión</a>
-                        <?php } ?>
+                        <?php }else echo "</ul>"?>
                 </nav>
+            </div>
             </div>
         </header>
 
 		<section id="slider">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="item active" style="background-image: url(img/log3.png);">
 						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">EcoFruit</span>!</h2>
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated" style="color: white;"><span>EcoFruit!</span></h2>
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
 							<ul class="social-links text-center">
-								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
-								<li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
+								<li><i class="fa fa-twitter fa-lg"></i></li>
+								<li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+								<li><i class="fa fa-facebook fa-lg"></i></li>
 							</ul>
 						</div>
 					</div>
@@ -114,7 +109,7 @@
 			</div>
 		</section>
 
-		<section id="features" class="features"
+		<section id="features" class="features">
 			<div class="container">
 				<div class="row">
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
@@ -124,16 +119,20 @@
 					<div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
 						<div class="service-item">
 							<div class="service-desc">
+                                <center>
 								<h3><a href="bd.php">Frutas Disponibles</h3></a>
 								<p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
+                                </center>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
                         <div class="service-item">
                             <div class="service-desc">
+                                <center>
                                 <h3><a href="precioCor.php">Precios Corabastos</h3></a>
                                 <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                                </center>
                             </div>
                         </div>
 					</div>
@@ -141,22 +140,22 @@
 					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
 						<div class="service-item">
 							<div class="service-desc">
-								<h3>Login</h3>
+								<h3 align="center">Login</h3>
 								<form method="post" action="">
-                                    <br />Nombre de Usuario:
- 										<br />
- 											<input type=text name=nomusuario id='nomusuario' required>
- 												<br />Contraseña:
- 									 				<br />
- 												<input type=password name=pass id='pass' required>
- 											<br />
- 										<br />
-                                    <input type="hidden" name="Login" />
-                                    <input type="submit" name="Entrar" value="Entrar">
+                                    <center>
+                                        <p>Nombre de Usuario:</p>
+                                        <p><input type=text name=nomusuario id='nomusuario' required></p>
+                                        <p>Contraseña:</p>
+                                        <p><input type=password name=pass id='pass' required></p>
+                                        <br/>
+                                        <input type="hidden" name="Login">
+                                        <input type="submit" name="Entrar" value="Entrar">
                                 </form>
                                 <form name="a" action="registro.php">
                                     <button onclick='registro.php'>Registro</button>
                                 </form>
+                                </center>
+                                </p>
                             </div>
 						</div>
 					</div>
@@ -164,8 +163,10 @@
                     <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
                         <div class="service-item">
                             <div class="service-desc">
+                                <center>
                                 <h3><a href="usuarios.php">Perfiles</h3></a>
                                 <p>Mira los perfiles de nuestros vendedores!</p>
+                                </center>
                             </div>
                         </div>
                     </div>
@@ -235,7 +236,7 @@
 						<div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
 					</div>
 					<div class="sec-sub-title text-center wow rubberBand animated" data-wow-duration="1000ms">
-						<p>Si deseea ponerse en contacto con nosotros para la venta de sus productos o para la compra, llene el siguiente formulario y sera respondido en el menor tiempo posible. Gracias!</p>
+						<p>Si desea ponerse en contacto con nosotros para la venta de sus productos o para la compra, llene el siguiente formulario y sera respondido en el menor tiempo posible. Gracias!</p>
 					</div>
 
 					<div class="col-lg-12 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">

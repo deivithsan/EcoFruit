@@ -90,19 +90,15 @@ if (isset($_SESSION['user'])){
     </header>
     <section id="slider">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active" style="background-image: url(img/log3.png);">
                     <div class="carousel-caption">
-                        <h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">EcoFruit</span>!</a></h2>
+                        <h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated" style="color: white;"><span>EcoFruit!</span></h2>
                         <h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-                        <p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
                         <ul class="social-links text-center">
-                            <li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
-                            <li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
+                            <li><i class="fa fa-twitter fa-lg"></i></li>
+                            <li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+                            <li><i class="fa fa-facebook fa-lg"></i></li>
                         </ul>
                     </div>
                 </div>

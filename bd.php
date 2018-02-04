@@ -23,6 +23,7 @@ if (isset($_SESSION['user'])){
     <head>
         <meta charset="utf-8">
         <title>Productos</title>
+        <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Google Font -->
@@ -63,10 +64,6 @@ if (isset($_SESSION['user'])){
         <header id="navigation" class="navbar-fixed-top navbar">
             <div class="container">
                 <div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <i class="fa fa-bars fa-2x"></i>
-                    </button>
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
                         <li class="current"><a href="#body">Inicio</a></li>
@@ -99,25 +96,22 @@ if (isset($_SESSION['user'])){
                     <?php }else echo "</ul>" ?>
                 </nav>
             </div>
+            </div>
         </header>
 
 		<section id="slider">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="item active" style="background-image: url(img/log3.png);">
-						<div class="carousel-caption">
-							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated"><a href="index.php">EcoFruit</span>!</a></h2>
-							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
-							<p data-wow-duration="1000ms" class="wow slideInRight animated">No se debe perder ni una fruta!</p>
-							<ul class="social-links text-center">
-								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
-								<li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
-							</ul>
-						</div>
+                        <div class="carousel-caption">
+                            <h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated" style="color: white;"><span>EcoFruit!</span></h2>
+                            <h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
+                            <ul class="social-links text-center">
+                                <li><i class="fa fa-twitter fa-lg"></i></li>
+                                <li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+                                <li><i class="fa fa-facebook fa-lg"></i></li>
+                            </ul>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -144,6 +138,7 @@ if (isset($_SESSION['user'])){
                                         <th>Cantidad</th>
                                         <th>Costo Producto</th>
                                         <th>Valor Venta</th>
+                                        <th>Ubicación</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -154,11 +149,12 @@ if (isset($_SESSION['user'])){
                                     <tr>
                                          <td align="center"><?php echo $prod[$g][0]; ?></td>
                                          <td align="center"><?php echo $prod[$g][1]; ?></td>
-                                         <td align="center"><?php echo $prod[$g][8]; ?></td>
                                          <td align="center"><?php echo $prod[$g][2]; ?></td>
                                          <td align="center"><?php echo $prod[$g][3]; ?></td>
                                          <td align="center"><?php echo $prod[$g][4]; ?></td>
                                          <td align="center"><?php echo $prod[$g][5]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][6]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][7]; ?></td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
