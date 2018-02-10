@@ -194,6 +194,13 @@ class Conexion{
         $cantbuy = (int) $cantidadcomp;
         $numced = (int) $numerocedula;
         $telef = (int) $numerocelular;
+
+        if ($cantbuy > $cantdis ){
+            $this->conexion = null;
+            echo"<script>alert('No se pueden realizar compras mayores a la cantidad disponible actualmente, intente con una cantidad menor por favor.')</script>";
+            echo"<script type=\"text/javascript\">window.location='bd.php'</script>";
+        }
+
         $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,DEFAULT , DEFAULT );";
         $envio=$this->conexion->prepare($sql);
 
@@ -1004,6 +1011,12 @@ class Admin{
         $cantc = (int) $cantidadcomprada;
         $numc = (int) $numerocedula;
         $numt = (int) $numerotelefono;
+
+        if ($cantc > $cantd){
+            $this->conexion = null;
+            echo "<script>alert('Error, no se puede actualizar debido a que la cantidad comprada del producto es superior a la disponible. Intente de nuevo por favor.')</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+        }
 
         $sql = "UPDATE compra set cantbuy=?, valoracion=?, infoval=? WHERE idcompra =$idc";
         $envio = $this->conexion->prepare($sql);
