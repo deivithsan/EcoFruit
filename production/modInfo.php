@@ -171,10 +171,6 @@
                                 </div>
                         </div>
                         <?php
-                        include_once 'conex.php';
-                        $cnx = pg_connect($strCnx) or die ("Error de Conexion. ".pg_last_error());
-                        $bus = "SELECT nombreuser FROM public.infousuarios";
-                        $bu = pg_query($bus);
                         if ($_POST){
                             if ($_POST["buscar"]){
                                 $nomus = $_POST["nombreusuario"];
