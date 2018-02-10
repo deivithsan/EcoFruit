@@ -309,7 +309,7 @@ class Conexion{
     }
 
     public function get_SelectUsuarios($nomusuario){
-        $vend=$this->conexion->prepare("select vendedorprod, valoracion from compra where vendedorprod = '$nomusuario'");
+        $vend=$this->conexion->prepare("select vendedorprod, valoracion from compra where vendedorprod = '$nomusuario' and valoracion > 0");
         $vend->execute();
         $fetch = $vend->fetchAll();
         $rows = count($fetch);
