@@ -24,7 +24,7 @@
         exit;
     }
 
-$para      = 'deivithsan1@gmail.com';
+$para      = 'deivith.1@hotmail.com';
 $titulo    = 'Prueba';
 $mensaje   = 'Hola';
 $cabeceras = 'From: deivithsan1@gmail.com' . "\r\n" .
