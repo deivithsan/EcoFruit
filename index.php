@@ -252,14 +252,14 @@
 							<form action="" id="contact-form" method="post">
 								<div class="input-group name-email">
 									<div class="input-field">
-										<input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+										<input type="text" name="name" id="name" placeholder="Nombre" class="form-control" required>
 									</div>
 									<div class="input-field">
-										<input type="number" name="tel" id="tel" placeholder="Telefono" class="form-control">
+										<input type="number" name="tel" id="tel" placeholder="Telefono" class="form-control" required>
 									</div>
 								</div>
 								<div class="input-group">
-									<textarea name="message" id="message" placeholder="Mensaje" class="form-control"></textarea>
+									<textarea name="message" id="message" placeholder="Mensaje" class="form-control" required></textarea>
 								</div>
 								<div class="input-group">
                                     <input type="hidden" name="Enviar" />
