@@ -23,6 +23,15 @@
         $conex->login();
         exit;
     }
+
+$para      = 'deivithsan1@gmail.com';
+$titulo    = 'Prueba';
+$mensaje   = 'Hola';
+$cabeceras = 'From: deivithsan1@gmail.com' . "\r\n" .
+    'Reply-To: deivithsan1@gmail.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+mail($para, $titulo, $mensaje, $cabeceras);
 ?>
 <!DOCTYPE html>
     <head>
