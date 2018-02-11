@@ -288,9 +288,6 @@
         <script src="js/jquery-countTo.js"></script>
 		<!-- jquery.appear -->
         <script src="js/jquery.appear.js"></script>
-		<!-- Contact form validation -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
 		<!-- jquery easing -->
@@ -307,31 +304,5 @@
 			wow.init();
 		</script>
         <script src="js/custom.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$('#contact-form').validate({
-					rules: {
-						name: {
-							required: true,
-						},
-						tel: {
-							required: true,
-							tel: true
-						},
-						message: {
-							required: true
-						}
-					},
-					messages: {
-						name: {
-							required: "Escribe tu nómbre",
-						},
-						message: {
-							required: "Escribe tu mensaje",
-						}
-					},
-				});
-			});
-		</script>
     </body>
 </html>
