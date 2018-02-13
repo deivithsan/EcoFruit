@@ -163,8 +163,7 @@
                                 </div>
                                 <div class="x_content">
                                     <form class="form-horizontal form-label-left" method="post">
-                                        <?php
-                                        include_once 'conex.php';
+                                        <?php                                      
                                         $tiposUser = $conex->get_TiposUsers();
                                         if ($_POST){
                                             $admin->make_Usuario();
