@@ -22,6 +22,9 @@ if (isset($_SESSION['user'])){
         <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Google Font -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
 		<!-- CSS
 		================================================== -->
 		<!-- Fontawesome Icon font -->
@@ -72,11 +75,13 @@ if (isset($_SESSION['user'])){
                             <li><a></a></li>
                             <li><a></a></li>
                             <li><a></a></li>
-                            <li><a></a></li>
-                            <li><a></a></li>
-                            <li><a></a></li>
                         </ul>
-                        <a href="logout.php">Cerrar Sesión</a>
+                        <form class="nav navbar-form navbar-left" role="search" action="index.php">
+                            <button onclick='index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                        </form>
+                        <form class="nav navbar-form navbar-left" role="search" action="logout.php">
+                            <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                        </form>
                         <?php }else echo "</ul>" ?>
                     </nav>
                 </div>
@@ -124,6 +129,8 @@ if (isset($_SESSION['user'])){
                 <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
             </div>
 		</section>
+        <h5 align="center"><i>2018 - EcoFruit</i></h5>
+
 
         <!-- Main jQuery -->
         <script src="js/jquery-1.11.1.min.js"></script>
@@ -143,6 +150,9 @@ if (isset($_SESSION['user'])){
         <script src="js/jquery-countTo.js"></script>
 		<!-- jquery.appear -->
         <script src="js/jquery.appear.js"></script>
+		<!-- Contact form validation -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
 		<!-- jquery easing -->

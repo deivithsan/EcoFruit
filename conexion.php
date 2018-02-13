@@ -117,6 +117,8 @@ class Conexion{
         }
     }
 
+
+
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from infousuarios where nombreuser = '$nom'";
@@ -129,6 +131,78 @@ class Conexion{
         $nombreyapellido = $nombre.$apellido;
         unset($this->x);
         return $nombreyapellido;
+    }
+
+    public function get_Nombre(){
+        $nom = $_SESSION["user"];
+        $sql="select nombre from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $nombre= $datos[0][0];
+        unset($this->x);
+        return $nombre;
+    }
+
+    public function get_Apellido(){
+        $nom = $_SESSION["user"];
+        $sql="select apellido from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $apellido= $datos[0][0];
+        unset($this->x);
+        return $apellido;
+    }
+
+    public function get_Correo(){
+        $nom = $_SESSION["user"];
+        $sql="select correo from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $correo= $datos[0][0];
+        unset($this->x);
+        return $correo;
+    }
+
+    public function get_Tel(){
+        $nom = $_SESSION["user"];
+        $sql="select telefono from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $telefono= $datos[0][0];
+        unset($this->x);
+        return $telefono;
+    }
+
+    public function get_Dir(){
+        $nom = $_SESSION["user"];
+        $sql="select direccion from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $dir= $datos[0][0];
+        unset($this->x);
+        return $dir;
+    }
+
+    public function get_NumCC(){
+        $nom = $_SESSION["user"];
+        $sql="select cedula from infousuarios where nombreuser = '$nom'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        $numCC= $datos[0][0];
+        unset($this->x);
+        return $numCC;
     }
 
     public function get_ListaProductos(){
@@ -344,8 +418,8 @@ class Conexion{
     }
 
     public function make_Registro(){
-        $nomus2 = $_POST["nombreusuario2"];
-        $pass = $_POST["contraseña"];
+        $nomus2 = $_POST["nomusuario"];
+        $pass = $_POST["pass"];
         $tipoprod = $_POST["tiposlist"];
         $privilegio = 2;
         $vend=$this->conexion->prepare("select idtipousuario from tipousuarios where nombretipousuario = '$tipoprod'");
@@ -353,10 +427,49 @@ class Conexion{
         $fetch = $vend->fetchAll();
         $idtipouser = $fetch[0][0];
         $encripass = md5($pass);
+        unset($this->x);
         $val =$this->validate_nomUser($nomus2);
         if ($val == 0) {
             $this->make_SubirRegistro($nomus2,$encripass,$privilegio,$idtipouser);
         }
+        if ($val == 1){
+            echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
+        }
+    }
+
+    public function update_InfoUsers(){
+        $nameuser =$_POST["nombreusuario"];
+        $name = $_POST["nombre"];
+        $apell = $_POST["apellidos"];
+        $email = $_POST["email"];
+        $numerotel = $_POST["tel"];
+        $dir = $_POST["dir"];
+        $cedul = $_POST["numcc"];
+        $tel = (int) $numerotel;
+        $ced = (int) $cedul;
+
+        $sql = "UPDATE infousuarios set nombre=?, apellido=?, correo=?, telefono=?, direccion=?, cedula=? WHERE nombreuser='$nameuser'";
+        $envio = $this->conexion->prepare($sql);
+
+        $nombre = strip_tags($name);
+        $apellido = strip_tags($apell);
+        $correo = strip_tags($email);
+        $telefono = strip_tags($tel);
+        $direccion = strip_tags($dir);
+        $cedula = strip_tags($ced);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+        $envio->bindValue(2, $apellido, PDO::PARAM_STR);
+        $envio->bindValue(3, $correo, PDO::PARAM_STR);
+        $envio->bindValue(4, $telefono, PDO::PARAM_STR);
+        $envio->bindValue(5, $direccion, PDO::PARAM_STR);
+        $envio->bindValue(6, $cedula, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+
+        echo "<script>alert('Información actualizada correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='registro.php'</script>";
     }
 
     public function validate_nomUser($nombre){
@@ -371,6 +484,7 @@ class Conexion{
                 return $val = 1;
             }
         }
+        unset($this->x);
         return $val = 0;
     }
 
@@ -389,9 +503,23 @@ class Conexion{
         $envio->bindValue(4, $idTipUser, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
-        echo"<script>alert('Usuario Agregado Correctamente')</script>";
-        echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
+        $this->create_NewInfoUser($nombre);
+        echo '<script>alert("Bienvenido a EcoFruit usuario '.$nombre.', le agradecemos hacer parte de este gran proyecto, " +
+        "recuerde modificar su infomación en el link que se encuentra junto a cerrar sesion en el panel superior. Gracias." )</script>';
+        unset($this->x);
+        echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+    }
+
+    public function create_NewInfoUser($nomUser){
+        $sql="insert into infousuarios VALUES (DEFAULT ,?, 0 , 0 , 0 , 0 , 0 , 0 );";
+        $envio=$this->conexion->prepare($sql);
+
+        $nombre = strip_tags($nomUser);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+
+        $envio->execute();
+        unset($this->x);
     }
 }
 

@@ -32,7 +32,7 @@
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Google Font -->
-		
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 		<!-- CSS
 		================================================== -->
 		<!-- Fontawesome Icon font -->
@@ -71,20 +71,20 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><a></a></li>
-                        <li><a></a></li>
                         <li><?php if ($on == 1){  echo "<a>Bienvenid@: ",$nom;?>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><a></a></li>
-                        <li><a></a></li>
-                        <li><a></a></li>
-                        <li><a></a></li>
+
                     </ul>
-                    <a href="logout.php">Cerrar Sesión</a>
+                        <form class="nav navbar-form navbar-left" role="search" action="registro.php">
+                            <button onclick='registro.php' class="btn btn-success">Modificar Información</button>
+                        </form>
+                        <form class="nav navbar-form navbar-left" role="search" action="logout.php">
+                            <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                        </form>
                         <?php }else echo "</ul>"?>
                 </nav>
             </div>
@@ -144,15 +144,15 @@
 								<form method="post" action="">
                                     <center>
                                         <p>Nombre de Usuario:</p>
-                                        <p><input type=text name=nomusuario id='nomusuario' required></p>
+                                        <p><input type=text name=nomusuario id='nomusuario' required class="form-control"></p>
                                         <p>Contraseña:</p>
-                                        <p><input type=password name=pass id='pass' required></p>
+                                        <p><input type=password name=pass id='pass' required class="form-control"></p>
                                         <br/>
-                                        <input type="hidden" name="Login">
-                                        <input type="submit" name="Entrar" value="Entrar">
+                                        <input type="hidden" name="Login" class="btn btn-success">
+                                        <input type="submit" name="Entrar" value="Entrar" class="btn btn-success">
                                 </form>
                                 <form name="a" action="registro.php">
-                                    <button onclick='registro.php'>Registro</button>
+                                    <button onclick='registro.php' class="btn btn-success">Registrate!</button>
                                 </form>
                                 </center>
                                 </p>
@@ -271,8 +271,10 @@
 				</div>
 			</div>
 		</section>
+        <h5 align="center"><i>2018 - EcoFruit</i></h5>
 
-		<!-- Main jQuery -->
+
+        <!-- Main jQuery -->
         <script src="js/jquery-1.11.1.min.js"></script>
 		<!-- Single Page Nav -->
         <script src="js/jquery.singlePageNav.min.js"></script>

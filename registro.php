@@ -2,15 +2,17 @@
     session_start();
     require_once "conexion.php";
     $conex = new Conexion();
+    global $on;
 
     if (isset($_SESSION['user'])){
         global $priv, $nom;
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
-        if ($priv == 1 or 2 or 3 or 4) {
-            echo"<script>alert('No tienes permiso para acceder a esta pagina.')</script>";
+        if ($priv == 1) {
             session_unset();
-            echo '<script> window.location="index.php"; </script>';
+            echo '<script> window.location="production/index.php"; </script>';
+        }elseif ($priv == 2 or 3 or 4 ){
+            $on = 1;
         }
     }
 ?>
@@ -22,6 +24,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!-- Page Title -->
     <title>Registro</title>
+    <link rel="shortcut icon" href="img/icono.ico">
+
     <!-- Meta Description -->
 
     <!-- Mobile Specific Meta -->
@@ -76,10 +80,38 @@ Fixed Navigation
                 <ul id="nav" class="nav navbar-nav">
                     <li class="current"><a href="#body">Inicio</a></li>
                     <li><a href="#features">Registro</a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><?php if ($on == 1){
+                        echo "<a>$nom";?>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
                 </ul>
+                <form class="nav navbar-form navbar-left" role="search" action="index.php">
+                    <button onclick='index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                </form>
+                <form class="nav navbar-form navbar-left" role="search" action="logout.php">
+                    <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                </form>
+                <?php }else echo "</ul>"?>
             </nav>
-            <!-- /main nav -->
-
         </div>
 </header>
 <!--
@@ -115,8 +147,11 @@ End Fixed Navigation
     <div class="container">
         <div class="row">
 
+            <?php
+            if ($on == 0){
+                ?>
             <div class="sec-title text-center mb50 wow bounceInDown a  nimated" data-wow-duration="500ms">
-                <h2>Registrate!!</h2>
+                <h2>Registrate!</h2>
                 <div class="devider"></div>
             </div>
 
@@ -134,27 +169,29 @@ End Fixed Navigation
                     if ($_POST) {
                         if ($_POST["Enviar1"]) {
                             $conex->make_Registro();
+                            $conex->login();
                         }
                     }
                     ?>
                     <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="ontrol-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
+                        <center><label for="last-name">  Nombre de Usuario <span class="required"></span></center>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
-                            <input type="text" id="nombreusuario2" name="nombreusuario2" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="text" name=nomusuario id='nomusuario' required class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Contraseña <span class="required"></span>
+                        <center><label for="last-name">  Contraseña <span class="required"></span></center>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
-                            <input type="password" id="contraseña" name="contraseña" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="password" name=pass id='pass' required class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">¿Que eres? <span class="required"></span>
+                        <center><label for="last-name"> ¿Qué eres? <span class="required"></span></center>
                         </label>
                         <div class="col-md-12 col-sm-6 col-xs-12">
+                            <center>
                             <select name="tiposlist">
                                 <?php
                                 for ($i=0; $i<sizeof($tiposUser); $i++){
@@ -164,6 +201,7 @@ End Fixed Navigation
                                 }
                                 ?>
                             </select>
+                            </center>
                         </div>
                     </div>
 
@@ -175,23 +213,141 @@ End Fixed Navigation
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1">
+                                <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1" value="Registrar">
                                 <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
                             </div>
                         </div>
                         <script language=javascript>
                             function limpiar2(){
-                                document.getElementById('nombreusuario2').value = "";
-                                document.getElementById('contraseña').value = "";
+                                document.getElementById('nomusuario').value = "";
+                                document.getElementById('pass').value = "";
                                 document.getElementById('privilegio').value = "";
                             }
                         </script>
                 </form>
             </div>
         </div>
-    </div>
-</section>
 
+                <?php
+            } else {
+
+                ?>
+                    <div class="row">
+
+                        <div class="sec-title text-center mb50 wow bounceInDown a  nimated" data-wow-duration="500ms">
+                            <h2>Modifique su información personal</h2>
+                            <div class="devider"></div>
+                        </div>
+
+                        <!-- service item -->
+
+                        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+                        </div>
+
+                        <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                            <!-- Formulario -->
+
+                            <form class="form-horizontal" method="post">
+                                <?php
+                                if ($_POST) {
+                                    if ($_POST["Enviar1"]) {
+                                        $conex->update_InfoUsers();
+                                    }
+                                }
+
+                                $nombre = $conex->get_Nombre();
+                                $apellido = $conex->get_Apellido();
+                                $correo = $conex->get_Correo();
+                                $telefono = $conex->get_Tel();
+                                $dir = $conex->get_Dir();
+                                $numCC = $conex->get_NumCC();
+                                ?>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Nombre de Usuario <span class="required"></span></center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12" style="display:none"  value="<?php echo $nom; ?>">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" value="<?php echo $nom; ?>" DISABLED>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">Nombre</center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="text" id="nombre" name="nombre" required class="form-control col-md-7 col-xs-12" value="<?php echo $nombre; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Apellidos </center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="text" id="apellidos" name="apellidos" required class="form-control col-md-7 col-xs-12" value="<?php echo $apellido; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Correo Electronico </center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="text" id="email" name="email" required class="form-control col-md-7 col-xs-12" value="<?php echo $correo;?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Telefono </center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="number" id="tel" name="tel" required class="form-control col-md-7 col-xs-12" value="<?php echo $telefono;?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Dirección </center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="text" id="dir" name="dir" required class="form-control col-md-7 col-xs-12" value="<?php echo $dir;?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                                    <center><label for="last-name">  Número de Cedula </center>
+                                    </label>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <input type="number" id="numcc" name="numcc" required class="form-control col-md-7 col-xs-12" value="<?php echo $numCC;?>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    </label>
+                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                            <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1" value="Guardar">
+                                            <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
+                                        </div>
+                                    </div>
+                                    <script language=javascript>
+                                        function limpiar2(){
+                                            document.getElementById('nombre').value = "";
+                                            document.getElementById('apellidos').value = "";
+                                            document.getElementById('email').value = "";
+                                            document.getElementById('tel').value = "";
+                                            document.getElementById('dir').value = "";
+                                            document.getElementById('numcc').value = "";
+                                        }
+                                    </script>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <?php
+                }
+            ?>
+    </div>
+
+</section>
+<h5 align="center"><i>2018 - EcoFruit</i></h5>
 
 
 <!--
