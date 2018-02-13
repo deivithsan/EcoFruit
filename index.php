@@ -31,8 +31,6 @@
         <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- Google Font -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 		<!-- CSS
 		================================================== -->
 		<!-- Fontawesome Icon font -->

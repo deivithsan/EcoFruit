@@ -26,9 +26,6 @@ if (isset($_SESSION['user'])){
         <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- Google Font -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-
 		<!-- CSS
 		================================================== -->
 		<!-- Fontawesome Icon font -->
@@ -299,9 +296,6 @@ if (isset($_SESSION['user'])){
         <script src="js/jquery-countTo.js"></script>
 		<!-- jquery.appear -->
         <script src="js/jquery.appear.js"></script>
-		<!-- Contact form validation -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
 		<!-- jquery easing -->
         <script src="js/jquery.easing.min.js"></script>
         <!-- Datatables -->
@@ -316,7 +310,6 @@ if (isset($_SESSION['user'])){
         <script src="./vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
         <script src="./vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
         <script src="./vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-        <script src="./vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
         <script src="./vendors/jszip/dist/jszip.min.js"></script>
         <script src="./vendors/pdfmake/build/pdfmake.min.js"></script>
         <script src="./vendors/pdfmake/build/vfs_fonts.js"></script>
