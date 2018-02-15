@@ -4,14 +4,15 @@
     $conex = new Conexion();
     global $on;
 
-    if (isset($_SESSION['user'])){
+    if (isset($_SESSION['user'])) {
         global $priv, $nom;
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
-        if ($priv == 1) {
-            session_unset();
+        if ($nom == 'dei') {
+            $on = 2;
+        } elseif ($priv == 1) {
             echo '<script> window.location="production/index.php"; </script>';
-        }elseif ($priv == 2 or 3 or 4 ){
+        } elseif ($priv == 2 or 3 or 4) {
             $on = 1;
         }
     }
@@ -87,7 +88,6 @@ Fixed Navigation
                     <li><a></a></li>
                     <li><a></a></li>
                     <li><a></a></li>
-                    <li><a></a></li>
                     <li><?php if ($on == 1){
                         echo "<a>$nom";?>
                     <li><a></a></li>
@@ -105,7 +105,24 @@ Fixed Navigation
                 <form class="nav navbar-form navbar-left" role="search" action="logout.php">
                     <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
                 </form>
-                <?php }else echo "</ul>"?>
+                <?php }elseif ($on == 2){
+                    echo "<a>Bienvenido Admin: ",$nom;
+                        ?>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    <li><a></a></li>
+                    </ul>
+                    <form class="nav navbar-form navbar-left" role="search" action="production/index.php">
+                        <button onclick='production/index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                    </form>
+                    <form class="nav navbar-form navbar-left" role="search" action="logout.php">
+                        <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                    </form>
+                <?php
+                }echo "</ul>"?>
             </nav>
         </div>
 </header>
@@ -224,7 +241,7 @@ End Fixed Navigation
         </div>
 
                 <?php
-            } else {
+            } elseif ($on == 1) {
 
                 ?>
                     <div class="row">
@@ -337,6 +354,68 @@ End Fixed Navigation
                     </div>
 
                     <?php
+                } elseif ($on == 2){
+                ?>
+        <div class="sec-title text-center mb50 wow bounceInDown a  nimated" data-wow-duration="500ms">
+            <h2>Creacion de un nuevo Administrador</h2>
+            <div class="devider"></div>
+        </div>
+
+        <!-- service item -->
+
+        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+        </div>
+
+        <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+            <!-- Formulario -->
+
+            <form class="form-horizontal" method="post">
+                <?php
+                $tiposUser = $conex->get_TiposUsers();
+                if ($_POST) {
+                    if ($_POST["Enviar1"]) {
+                        $conex->create_AdminUser();
+                        $conex->login();
+                    }
+                }
+                ?>
+                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                    <center><label for="last-name">  Nombre de Usuario <span class="required"></span></center>
+                    </label>
+                    <div class="col-md-12 col-sm-6 col-xs-12">
+                        <input type="text" name=nomusuario id='nomusuario' required class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-9 col-xs-12 form-group has-feedback">
+                    <center><label for="last-name">  Contraseña <span class="required"></span></center>
+                    </label>
+                    <div class="col-md-12 col-sm-6 col-xs-12">
+                        <input type="password" name=pass id='pass' required class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                    </label>
+                    <div class="col-md-12 col-sm-9 col-xs-12">
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                            <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1" value="Registrar">
+                            <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
+                        </div>
+                    </div>
+                    <script language=javascript>
+                        function limpiar2(){
+                            document.getElementById('nomusuario').value = "";
+                            document.getElementById('pass').value = "";
+                        }
+                    </script>
+            </form>
+        </div>
+    </div>
+                <?php
                 }
             ?>
     </div>

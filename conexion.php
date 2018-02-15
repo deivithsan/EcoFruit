@@ -117,8 +117,6 @@ class Conexion{
         }
     }
 
-
-
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from infousuarios where nombreuser = '$nom'";
@@ -437,6 +435,33 @@ class Conexion{
         }
     }
 
+    public function create_AdminUser(){
+        $nombre = $_POST["nomusuario"];
+        $pass = $_POST["pass"];
+        $encripass = md5($pass);
+        $validate = $this->validate_nomUser($nombre);
+        if ($validate == 0){
+            $sql="insert into usuarios VALUES (?,?,1,1);";
+            $envio=$this->conexion->prepare($sql);
+
+            $nomAdmin = strip_tags($nombre);
+            $contraseña = strip_tags($encripass);
+
+            $envio->bindValue(1, $nomAdmin, PDO::PARAM_STR);
+            $envio->bindValue(2, $contraseña, PDO::PARAM_STR);
+
+            $envio->execute();
+            unset($this->x);
+            $this->create_NewInfoUser($nombre);
+            echo '<script>alert("Creado el administrador: '.$nombre.', Deivith." )</script>';
+            echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+        }
+        if ($validate == 1){
+            echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
+
+        }
+    }
+
     public function update_InfoUsers(){
         $nameuser =$_POST["nombreusuario"];
         $name = $_POST["nombre"];
@@ -445,8 +470,6 @@ class Conexion{
         $numerotel = $_POST["tel"];
         $dir = $_POST["dir"];
         $cedul = $_POST["numcc"];
-        $tel = (int) $numerotel;
-        $ced = (int) $cedul;
 
         $sql = "UPDATE infousuarios set nombre=?, apellido=?, correo=?, telefono=?, direccion=?, cedula=? WHERE nombreuser='$nameuser'";
         $envio = $this->conexion->prepare($sql);
@@ -454,9 +477,9 @@ class Conexion{
         $nombre = strip_tags($name);
         $apellido = strip_tags($apell);
         $correo = strip_tags($email);
-        $telefono = strip_tags($tel);
+        $telefono = strip_tags($numerotel);
         $direccion = strip_tags($dir);
-        $cedula = strip_tags($ced);
+        $cedula = strip_tags($cedul);
 
         $envio->bindValue(1, $nombre, PDO::PARAM_STR);
         $envio->bindValue(2, $apellido, PDO::PARAM_STR);
@@ -555,8 +578,6 @@ class Admin{
         $numerotel = $_POST["telefono"];
         $dir = $_POST["direccion"];
         $cedul = $_POST["cedula"];
-        $tel = (int) $numerotel;
-        $ced = (int) $cedul;
         $dat = 0;
         $sql2="SELECT nombreuser from usuarios";
         foreach ($this->conexion->query($sql2) as $row2){
@@ -573,9 +594,9 @@ class Admin{
                 $nom = strip_tags($name);
                 $ape = strip_tags($apell);
                 $correo = strip_tags($email);
-                $movil = strip_tags($tel);
+                $movil = strip_tags($numerotel);
                 $direccion = strip_tags($dir);
-                $CC = strip_tags($ced);
+                $CC = strip_tags($cedul);
 
                 $envio->bindValue(1, $nomUser, PDO::PARAM_STR);
                 $envio->bindValue(2, $nom, PDO::PARAM_STR);
@@ -1207,6 +1228,39 @@ class Admin{
             echo "<script>alert('Compra eliminada correctamente.')</script>";
             echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
         }
+    }
+
+    public function update_AdminInfo(){
+        $nameuser =$_POST["nombreusuario"];
+        $name = $_POST["nombre"];
+        $apell = $_POST["apellidos"];
+        $email = $_POST["email"];
+        $numerotel = $_POST["tel"];
+        $dir = $_POST["dir"];
+        $cedul = $_POST["numcc"];
+
+        $sql = "UPDATE infousuarios set nombre=?, apellido=?, correo=?, telefono=?, direccion=?, cedula=? WHERE nombreuser='$nameuser'";
+        $envio = $this->conexion->prepare($sql);
+
+        $nombre = strip_tags($name);
+        $apellido = strip_tags($apell);
+        $correo = strip_tags($email);
+        $telefono = strip_tags($numerotel);
+        $direccion = strip_tags($dir);
+        $cedula = strip_tags($cedul);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+        $envio->bindValue(2, $apellido, PDO::PARAM_STR);
+        $envio->bindValue(3, $correo, PDO::PARAM_STR);
+        $envio->bindValue(4, $telefono, PDO::PARAM_STR);
+        $envio->bindValue(5, $direccion, PDO::PARAM_STR);
+        $envio->bindValue(6, $cedula, PDO::PARAM_STR);
+
+        $envio->execute();
+        $this->conexion = null;
+
+        echo "<script>alert('Información actualizada correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
     }
 
 }
