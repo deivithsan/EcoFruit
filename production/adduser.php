@@ -129,6 +129,10 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <?php if($nom == 'dei'){?>
+                                        <li><a href="../registro.php"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
+                                    <?php } ?>
+                                    <li><a href="perfil.php"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                 </ul>
                             </li>
@@ -163,7 +167,7 @@
                                 </div>
                                 <div class="x_content">
                                     <form class="form-horizontal form-label-left" method="post">
-                                        <?php                                      
+                                        <?php
                                         $tiposUser = $conex->get_TiposUsers();
                                         if ($_POST){
                                             $admin->make_Usuario();
