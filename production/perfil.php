@@ -212,6 +212,7 @@
                                             <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Modificar Información</a>
+                                                    <li role="presentation"><a href="#tab_content2" id="log-tab" role="tab" data-toggle="tab" aria-expanded="false">Historial</a>
                                                     </li>
                                                 </ul>
                                                 <div id="myTabContent" class="tab-content">
@@ -225,9 +226,9 @@
                                                                 $admin->update_AdminInfo();
                                                             }
                                                             ?>
-                                                            <form class="form-horizontal form-label-left" method="post">
+                                                            <form class="form-horizontal form-label-rigth" method="post">
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
+                                                                    <label class="text-left col-md-3 col-sm-3 col-xs-3" for="last-name">Nombre: <span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12" style="display:none"  value="<?php echo $nom; ?>">
@@ -235,35 +236,35 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellidos<span class="required"></span>
+                                                                    <label for="middle-name" class="text-left col-md-3 col-sm-3 col-xs-12">Apellidos:<span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="text" id="apellidos" name="apellidos" required class="form-control col-md-7 col-xs-12" value="<?php echo $apellido; ?>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
+                                                                    <label class="text-left col-md-3 col-sm-3 col-xs-12">Correo: <span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="text" id="email" name="email" required class="form-control col-md-7 col-xs-12" value="<?php echo $correo;?>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
+                                                                    <label class="text-left col-md-3 col-sm-3 col-xs-12">Telefono: <span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="number" id="tel" name="tel" required class="form-control col-md-7 col-xs-12" value="<?php echo $telefono;?>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
+                                                                    <label class="text-left col-md-3 col-sm-3 col-xs-12">Dirección: <span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="text" id="dir" name="dir" required class="form-control col-md-7 col-xs-12" value="<?php echo $dir;?>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
+                                                                    <label class="text-left col-md-3 col-sm-3 col-xs-12">Número de Cedula: <span class="required"></span>
                                                                     </label>
                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                                         <input type="number" id="numcc" name="numcc" required class="form-control col-md-7 col-xs-12" value="<?php echo $numCC;?>">
@@ -289,6 +290,43 @@
                                                                 </script>
                                                             </form>
                                                         </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="log-tab">
+
+                                                        <!-- start recent activity -->
+                                                        <?php
+                                                        $log = $admin->get_logUser($nom);
+                                                        if ($log == 0) {
+                                                            echo "<h4 class='heading' align='center'> El Usuario no ha hecho ningun cambio</h4>";
+
+                                                        } else{
+                                                        $rows = count($log);
+                                                          ?>
+                                                        <table class="data table table-striped no-margin">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Acción</th>
+                                                                <th>idAfectado</th>
+                                                                <th>Fecha</th>
+                                                                <th>Hora</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <?php
+                                                                for ($i = 0; $i < $rows; $i++){
+                                                                ?>
+                                                                <td><?php echo $log[$i][1]; ?></td>
+                                                                <td><?php echo $log[$i][5]; ?></td>
+                                                                <td><?php echo $log[$i][3]; ?></td>
+                                                                <td><?php echo $log[$i][4]; ?></td>
+                                                            </tr>
+                                                            <?php
+                                                            }
+                                                            }
+                                                            ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>

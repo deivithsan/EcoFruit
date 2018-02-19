@@ -236,6 +236,8 @@
             if ($_POST){
                 if ($_POST["Enviar"]){
                     $admin->update_Productos();
+                    $info = "Modificación de Producto";
+                    $admin->update_logProd($nom,$info);
                 }
                 if ($_POST["Eliminar"]){
                     $admin->delete_Prod();
