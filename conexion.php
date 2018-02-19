@@ -199,7 +199,6 @@ class Conexion{
         }
         $datos = $this->x;
         $numCC= $datos[0][0];
-        unset($this->x);
         return $numCC;
     }
 
@@ -751,8 +750,7 @@ class Admin{
 
     }
 
-    public function make_Usuario()
-    {
+    public function make_Usuario(){
         $nomus2 = $_POST["nombreusuario2"];
         $pass = $_POST["contraseña"];
         $tipoprod = $_POST["tiposlist"];
@@ -1032,10 +1030,46 @@ class Admin{
         $envio->bindValue(8, $vendedorProd, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
-
         echo "<script>alert('Producto actualizado correctamente.')</script>";
+    }
+
+    public function update_logProd($nom,$info){
+        $fecha = date( "Y/m/d", time() );
+        $time = strftime( "%H:%M:%S", time() );
+
+        $sqlLOG = "INSERT INTO logprod VALUES (default, ?,?,?,?,?);";
+        $BD = $this->conexion->prepare($sqlLOG);
+
+        $log = strip_tags($info);
+        $nombre = strip_tags($nom);
+        $dia = strip_tags($fecha);
+        $hora = strip_tags($time);
+
+        echo '<script>alert("'.$nombre,$log,$dia,$hora,$_POST["idproduc"].'" )</script>';
+
+        $BD->bindValue(1, $log, PDO::PARAM_STR);
+        $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+        $BD->bindValue(3, $dia, PDO::PARAM_STR);
+        $BD->bindValue(4, $hora, PDO::PARAM_STR);
+        $BD->bindValue(5, $_POST["idproduc"], PDO::PARAM_STR);
+
+        $BD->execute();
+        unset($this->x);
+
         echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+    }
+
+    public function get_logUser($user){
+        $sql="SELECT * FROM logprod WHERE logprod.user = '$user'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        if ($this->x == null){
+            $log = 0;
+        } else{
+            $log = $this->x;
+        }
+        return $log;
     }
 
     public function get_idTipoProd($tipo){
@@ -1257,7 +1291,7 @@ class Admin{
         $envio->bindValue(6, $cedula, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
+        unset($this->x);
 
         echo "<script>alert('Información actualizada correctamente.')</script>";
         echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
