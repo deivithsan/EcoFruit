@@ -171,6 +171,8 @@
                                     $vendedores = $admin->get_Vendedores();
                                     if ($_POST){
                                         $admin->insert_Productos();
+                                        $info = "Creación de Producto";
+                                        $admin->create_log($nom,$info, $i = null);
                                     }
                                     ?>
                                     <div class="item form-group">
@@ -255,9 +257,9 @@
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                             <center>
-                                            <input type="submit" class="btn btn-success">
-                                            <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
-                                            <input type=button value="Ver Productos" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
+                                                <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                                                <input type="submit" class="btn btn-success" value="Guardar">
+                                                <input type=button value="Ver Productos" class="btn btn-success" onclick = "location='tableProDisp.php'"/>
                                         </div>
                                     </div>
                                     <script language=javascript>

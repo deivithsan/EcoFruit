@@ -182,6 +182,8 @@
                                     <th>Comprador del Producto</th>
                                     <th>Valoración de la Compra</th>
                                     <th>Detalle de la Valoración</th>
+                                    <th>Fecha de la Compra</th>
+                                    <th>Hora de la Compra</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -203,6 +205,8 @@
                                     <td><?php echo $compras[$i][10] ?></td>
                                     <td><?php echo $compras[$i][11] ?></td>
                                     <td><?php echo $compras[$i][12] ?></td>
+                                    <td><?php echo $compras[$i][13] ?></td>
+                                    <td><?php echo $compras[$i][14] ?></td>
                                 </tr>
                                     <?php } ?>
                                 </tbody>

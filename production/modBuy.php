@@ -43,6 +43,12 @@
     <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -218,6 +224,8 @@
             <th>Comprador del Producto</th>
             <th>Valoración de la Compra</th>
             <th>Detalle de la Valoración</th>
+            <th>Fecha de la Compra</th>
+            <th>Hora de la Compra</th>
         </tr>
         </thead>
         <tbody>
@@ -240,6 +248,8 @@
                 <td><?php echo $compra[$i][10]; ?></td>
                 <td><?php echo $compra[$i][11]; ?></td>
                 <td><?php echo $compra[$i][12]; ?></td>
+                <td><?php echo $compra[$i][13]; ?></td>
+                <td><?php echo $compra[$i][14]; ?></td>
             </tr>
             <?php
         }
@@ -258,9 +268,15 @@
 if ($_POST){
     if ($_POST["Enviar"]){
         $admin->update_Compras();
+        $info = "Modificación de Compra";
+        $i =$_POST["idcompra"];
+        $admin->create_log($nom,$info,$i);
     }
     if ($_POST["Eliminar"]){
         $admin->delete_Compra();
+        $info = "Eliminó una Compra";
+        $i= $_POST["idcompra"];
+        $admin->create_log($nom,$info,$i);
     }
 }
 ?>
@@ -290,7 +306,8 @@ if ($_POST){
         <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) <span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="cantdisp" DISABLED class="date-picker form-control col-md-7 col-xs-12"  type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>">
+            <input DISABLED class="date-picker form-control col-md-7 col-xs-12"  type="number" value="<?php echo $compraData[0][4]; ?>">
+            <input id="cantdisp" style="display:none" class="date-picker form-control col-md-7 col-xs-12"  type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>">
         </div>
     </div>
     <div class="form-group">
@@ -368,7 +385,7 @@ if ($_POST){
 <script src="../build/js/custom.min.js"></script>
 <!-- bootstrap-wysiwyg -->
 <!-- Datatables -->
-<script src="../vendors/datatables.net/js/jquery.dataTables.minNS.js"></script>
+<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
@@ -388,9 +405,34 @@ if ($_POST){
         var handleDataTableButtons = function() {
             if ($("#datatable-buttons").length) {
                 $("#datatable-buttons").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
                 });
             }
         };
+
         TableManageButtons = function() {
             "use strict";
             return {
@@ -399,16 +441,44 @@ if ($_POST){
                 }
             };
         }();
+
         $('#datatable').dataTable();
+
+        $('#datatable-keytable').DataTable({
+            keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+            ajax: "js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+
         var $datatable = $('#datatable-checkbox');
+
         $datatable.dataTable({
             'order': [[ 1, 'asc' ]],
             'columnDefs': [
                 { orderable: false, targets: [0] }
             ]
         });
+        $datatable.on('draw.dt', function() {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_flat-green'
+            });
+        });
+
         TableManageButtons.init();
     });
+
 </script>
 </body>
 </html>
