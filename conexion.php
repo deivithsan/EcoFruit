@@ -107,6 +107,9 @@ class Conexion{
             $datos2 = $this->y;
             $_SESSION["privil"] = $datos2[0]["tipousuario"];
             if ($_SESSION["privil"] == 1){
+                $admin = new Admin();
+                $info = "Inicio de Sesión";
+                $admin->create_log($nom,$info,$i = null);
                 header('Location: production/index.php');
             }elseif ($_SESSION["privil"] == 2 or 3 or 4){
                 header('Location: index.php');
@@ -116,6 +119,7 @@ class Conexion{
             echo"<script type=\"text/javascript\">window.location='index.php'</script>";
         }
     }
+
 
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
@@ -709,9 +713,7 @@ class Admin{
         $envio->bindValue(8, $tipoProd, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
         echo "<script>alert('Producto agregado correctamente')</script>";
-        echo "<script type=\"text/javascript\">window.location='form_validation.php'</script>";
     }
 
     public function make_AddPrivilegio(){
@@ -1033,34 +1035,167 @@ class Admin{
         echo "<script>alert('Producto actualizado correctamente.')</script>";
     }
 
-    public function update_logProd($nom,$info){
+    public function create_log($nom,$info,$i){
+
         $fecha = date( "Y/m/d", time() );
         $time = strftime( "%H:%M:%S", time() );
 
-        $sqlLOG = "INSERT INTO logprod VALUES (default, ?,?,?,?,?);";
-        $BD = $this->conexion->prepare($sqlLOG);
+        if ($info == "Inicio de Sesión"){
 
-        $log = strip_tags($info);
-        $nombre = strip_tags($nom);
-        $dia = strip_tags($fecha);
-        $hora = strip_tags($time);
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?, DEFAULT );";
+            $BD = $this->conexion->prepare($sqlLOG);
 
-        echo '<script>alert("'.$nombre,$log,$dia,$hora,$_POST["idproduc"].'" )</script>';
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
 
-        $BD->bindValue(1, $log, PDO::PARAM_STR);
-        $BD->bindValue(2, $nombre, PDO::PARAM_STR);
-        $BD->bindValue(3, $dia, PDO::PARAM_STR);
-        $BD->bindValue(4, $hora, PDO::PARAM_STR);
-        $BD->bindValue(5, $_POST["idproduc"], PDO::PARAM_STR);
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
 
-        $BD->execute();
-        unset($this->x);
+            $BD->execute();
 
-        echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+            $this->conexion = null;
+
+        } elseif ($info == "Cerró Sesión"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?, DEFAULT );";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+        } elseif ($info == "Creación de Producto"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,DEFAULT );";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+            echo "<script type=\"text/javascript\">window.location='form_validation.php'</script>";
+
+        } elseif($info == "Modificación de Producto"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,?);";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+            $id = strip_tags($i);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+            $BD->bindValue(5, $id, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+
+        } elseif ($info == "Eliminó un Producto"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,?);";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+            $id = strip_tags($i);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+            $BD->bindValue(5, $id, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+
+        } elseif ($info == "Modificación de Compra"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,?);";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+            $id = strip_tags($i);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+            $BD->bindValue(5, $id, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+
+        } elseif ($info == "Eliminó una Compra"){
+
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,?);";
+            $BD = $this->conexion->prepare($sqlLOG);
+
+            $log = strip_tags($info);
+            $nombre = strip_tags($nom);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+            $id = strip_tags($i);
+
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $nombre, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $hora, PDO::PARAM_STR);
+            $BD->bindValue(5, $id, PDO::PARAM_STR);
+
+            $BD->execute();
+
+            $this->conexion = null;
+
+            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+        }
+
     }
 
     public function get_logUser($user){
-        $sql="SELECT * FROM logprod WHERE logprod.user = '$user'";
+        $sql="SELECT * FROM log WHERE usuario = '$user'";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -1084,25 +1219,20 @@ class Admin{
     }
 
     public function delete_Prod(){
-        $idedelproducto = $_POST["idproduc"];
-        $idpro = (int) $idedelproducto;
+        $id = $_POST["idproduc"];
 
-        if ($idpro == 0){
+        if ($id == 0){
             echo "<script>alert('Busque primero el producto que desea eliminar.')</script>";
             echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
         } else{
-            $sql = "delete from productos WHERE idprod=?";
+            $sql = "delete from productos WHERE idprod = ?";
             $envio = $this->conexion->prepare($sql);
 
-            $id = strip_tags($idpro);
-
-            $envio->bindValue(1, $id, PDO::PARAM_STR);
+            $envio->bindValue(1, $_POST["idproduc"], PDO::PARAM_STR);
 
             $envio->execute();
-            $this->conexion = null;
 
             echo "<script>alert('Producto eliminado correctamente.')</script>";
-            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
         }
     }
 
@@ -1190,12 +1320,12 @@ class Admin{
         $valoracion= $this->get_IdValoracion($val);
         $idc = (int) $idcompraproducto;
         $idp = (int) $idproducto;
-        $cantd = (int) $cantidadisponible;
-        $cantc = (int) $cantidadcomprada;
         $numc = (int) $numerocedula;
         $numt = (int) $numerotelefono;
 
-        if ($cantc > $cantd){
+        echo '<script>alert("Cantidad comprada: '.$cantidadcomprada.', Cantidad disp: '.$cantidadisponible.'" )</script>';
+
+        if ($cantidadcomprada > $cantidadisponible){
             $this->conexion = null;
             echo "<script>alert('Error, no se puede actualizar debido a que la cantidad comprada del producto es superior a la disponible. Intente de nuevo por favor.')</script>";
             echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
@@ -1204,7 +1334,7 @@ class Admin{
         $sql = "UPDATE compra set cantbuy=?, valoracion=?, infoval=? WHERE idcompra =$idc";
         $envio = $this->conexion->prepare($sql);
 
-        $cantidad = strip_tags($cantc);
+        $cantidad = strip_tags($cantidadcomprada);
         $valCompra = strip_tags($valoracion);
         $infoVal = strip_tags($infoval);
 
@@ -1213,10 +1343,8 @@ class Admin{
         $envio->bindValue(3, $infoVal, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
 
         echo "<script>alert('Compra actualizada correctamente.')</script>";
-        echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
     }
 
     public function  get_IdValoracion($val){
@@ -1257,10 +1385,8 @@ class Admin{
             $envio->bindValue(1, $id, PDO::PARAM_STR);
 
             $envio->execute();
-            $this->conexion = null;
 
             echo "<script>alert('Compra eliminada correctamente.')</script>";
-            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
         }
     }
 
