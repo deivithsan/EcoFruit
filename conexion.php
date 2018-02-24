@@ -120,7 +120,6 @@ class Conexion{
         }
     }
 
-
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from infousuarios where nombreuser = '$nom'";
@@ -786,21 +785,20 @@ class Admin{
     }
 
     public function validate_NomUser($nomUser){
-        $users = $this->conexion->prepare("SELECT nombreuser FROM usuarios");
-        $users->execute();
-        while ($fetch = $users->fetchAll()) {
-            $rows = count($fetch);
-            for ($i = 0; $i < $rows; $i++) {
-                $nombreUser = $fetch[$i][0];
-                if ($nombreUser == $nomUser) {
-                    echo "<script>alert('El nombre de usuario ya existe.')</script>";
-                    echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
-                } else {
-                    return 0;
-                }
-            }
-
+        $sql="SELECT nombreuser from usuarios";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
         }
+        $datos = $this->x;
+        for ($i=0; $i<sizeof($datos); $i++){
+            if ($datos[$i][0] == $nomUser){
+                echo "<script>alert('El nombre de usuario ya existe')</script>";
+                echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
+            }
+        }
+        unset($this->x);
+        return 0;
+
     }
 
     public function get_Compras(){
