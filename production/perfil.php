@@ -8,10 +8,10 @@
         $nom = $_SESSION['user'];
         if ($priv != 1) {
             session_unset();
-            echo '<script> window.location="../index.php"; </script>';
+            echo '<script> window.location="../index"; </script>';
         }
     } else {
-        echo '<script> window.location="../index.php"; </script>';
+        echo '<script> window.location="../index"; </script>';
     }
     $nombreyapellido = $admin->get_NombreApellido();
 ?>
@@ -79,44 +79,44 @@
                             <div class="menu_section">
                                 <h3>General</h3>
                                 <ul class="nav side-menu">
-                                    <li><a href="index.php"><i class="fa fa-home"></i> Inicio </a>
+                                    <li><a href="index"><i class="fa fa-home"></i> Inicio </a>
                                     </li>
                                     <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="form.php">Ingresar Información Usuario</a></li>
-                                            <li><a href="form_validation.php">Ingresar Productos</a></li>
-                                            <li><a href="formPriv.php">Ingresar Privilegios</a></li>
-                                            <li><a href="adduser.php">Ingresar Usuarios</a></li>
+                                            <li><a href="form">Ingresar Información Usuario</a></li>
+                                            <li><a href="form_validation">Ingresar Productos</a></li>
+                                            <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                            <li><a href="adduser">Ingresar Usuarios</a></li>
                                         </ul>
                                     </li>
                                     <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="tableBuy.php"> Compras </a></li>
-                                            <li><a href="tableInfoUsr.php"> Información de Usuarios </a></li>
-                                            <li><a href="tableProDisp.php"> Productos </a></li>
-                                            <li><a href="tableEstateProd.php"> Estado de los Productos </a></li>
-                                            <li><a href="tableInfoPriv.php"> Privilegios </a></li>
-                                            <li><a href="tableUsers.php"> Usuarios </a></li>
-                                            <li><a href="tableTipeUsers.php"> Tipos de Usuarios </a></li>
-                                            <li><a href="tableTiposProd.php"> Tipos de Productos </a></li>
+                                            <li><a href="tableBuy"> Compras </a></li>
+                                            <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
+                                            <li><a href="tableProDisp"> Productos </a></li>
+                                            <li><a href="tableEstateProd"> Estado de los Productos </a></li>
+                                            <li><a href="tableInfoPriv"> Privilegios </a></li>
+                                            <li><a href="tableUsers"> Usuarios </a></li>
+                                            <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
+                                            <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                         </ul>
                                     </li>
                                     <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="modInfo.php">Información de Usuarios</a></li>
-                                            <li><a href="modProd.php">Productos</a></li>
+                                            <li><a href="modInfo">Información de Usuarios</a></li>
+                                            <li><a href="modProd">Productos</a></li>
                                         </ul>
                                     </li>
                                     <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="tableMen.php"> Mensajes </a></li>
-                                            <li><a href="modBuy.php">Compras</a></li>
+                                            <li><a href="tableMen"> Mensajes </a></li>
+                                            <li><a href="modBuy">Compras</a></li>
                                         </ul>
                                     </li>
                             </div>
                         </div>
                         <div class="sidebar-footer hidden-small">
-                            <a data-toggle="tooltip" a href="logout.php" data-placement="top" title="Salir">
+                            <a data-toggle="tooltip" a href="logout" data-placement="top" title="Salir">
                                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                             </a>
                         </div>
@@ -140,10 +140,10 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                                         <?php if($nom == 'dei'){?>
-                                            <li><a href="../registro.php"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
+                                            <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
                                         <?php } ?>
-                                        <li><a href="perfil.php"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
-                                        <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+                                        <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
+                                        <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -366,10 +366,10 @@
                                                                 $target_path = "images/";
                                                                 $target_path = $target_path . basename( $_FILES['image_uploads']['name'][$i]);
                                                                 if(move_uploaded_file($_FILES['image_uploads']['tmp_name'][$i], $target_path)) {
-                                                                    echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
+                                                                    echo "<script>alert('Se han agregado los correspondientes archivos.');</script>";
+                                                                    echo "<script type=\"text/javascript\">window.location='perfil'</script>";
                                                                 } else{
-                                                                    echo "<script>alert('Ha ocurrido un error, intente de nuevo.');</script>";
-                                                                    echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
+                                                                    echo "Ha ocurrido un error, trate de nuevo!";
                                                                 }
                                                             }
                                                         }
@@ -386,7 +386,7 @@
                 </div>
                 <footer>
                     <div class="pull-right">
-                        <a href="../index.php">EcoFruit</a>
+                        <a href="../index">EcoFruit</a>
                     </div>
                     <div class="clearfix"></div>
                 </footer>
