@@ -9,7 +9,7 @@ if (isset($_SESSION['user'])){
     $nom = $_SESSION['user'];
     if ($priv == 1) {
         session_unset();
-        echo '<script> window.location="production/index.php"; </script>';
+        echo '<script> window.location="production/index"; </script>';
     }elseif ($priv == 3 or 4 ){
         $on = 1;
     }
@@ -80,11 +80,11 @@ if (isset($_SESSION['user'])){
                     <li><a></a></li>
                     <li><a></a></li>
                 </ul>
-                <form class="nav navbar-form navbar-left" role="search" action="index.php">
-                    <button onclick='index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                <form class="nav navbar-form navbar-left" role="search" action="index">
+                    <button onclick='index' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
                 </form>
-                <form class="nav navbar-form navbar-left" role="search" action="logout.php">
-                    <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                <form class="nav navbar-form navbar-left" role="search" action="logout">
+                    <button onclick='logout' class="btn btn-success">Cerrar Sesión</button>
                 </form>
                     <?php }else echo "</ul>" ?>
             </nav>
@@ -99,7 +99,7 @@ if (isset($_SESSION['user'])){
                         <h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
                         <ul class="social-links text-center">
                             <li><i class="fa fa-twitter fa-lg"></i></li>
-                            <li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+                            <li><a href="index"><i class="fa fa-home fa-lg"></i></a></li>
                             <li><i class="fa fa-facebook fa-lg"></i></li>
                         </ul>
                     </div>

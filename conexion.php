@@ -85,7 +85,7 @@ class Conexion{
         $this->conexion = null;
 
         echo"<script>alert('Mensaje enviado correctamente')</script>";
-        echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+        echo"<script type=\"text/javascript\">window.location='index'</script>";
     }
 
     public function login(){
@@ -110,13 +110,13 @@ class Conexion{
                 $admin = new Admin();
                 $info = "Inicio de Sesión";
                 $admin->create_log($nom,$info,$i = null);
-                header('Location: production/index.php');
+                header('Location: production/index');
             }elseif ($_SESSION["privil"] == 2 or 3 or 4){
-                header('Location: index.php');
+                header('Location: index');
             }
         }else{
             echo"<script>alert('Datos ingresados incorrectos.')</script>";
-            echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='index'</script>";
         }
     }
 
@@ -212,7 +212,7 @@ class Conexion{
         $rows = count($fetch);
         if ($rows == 0){
             echo"<script>alert('Se presentan problemas con los productos disponibles')</script>";
-            echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='index'</script>";
         } else{
             $sql2="select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo order by idprod";
             foreach ($this->conexion->query($sql2) as $row){
@@ -272,7 +272,7 @@ class Conexion{
         if ($cantbuy > $cantdis ){
             $this->conexion = null;
             echo"<script>alert('No se pueden realizar compras mayores a la cantidad disponible actualmente, intente con una cantidad menor por favor.')</script>";
-            echo"<script type=\"text/javascript\">window.location='bd.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='bd'</script>";
         }
 
         $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,DEFAULT , DEFAULT );";
@@ -304,7 +304,7 @@ class Conexion{
         $this->conexion = null;
 
         echo"<script>alert('Compra Realizada correctamente! Recuerda comunicarte con uno de nuestros administradores para iniciar el proceso de compra, Gracias!!')</script>";
-        echo"<script type=\"text/javascript\">window.location='bd.php'</script>";
+        echo"<script type=\"text/javascript\">window.location='bd'</script>";
     }
 
     public function get_Usuarios(){
@@ -433,7 +433,7 @@ class Conexion{
             $this->make_SubirRegistro($nomus2,$encripass,$privilegio,$idtipouser);
         }
         if ($val == 1){
-            echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='registro'</script>";
         }
     }
 
@@ -456,10 +456,10 @@ class Conexion{
             unset($this->x);
             $this->create_NewInfoUser($nombre);
             echo '<script>alert("Creado el administrador: '.$nombre.', Deivith." )</script>';
-            echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='index'</script>";
         }
         if ($validate == 1){
-            echo"<script type=\"text/javascript\">window.location='registro.php'</script>";
+            echo"<script type=\"text/javascript\">window.location='registro'</script>";
 
         }
     }
@@ -494,7 +494,7 @@ class Conexion{
         $this->conexion = null;
 
         echo "<script>alert('Información actualizada correctamente.')</script>";
-        echo "<script type=\"text/javascript\">window.location='registro.php'</script>";
+        echo "<script type=\"text/javascript\">window.location='registro'</script>";
     }
 
     public function validate_nomUser($nombre){
@@ -532,7 +532,7 @@ class Conexion{
         echo '<script>alert("Bienvenido a EcoFruit usuario '.$nombre.', le agradecemos hacer parte de este gran proyecto, " +
         "recuerde modificar su infomación en el link que se encuentra junto a cerrar sesion en el panel superior. Gracias." )</script>';
         unset($this->x);
-        echo"<script type=\"text/javascript\">window.location='index.php'</script>";
+        echo"<script type=\"text/javascript\">window.location='index'</script>";
     }
 
     public function create_NewInfoUser($nomUser){
@@ -611,7 +611,7 @@ class Admin{
                 $envio->execute();
                 $this->conexion = null;
                 echo"<script>alert('Información agregada correctamente')</script>";
-                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+                echo"<script type=\"text/javascript\">window.location='form'</script>";
 
             } else{
                 $val = 0;
@@ -619,7 +619,7 @@ class Admin{
         }
         if ($val == 0){
                 echo"<script>alert('Ese nombre de usuario no existe, por favor verifique los datos ingresados.')</script>";
-                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+                echo"<script type=\"text/javascript\">window.location='form'</script>";
                 exit;
         }
 
@@ -635,7 +635,7 @@ class Admin{
         for ($i=0; $i<sizeof($datos); $i++) {
             if ($datos[$i][0] == $nombreUser){
                 echo"<script>alert('Ese usario ya dispone de información, si desea modificarla acceda a la parte de modificar datos, opción Información de Usuarios.')</script>";
-                echo"<script type=\"text/javascript\">window.location='form.php'</script>";
+                echo"<script type=\"text/javascript\">window.location='form'</script>";
                 exit;
             }
         }
@@ -727,7 +727,7 @@ class Admin{
         for ($i=0; $i<sizeof($datos); $i++) {
             if ($datos[$i][0] == $numpriv){
                 echo"<script>alert('Ese número de privilegio ya se encuentra asignado.')</script>";
-                echo"<script type=\"text/javascript\">window.location='formPriv.php'</script>";
+                echo"<script type=\"text/javascript\">window.location='formPriv'</script>";
                 exit;
             }else{
                 $num = 0;
@@ -746,7 +746,7 @@ class Admin{
             $envio->execute();
             $this->conexion = null;
             echo "<script>alert('Privilegio agregado correctamente')</script>";
-            echo "<script type=\"text/javascript\">window.location='formPriv.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='formPriv'</script>";
         }
 
     }
@@ -780,7 +780,7 @@ class Admin{
             $envio->execute();
             $this->conexion = null;
             echo "<script>alert('Usuario agregado correctamente.')</script>";
-            echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='adduser'</script>";
         }
     }
 
@@ -793,7 +793,7 @@ class Admin{
         for ($i=0; $i<sizeof($datos); $i++){
             if ($datos[$i][0] == $nomUser){
                 echo "<script>alert('El nombre de usuario ya existe')</script>";
-                echo "<script type=\"text/javascript\">window.location='adduser.php'</script>";
+                echo "<script type=\"text/javascript\">window.location='adduser'</script>";
             }
         }
         unset($this->x);
@@ -925,7 +925,7 @@ class Admin{
         $this->conexion = null;
 
         echo "<script>alert('Información actualizada correctamente.')</script>";
-        echo "<script type=\"text/javascript\">window.location='modInfo.php'</script>";
+        echo "<script type=\"text/javascript\">window.location='modInfo'</script>";
 
     }
 
@@ -1095,7 +1095,7 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='form_validation.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='form_validation'</script>";
 
         } elseif($info == "Modificación de Producto"){
 
@@ -1118,7 +1118,7 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modProd'</script>";
 
         } elseif ($info == "Eliminó un Producto"){
 
@@ -1141,7 +1141,7 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modProd'</script>";
 
         } elseif ($info == "Modificación de Compra"){
 
@@ -1164,7 +1164,7 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy'</script>";
 
         } elseif ($info == "Eliminó una Compra"){
 
@@ -1187,7 +1187,7 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy'</script>";
         }
 
     }
@@ -1221,7 +1221,7 @@ class Admin{
 
         if ($id == 0){
             echo "<script>alert('Busque primero el producto que desea eliminar.')</script>";
-            echo "<script type=\"text/javascript\">window.location='modProd.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modProd'</script>";
         } else{
             $sql = "delete from productos WHERE idprod = ?";
             $envio = $this->conexion->prepare($sql);
@@ -1326,7 +1326,7 @@ class Admin{
         if ($cantidadcomprada > $cantidadisponible){
             $this->conexion = null;
             echo "<script>alert('Error, no se puede actualizar debido a que la cantidad comprada del producto es superior a la disponible. Intente de nuevo por favor.')</script>";
-            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy'</script>";
         }
 
         $sql = "UPDATE compra set cantbuy=?, valoracion=?, infoval=? WHERE idcompra =$idc";
@@ -1373,7 +1373,7 @@ class Admin{
 
         if ($idc == 0){
             echo "<script>alert('Busque primero la compra que desea eliminar.')</script>";
-            echo "<script type=\"text/javascript\">window.location='modBuy.php'</script>";
+            echo "<script type=\"text/javascript\">window.location='modBuy'</script>";
         } else{
             $sql = "delete from compra WHERE idcompra=?";
             $envio = $this->conexion->prepare($sql);
@@ -1418,7 +1418,7 @@ class Admin{
         unset($this->x);
 
         echo "<script>alert('Información actualizada correctamente.')</script>";
-        echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
+        echo "<script type=\"text/javascript\">window.location='perfil'</script>";
     }
 
 }

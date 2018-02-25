@@ -3,6 +3,7 @@
     require_once "conexion.php";
     global $on;
     $conex = new Conexion();
+    $admin = new Admin();
 
     if (isset($_SESSION['user'])){
         global $priv, $nom;
@@ -10,7 +11,7 @@
         $nom = $_SESSION['user'];
         if ($priv == 1) {
             session_unset();
-            echo '<script> window.location="production/index.php"; </script>';
+            echo '<script> window.location="production/index"; </script>';
         }elseif ($priv == 2 or 3 or 4 ){
             $on = 1;
         }
@@ -77,11 +78,11 @@
                         <li><a></a></li>
 
                     </ul>
-                        <form class="nav navbar-form navbar-left" role="search" action="registro.php">
-                            <button onclick='registro.php' class="btn btn-success">Modificar Información</button>
+                        <form class="nav navbar-form navbar-left" role="search" action="registro">
+                            <button onclick='registro' class="btn btn-success">Modificar Información</button>
                         </form>
-                        <form class="nav navbar-form navbar-left" role="search" action="logout.php">
-                            <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                        <form class="nav navbar-form navbar-left" role="search" action="logout">
+                            <button onclick='logout' class="btn btn-success">Cerrar Sesión</button>
                         </form>
                         <?php }else echo "</ul>"?>
                 </nav>
@@ -98,7 +99,7 @@
 							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
 							<ul class="social-links text-center">
 								<li><i class="fa fa-twitter fa-lg"></i></li>
-								<li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+								<li><a href="index"><i class="fa fa-home fa-lg"></i></a></li>
 								<li><i class="fa fa-facebook fa-lg"></i></li>
 							</ul>
 						</div>
@@ -118,7 +119,7 @@
 						<div class="service-item">
 							<div class="service-desc">
                                 <center>
-								<h3><a href="bd.php">Frutas Disponibles</h3></a>
+								<h3><a href="bd">Frutas Disponibles</h3></a>
 								<p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
                                 </center>
 							</div>
@@ -128,7 +129,7 @@
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
-                                <h3><a href="precioCor.php">Precios Corabastos</h3></a>
+                                <h3><a href="precioCor">Precios Corabastos</h3></a>
                                 <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
                                 </center>
                             </div>
@@ -149,8 +150,8 @@
                                         <input type="hidden" name="Login" class="btn btn-success">
                                         <input type="submit" name="Entrar" value="Entrar" class="btn btn-success">
                                 </form>
-                                <form name="a" action="registro.php">
-                                    <button onclick='registro.php' class="btn btn-success">Registrate!</button>
+                                <form name="a" action="registro">
+                                    <button onclick='registro' class="btn btn-success">Registrate!</button>
                                 </form>
                                 </center>
                                 </p>
@@ -162,7 +163,7 @@
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
-                                <h3><a href="usuarios.php">Perfiles</h3></a>
+                                <h3><a href="usuarios">Perfiles</h3></a>
                                 <p>Mira los perfiles de nuestros vendedores!</p>
                                 </center>
                             </div>

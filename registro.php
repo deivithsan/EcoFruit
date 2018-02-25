@@ -11,7 +11,7 @@
         if ($nom == 'dei') {
             $on = 2;
         } elseif ($priv == 1) {
-            echo '<script> window.location="production/index.php"; </script>';
+            echo '<script> window.location="production/index"; </script>';
         } elseif ($priv == 2 or 3 or 4) {
             $on = 1;
         }
@@ -99,11 +99,11 @@ Fixed Navigation
                     <li><a></a></li>
                     <li><a></a></li>
                 </ul>
-                <form class="nav navbar-form navbar-left" role="search" action="index.php">
-                    <button onclick='index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                <form class="nav navbar-form navbar-left" role="search" action="index">
+                    <button onclick='index' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
                 </form>
-                <form class="nav navbar-form navbar-left" role="search" action="logout.php">
-                    <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                <form class="nav navbar-form navbar-left" role="search" action="logout">
+                    <button onclick='logout' class="btn btn-success">Cerrar Sesión</button>
                 </form>
                 <?php }elseif ($on == 2){
                     echo "<a>Bienvenido Admin: ",$nom;
@@ -115,11 +115,11 @@ Fixed Navigation
                     <li><a></a></li>
                     <li><a></a></li>
                     </ul>
-                    <form class="nav navbar-form navbar-left" role="search" action="production/index.php">
-                        <button onclick='production/index.php' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
+                    <form class="nav navbar-form navbar-left" role="search" action="production/index">
+                        <button onclick='production/index' class="btn btn-success"><i class="fa fa-home fa-lg"></i></button>
                     </form>
-                    <form class="nav navbar-form navbar-left" role="search" action="logout.php">
-                        <button onclick='logout.php' class="btn btn-success">Cerrar Sesión</button>
+                    <form class="nav navbar-form navbar-left" role="search" action="logout">
+                        <button onclick='logout' class="btn btn-success">Cerrar Sesión</button>
                     </form>
                 <?php
                 }echo "</ul>"?>
@@ -145,7 +145,7 @@ End Fixed Navigation
                     <h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
                     <ul class="social-links text-center">
                         <li><i class="fa fa-twitter fa-lg"></i></li>
-                        <li><a href="index.php"><i class="fa fa-home fa-lg"></i></a></li>
+                        <li><a href="index"><i class="fa fa-home fa-lg"></i></a></li>
                         <li><i class="fa fa-facebook fa-lg"></i></li>
                     </ul>
                 </div>
