@@ -47,7 +47,7 @@
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-    </head>
+</head>
 
     <body class="nav-md">
         <div class="container body">
@@ -219,6 +219,7 @@
                                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Modificar Información</a>
                                                     <li role="presentation"><a href="#tab_content2" id="log-tab" role="tab" data-toggle="tab" aria-expanded="false">Historial</a>
+                                                    <li role="presentation"><a href="#tab_content3" id="log-tab" role="tab" data-toggle="tab" aria-expanded="false">Perfil</a>
                                                     </li>
                                                 </ul>
                                                 <div id="myTabContent" class="tab-content">
@@ -228,7 +229,7 @@
                                                         <div class="x_content">
                                                             <br />
                                                             <?php
-                                                            if ($_POST){
+                                                            if ($_POST["Enviar"]){
                                                                 $admin->update_AdminInfo();
                                                             }
                                                             ?>
@@ -336,6 +337,44 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="log-tab">
+                                                        <h2 class='heading' align='center'>Cambiar Foto de Perfil</h2>
+                                                        <div class="ln_solid"></div>
+                                                        <form enctype="multipart/form-data" method="POST">
+                                                            <center>
+                                                                <div>
+                                                                    <input name="image_uploads[]" id="image_uploads[]" type="file" accept=".jpg, .png, .jpeg"/>
+                                                                </div>
+                                                                <div class="ln_solid"></div>
+                                                                <div class="form-group">
+                                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                                        <input type="submit" value="Guardar" class="btn btn-success" name="foto" id="foto"/>
+                                                                    </div>
+                                                                </div>
+                                                            </center>
+                                                        </form>
+                                                    </div>
+                                                    <?php
+                                                    if ($_POST["foto"]){
+                                                        if (isset($_FILES['image_uploads'])) {
+                                                            $nomF = "$nom.jpg";
+                                                            $nomArray = array("$nomF");
+                                                            $_FILES['image_uploads']['name'] = $nomArray;
+                                                            $myFile = $_FILES['image_uploads']['name'];
+                                                            $fileCount = count($myFile);
+                                                            for ($i = 0; $i < $fileCount; $i++) {
+                                                                $target_path = "images/";
+                                                                $target_path = $target_path . basename( $_FILES['image_uploads']['name'][$i]);
+                                                                if(move_uploaded_file($_FILES['image_uploads']['tmp_name'][$i], $target_path)) {
+                                                                    echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
+                                                                } else{
+                                                                    echo "<script>alert('Ha ocurrido un error, intente de nuevo.');</script>";
+                                                                    echo "<script type=\"text/javascript\">window.location='perfil.php'</script>";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -345,27 +384,27 @@
                         </div>
                     </div>
                 </div>
-
-                        <footer>
-                            <div class="pull-right">
-                                <a href="../index.php">EcoFruit</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </footer>
+                <footer>
+                    <div class="pull-right">
+                        <a href="../index.php">EcoFruit</a>
                     </div>
-                </div>
-                <!-- jQuery -->
-                <script src="../vendors/jquery/dist/jquery.min.js"></script>
-                <!-- Bootstrap -->
-                <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-                <!-- FastClick -->
-                <script src="../vendors/fastclick/lib/fastclick.js"></script>
-                <!-- NProgress -->
-                <script src="../vendors/nprogress/nprogress.js"></script>
-                <!-- validator -->
-                <script src="../vendors/validator/validator.js"></script>
-                <!-- Custom Theme Scripts -->
-                <script src="../build/js/custom.min.js"></script>
+                    <div class="clearfix"></div>
+                </footer>
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="../vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="../vendors/nprogress/nprogress.js"></script>
+        <!-- validator -->
+        <script src="../vendors/validator/validator.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../build/js/custom.min.js"></script>
         <!-- Datatables -->
         <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
         <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -461,6 +500,5 @@
         });
 
         </script>
-
     </body>
 </html>
