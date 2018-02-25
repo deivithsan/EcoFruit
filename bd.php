@@ -189,6 +189,7 @@ if (isset($_SESSION['user'])){
                         }
                     }
                     ?>
+                <center>
                 <form class="form-horizontal form-label-left input_mask" method="post">
                     <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Id del Producto:<span class="required"></span></label>                        </label>
@@ -196,7 +197,6 @@ if (isset($_SESSION['user'])){
                             <input type="number" id="idprod" name="idprod" class="form-control col-md-7 col-xs-12" required>
                         </div>
                     </div>
-                    <center>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-9">
@@ -204,58 +204,123 @@ if (isset($_SESSION['user'])){
                             </div>
                         </div>
                     </div>
-
-                </form>
-                <form class="form-horizontal form-label-left input_mask" method="post">
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">ID<span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="idproduc" name="idproduc"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $idProd; ?>">
-                            </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Nombre:<span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $nomProd; ?>">
-                            </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Estado:<span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text"  DISABLED class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $estProd; ?>">
-                            </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad Disponible: <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $cantProd; ?>">
-                            </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Costo por Unidad: $<span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number"  DISABLED  class="form-control col-md-7 col-xs-12" style="display:inline" value="<?php echo $costProd; ?>">
-                            </div>
-                    </div>
-                    <input type="text" id="nomprod" name="nomprod"  style="display:none" value="<?php echo $nomProd; ?>">
-                    <input type="text" id="est" name="est" style="display:none" value="<?php echo $estProd; ?>">
-                    <input type="number" id="cant" name="cant"  style="display:none" value="<?php echo $cantProd; ?>">
-                    <input type="number" id="costo" name="costo"  style="display:none" value="<?php echo $costProd; ?>">
-                    <input type="text" id="vendedor" name="vendedor"  style="display:none" value="<?php echo $vendProd; ?>">
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:inline">Cantidad A Comprar: <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="cantbuy" name="cantbuy"   class="form-control col-md-7 col-xs-12" required>
-                            </div>
-                    </div>
-                    <center>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                        <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
-                   </center>
                 </form>
                 <?php
+                if ($_POST["buscar"]){
+                $file = "production/images/Productos/$idProd.jpg";
+                ?>
+                <div class="container">
+                    <div class="row">
+                        <form class="form-horizontal form-label-left input_mask" method="post">
+                            <div class="item form-group">
+                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                       style="display:none">ID<span class="required"></span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="number" id="idproduc" name="idproduc"
+                                           class="form-control col-md-7 col-xs-12" style="display:none"
+                                           value="<?php echo $idProd; ?>">
+                                </div>
+                            </div>
+                        <div class="col-md-6 wow fadeInLeft" data-wow-duration="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <form class="form-horizontal form-label-left input_mask" method="post">
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:none">ID<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="number" id="idproduc" name="idproduc"
+                                                           class="form-control col-md-7 col-xs-12" style="display:none"
+                                                           value="<?php echo $idProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Nombre:<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $nomProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Estado:<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $estProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Cantidad Disponible: <span
+                                                            class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $cantProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Costo por Unidad: $<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $costProd; ?>">
+                                                </div>
+                                            </div>
+                                            <input type="text" id="nomprod" name="nomprod" style="display:none"
+                                                   value="<?php echo $nomProd; ?>">
+                                            <input type="text" id="est" name="est" style="display:none" value="<?php echo $estProd; ?>">
+                                            <input type="number" id="cant" name="cant" style="display:none"
+                                                   value="<?php echo $cantProd; ?>">
+                                            <input type="number" id="costo" name="costo" style="display:none"
+                                                   value="<?php echo $costProd; ?>">
+                                            <input type="text" id="vendedor" name="vendedor" style="display:none"
+                                                   value="<?php echo $vendProd; ?>">
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Cantidad A Comprar: <span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="number" id="cantbuy" name="cantbuy"
+                                                           class="form-control col-md-7 col-xs-12" required>
+                                                </div>
+                                            </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow fadeInRight" data-wow-duration="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h4>Foto del Producto</h4>
+                                        <?php
+                                        if (file_exists($file)){
+                                            ?>
+                                            <img src="<?php echo $file; ?>" width="250" height="225"/>
+                                            <?php
+                                        } else{
+                                            ?>
+                                            <h6>El producto no dispone de una foto.</h6>
+                                            <?php
+                                        }
+                                        ?>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <input type="submit" class="btn btn-success" style="display:inline"
+                                       name="comprar" id="comprar" value="Comprar">
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                        <?php
+                        }
                 }elseif ($on == 0) {
                     echo "
                         <br><br>
@@ -274,6 +339,8 @@ if (isset($_SESSION['user'])){
 					    </div>";
                 }
                 ?>
+                        </div>
+                    </div>
 		</section>
         <h5 align="center"><i>2018 - EcoFruit</i></h5>
 

@@ -237,8 +237,11 @@ class Conexion{
                 $datos = $this->x;
                 unset($this->x);
                 return $datos;
+
             }
         }
+        echo "<script>alert('No existe un producto con ese id, intente nuevamente por favor')</script>";
+        echo"<script type=\"text/javascript\">window.location='bd'</script>";
     }
 
     public function make_Buy(){
