@@ -182,6 +182,11 @@ if (isset($_SESSION['user'])){
                             $cantProd = $idBuscado[0][3];
                             $costProd = $idBuscado[0][4];
                             $vendProd = $idBuscado[0][7];
+
+                            if ($cantProd == 0){
+                                echo "<script>alert('El producto actualmente no tiene unidades disponibles para la compra, por favor intente con otro producto.')</script>";
+                                echo"<script type=\"text/javascript\">window.location='bd'</script>";
+                            }
                         }
                     }
                     ?>
