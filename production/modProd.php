@@ -241,10 +241,29 @@
             <?php
             if ($_POST){
                 if ($_POST["Enviar"]){
+
                     $admin->update_Productos();
                     $info = "Modificación de Producto";
                     $i = $_POST["idproduc"];
                     $admin->create_log($nom,$info,$i);
+
+                    if (isset($_FILES['image_uploads'])) {
+                        $nomF = "$i.jpg";
+                        $nomArray = array("$nomF");
+                        $_FILES['image_uploads']['name'] = $nomArray;
+                        $myFile = $_FILES['image_uploads']['name'];
+                        $fileCount = count($myFile);
+                        for ($i = 0; $i < $fileCount; $i++) {
+                            $target_path = "images/Productos/";
+                            $target_path = $target_path . basename($_FILES['image_uploads']['name'][$i]);
+                            if (move_uploaded_file($_FILES['image_uploads']['tmp_name'][$i], $target_path)) {
+                                echo "<script type=\"text/javascript\">window.location='modProd'</script>";
+                            }
+                        }
+                    }
+
+                    echo "<script type=\"text/javascript\">window.location='modProd'</script>";
+
                 }
                 if ($_POST["Eliminar"]){
                     $admin->delete_Prod();
@@ -253,112 +272,143 @@
                     $admin->create_log($nom,$info,$i);
                 }
             }
-            ?>
-            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id del Producto<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="idproduc" name="idproduc" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][0] ?>" style="display:none">
+            if ($_POST["buscar"]) {
+                ?>
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id
+                            del Producto<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="idproduc" name="idproduc" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][0] ?>"
+                                   style="display:none">
+                        </div>
                     </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][1] ?>">
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="nomprod" name="nomprod" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][1] ?>">
+                        </div>
                     </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="tiposlist">
-                            <?php
-                            $tipoProd = $admin->get_TipoProducto();
-                            $rows = count($tipoProd);
-                            for ($i = 0; $i < $rows; $i++) {
-                                ?>
-                                <option value="<?php echo $tipoProd[$i][1] ?>"><?php echo $tipoProd[$i][1]; ?></option>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="tiposlist">
                                 <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="estadolist">
-                            <?php
-                            $est = $admin->get_EstadosProd();
-                            $rows = count($est);
-                            for ($i = 0; $i < $rows; $i++) {
+                                $tipoProd = $admin->get_TipoProducto();
+                                $rows = count($tipoProd);
+                                for ($i = 0; $i < $rows; $i++) {
+                                    ?>
+                                    <option value="<?php echo $tipoProd[$i][1] ?>"><?php echo $tipoProd[$i][1]; ?></option>
+                                    <?php
+                                }
                                 ?>
-                                <option value="<?php echo $est[$i][0] ?>"><?php echo $est[$i][0]; ?></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="estadolist">
                                 <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos) <span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="cant" name="cant" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($) <span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="costo" name="costo" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($) <span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" id="venta" name="venta" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6] ?>">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][7] ?>">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span class="required"></span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="vendedoreslist">
-                            <?php
-                            $vendedores = $admin->get_Vendedores();
-                            $rows = count($vendedores);
-                            for ($i = 0; $i < $rows; $i++){
+                                $est = $admin->get_EstadosProd();
+                                $rows = count($est);
+                                for ($i = 0; $i < $rows; $i++) {
+                                    ?>
+                                    <option value="<?php echo $est[$i][0] ?>"><?php echo $est[$i][0]; ?></option>
+                                    <?php
+                                }
                                 ?>
-                                <option value="<?php echo $vendedores[$i][0] ?>"><?php echo $vendedores[$i][0]; ?></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos) <span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="cant" name="cant" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($)
+                            <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="costo" name="costo" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($) <span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="venta" name="venta" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6] ?>">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="ubicacion" name="ubicacion" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][7] ?>">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="vendedoreslist">
                                 <?php
-                            }
-                            ?>
-                        </select>
+                                $vendedores = $admin->get_Vendedores();
+                                $rows = count($vendedores);
+                                for ($i = 0; $i < $rows; $i++) {
+                                    ?>
+                                    <option value="<?php echo $vendedores[$i][0] ?>"><?php echo $vendedores[$i][0]; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <center>
-                            <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
-                            <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Actualizar">
-                            <input type=button value="Ver Productos" class="btn btn-success" onclick = "location='tableProDisp'"/>
-                        </center>
+                    <div class="item form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Foto del Producto<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="image_uploads[]" id="image_uploads[]" type="file" accept=".jpg, .png, .jpeg"/>
+                        </div>
                     </div>
-                </div
-            </form>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <center>
+                                <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar"
+                                       value="Borrar">
+                                <input type="submit" class="btn btn-success" name="Enviar" id="Enviar"
+                                       value="Actualizar">
+                                <input type=button value="Ver Productos" class="btn btn-success"
+                                       onclick="location='tableProDisp'"/>
+                            </center>
+                        </div>
+                    </div
+                </form>
+                <?php
+            }
+?>
         </div>
     </div>
 </div>
@@ -371,16 +421,27 @@
 </footer>
 </div>
 </div>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
-    <script src="../vendors/validator/validator.js"></script>
+<!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="../vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+<!-- jQuery Tags Input -->
+<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
+<!-- bootstrap-wysiwyg -->
 <!-- Datatables -->
 <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -393,7 +454,6 @@
 <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
 <script src="../vendors/jszip/dist/jszip.min.js"></script>
 <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
