@@ -1145,8 +1145,6 @@ class Admin{
 
             $this->conexion = null;
 
-            echo "<script type=\"text/javascript\">window.location='modProd'</script>";
-
         } elseif ($info == "Eliminó un Producto"){
 
             $sqlLOG = "INSERT INTO log VALUES (default, ?,?,?,?,?);";
@@ -1347,9 +1345,7 @@ class Admin{
         $idp = (int) $idproducto;
         $numc = (int) $numerocedula;
         $numt = (int) $numerotelefono;
-
-        echo '<script>alert("Cantidad comprada: '.$cantidadcomprada.', Cantidad disp: '.$cantidadisponible.'" )</script>';
-
+        
         if ($cantidadcomprada > $cantidadisponible){
             $this->conexion = null;
             echo "<script>alert('Error, no se puede actualizar debido a que la cantidad comprada del producto es superior a la disponible. Intente de nuevo por favor.')</script>";
