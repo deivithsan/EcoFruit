@@ -245,6 +245,9 @@ class Conexion{
     }
 
     public function make_Buy(){
+
+        $fecha = date( "Y/m/d", time() );
+        $time = strftime( "%H:%M:%S", time() );
         $nom = $_SESSION["user"];
         $iddelproductocompra = $_POST["idproduc"];
         $idpr = (int) $iddelproductocompra;
@@ -271,6 +274,7 @@ class Conexion{
         $cantbuy = (int) $cantidadcomp;
         $numced = (int) $numerocedula;
         $telef = (int) $numerocelular;
+        $cantidadFinal = $cantdis - $cantbuy;
 
         if ($cantbuy > $cantdis ){
             $this->conexion = null;
@@ -278,7 +282,7 @@ class Conexion{
             echo"<script type=\"text/javascript\">window.location='bd'</script>";
         }
 
-        $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,DEFAULT , DEFAULT );";
+        $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,DEFAULT , DEFAULT, ?,? );";
         $envio=$this->conexion->prepare($sql);
 
         $idProd = strip_tags($idpr);
@@ -291,6 +295,8 @@ class Conexion{
         $numCel = strip_tags($telef);
         $vend = strip_tags($vendedor);
         $comp = strip_tags($nom);
+        $Dia = strip_tags($fecha);
+        $hora = strip_tags($time);
 
         $envio->bindValue(1, $idProd, PDO::PARAM_STR);
         $envio->bindValue(2, $nomProd, PDO::PARAM_STR);
@@ -302,12 +308,30 @@ class Conexion{
         $envio->bindValue(8, $numCel, PDO::PARAM_STR);
         $envio->bindValue(9, $vend, PDO::PARAM_STR);
         $envio->bindValue(10, $comp, PDO::PARAM_STR);
+        $envio->bindValue(11, $Dia, PDO::PARAM_STR);
+        $envio->bindValue(12, $hora, PDO::PARAM_STR);
 
         $envio->execute();
-        $this->conexion = null;
+        unset($this->x);
 
+        $this->make_restaBD($cantidadFinal, $idpr);
         echo"<script>alert('Compra Realizada correctamente! Recuerda comunicarte con uno de nuestros administradores para iniciar el proceso de compra, Gracias!!')</script>";
         echo"<script type=\"text/javascript\">window.location='bd'</script>";
+    }
+
+    public function make_restaBD($valor, $id){
+
+        $sql = "UPDATE productos set cantidad=? WHERE idprod=$id";
+        $envio = $this->conexion->prepare($sql);
+
+        $can = strip_tags($valor);
+
+        $envio->bindValue(1, $can, PDO::PARAM_STR);
+
+        $envio->execute();
+
+        $this->conexion = null;
+
     }
 
     public function get_Usuarios(){

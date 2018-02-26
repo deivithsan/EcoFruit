@@ -183,10 +183,6 @@ if (isset($_SESSION['user'])){
                             $costProd = $idBuscado[0][4];
                             $vendProd = $idBuscado[0][7];
                         }
-                        if ($_POST["comprar"]){
-                            $conex->make_Buy();
-                            exit;
-                        }
                     }
                     ?>
                 <center>
@@ -206,21 +202,18 @@ if (isset($_SESSION['user'])){
                     </div>
                 </form>
                 <?php
+                if ($_POST["comprar"]){
+                    $conex->make_Buy();
+                    exit;
+                }
                 if ($_POST["buscar"]){
                 $file = "production/images/Productos/$idProd.jpg";
                 ?>
                 <div class="container">
                     <div class="row">
-                        <form class="form-horizontal form-label-left input_mask" method="post">
-                            <div class="item form-group">
-                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
-                                       style="display:none">ID<span class="required"></span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" id="idproduc" name="idproduc"
-                                           class="form-control col-md-7 col-xs-12" style="display:none"
-                                           value="<?php echo $idProd; ?>">
-                                </div>
-                            </div>
+                        <div class="form-horizontal">
+                            <div class="item form-group"></div>
+                        </div>
                         <div class="col-md-6 wow fadeInLeft" data-wow-duration="500ms">
                             <div class="service-item">
                                 <div class="service-desc">
@@ -285,7 +278,14 @@ if (isset($_SESSION['user'])){
                                                            class="form-control col-md-7 col-xs-12" required>
                                                 </div>
                                             </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
+                                        <div class="item form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <input type="submit" class="btn btn-success" style="display:inline" name="comprar" id="comprar" value="Comprar">
+                                            </div>
+                                        </div>
                                     </center>
+                                        </form>
                                 </div>
                             </div>
                         </div>
@@ -297,7 +297,7 @@ if (isset($_SESSION['user'])){
                                         <?php
                                         if (file_exists($file)){
                                             ?>
-                                            <img src="<?php echo $file; ?>" width="250" height="225"/>
+                                            <img src="<?php echo $file; ?>" width="325" height="300"/>
                                             <?php
                                         } else{
                                             ?>
@@ -309,14 +309,8 @@ if (isset($_SESSION['user'])){
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"></div>
-                        <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <input type="submit" class="btn btn-success" style="display:inline"
-                                       name="comprar" id="comprar" value="Comprar">
-                            </div>
-                        </div>
-                        </form>
+
+
                     </div>
                 </div>
                         <?php
