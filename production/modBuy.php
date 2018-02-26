@@ -279,78 +279,96 @@ if ($_POST){
         $admin->create_log($nom,$info,$i);
     }
 }
-?>
-<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-    <div class="form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de Compra</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="idcompra" name="idcompra"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $compraData[0][0]; ?>">
+
+if ($_POST["buscar"]) {
+    ?>
+    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de
+                Compra</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="number" id="idcompra" name="idcompra" class="form-control col-md-7 col-xs-12"
+                       style="display:none" value="<?php echo $compraData[0][0]; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" id="idprod" DISABLED name="idprod"  class="form-control col-md-7 col-xs-12" value="<?php echo $compraData[0][1]; ?>">
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="number" id="idprod" DISABLED name="idprod" class="form-control col-md-7 col-xs-12"
+                       value="<?php echo $compraData[0][1]; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12"  type="text" value="<?php echo $compraData[0][2]; ?>">
+        <div class="form-group">
+            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" type="text"
+                       value="<?php echo $compraData[0][2]; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input DISABLED class="date-picker form-control col-md-7 col-xs-12"  type="number" value="<?php echo $compraData[0][4]; ?>">
-            <input id="cantdisp" style="display:none" class="date-picker form-control col-md-7 col-xs-12"  type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>">
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) <span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input DISABLED class="date-picker form-control col-md-7 col-xs-12" type="number"
+                       value="<?php echo $compraData[0][4]; ?>">
+                <input id="cantdisp" style="display:none" class="date-picker form-control col-md-7 col-xs-12"
+                       type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos) <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cantcomprada" value="<?php echo $compraData[0][6]; ?>">
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos) <span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required"
+                       type="number" name="cantcomprada" value="<?php echo $compraData[0][6]; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="tiposlist">
-                <?php
-                $val = $admin->get_Valoraciones();
-                $rows = count($val);
-                for ($i = 0; $i < $rows; $i++){
-                    ?>
-                    <option value="<?php echo $val[$i][0] ?>"><?php echo $val[$i][0]; ?></option>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra<span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <select name="tiposlist">
                     <?php
-                }
-                ?>
-            </select>
+                    $val = $admin->get_Valoraciones();
+                    $rows = count($val);
+                    for ($i = 0; $i < $rows; $i++) {
+                        ?>
+                        <option value="<?php echo $val[$i][0] ?>"><?php echo $val[$i][0]; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalle de la Valoración<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <textarea id="detval" class="form-control" name="detval"><?php echo $compraData[0][12]; ?></textarea>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalle de la Valoración<span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea id="detval" class="form-control" name="detval"><?php echo $compraData[0][12]; ?></textarea>
+            </div>
         </div>
-    </div>
-    <div class="ln_solid"></div>
-    <div class="form-group">
-        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-            <center>
-                <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
-                <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
-                <input type=button value="Ver Compras" class="btn btn-success" onclick = "location='tableBuy'"/>
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <center>
+                    <input type="submit" class="btn btn-success" name="Eliminar" id="Eliminar" value="Borrar">
+                    <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
+                    <input type=button value="Ver Compras" class="btn btn-success" onclick="location='tableBuy'"/>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+    <?php
+}
+?>
 </div>
 </div>
 </div>
@@ -396,7 +414,6 @@ if ($_POST){
 <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
 <script src="../vendors/jszip/dist/jszip.min.js"></script>
 <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
