@@ -599,6 +599,21 @@ class Admin{
         return $nombreyapellido;
     }
 
+    public function get_UsersNoInfo(){
+
+        $sql="SELECT  nombreuser FROM usuarios WHERE NOT nombreuser IN (SELECT nombreuser FROM infousuarios)";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        if($datos == null){
+            $datos = 0;
+        }
+        unset($this->x);
+        return $datos;
+
+    }
+
     public function make_InfoUser(){
         $nomus = $_POST["nombreusuario"];
         $name = $_POST["nombre"];
@@ -1345,7 +1360,7 @@ class Admin{
         $idp = (int) $idproducto;
         $numc = (int) $numerocedula;
         $numt = (int) $numerotelefono;
-        
+
         if ($cantidadcomprada > $cantidadisponible){
             $this->conexion = null;
             echo "<script>alert('Error, no se puede actualizar debido a que la cantidad comprada del producto es superior a la disponible. Intente de nuevo por favor.')</script>";
