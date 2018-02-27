@@ -172,58 +172,99 @@
                                     <div class="x_content">
                                         <br />
                                         <?php
+                                        $users = $admin->get_UsersNoInfo();
+                                        if ($users == 0){
+                                            ?>
+                                        <center><h2>Todos los usuarios cuentan con su información personal.</h2></center>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <footer>
+                    <div class="pull-right">
+                        <a href="../index">EcoFruit</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="../vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="../vendors/nprogress/nprogress.js"></script>
+        <!-- validator -->
+        <script src="../vendors/validator/validator.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../build/js/custom.min.js"></script>
+    </body>
+                                        <?php
+                                            exit;
+                                        }
                                         if ($_POST){
                                             $admin->make_InfoUser();
                                         }
                                         ?>
                                         <form class="form-horizontal form-label-left" method="post">
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de Usuario
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="text" id="nombreusuario" name="nombreusuario" required="required" class="form-control col-md-7 col-xs-12">
+                                                    <select name="nombreusuario">
+                                                        <?php
+                                                        for ($i=0; $i<sizeof($users); $i++){
+                                                            ?>
+                                                            <option value="<?php echo $users[$i]["nombreuser"] ?>"><?php echo $users[$i]["nombreuser"]; ?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                                                    <input type="text" id="nombre" name="nombre" required class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
+                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                                                    <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="correo" class="form-control col-md-7 col-xs-12" type="text" name="correo">
+                                                    <input id="correo" class="form-control col-md-7 col-xs-12" type="text" name="correo" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" type="number" name="telefono">
+                                                    <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" type="number" name="telefono" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion">
+                                                    <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required type="text" name="direccion">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" type="number" name="cedula">
+                                                    <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" type="number" name="cedula" required>
                                                 </div>
                                             </div>
                                             <div class="ln_solid"></div>
