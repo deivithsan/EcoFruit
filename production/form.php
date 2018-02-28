@@ -271,8 +271,8 @@
                                             <div class="form-group">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                                     <center>
-                                                    <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                                                     <button onclick='limpiar()' class="btn btn-success">Limpiar</button>
+                                                    <input type="submit" class="btn btn-success" name="Enviar" id="Enviar">
                                                     <input type=button value="Ver Datos" class="btn btn-success" onclick = "location='tableInfoUsr'"/>
                                                 </div>
                                             </div>
