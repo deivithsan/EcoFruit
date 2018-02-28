@@ -176,14 +176,14 @@
                                     }
                                     ?>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Nombre
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="nomprod" name="nomprod" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="nomprod" name="nomprod" required class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo de Producto
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="tiposlist">
@@ -196,7 +196,7 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="estadolist">
@@ -211,35 +211,35 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad ($)<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad ($)
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Valor Total ($)<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Valor Total ($)
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación <span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="ubicacion" name="ubicacion" required class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span class="required"></span>
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select name="vendedoreslist">
