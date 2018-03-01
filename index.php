@@ -40,6 +40,8 @@
         }
         return $count;
     }
+
+$views = visitas();
 ?>
 <!DOCTYPE html>
     <head>
