@@ -24,6 +24,22 @@
         $conex->login();
         exit;
     }
+
+    function visitas(){
+        $file = "contador.txt";
+        $f = fopen($file, "r");
+        if ($f){
+            $count = fread($f, filesize($file));
+            $count = $count + 1;
+            fclose($f);
+        }
+        $f = fopen($file, "w+");
+        if ($f){
+            fwrite($f,$count);
+            fclose($f);
+        }
+        return $count;
+    }
 ?>
 <!DOCTYPE html>
     <head>
