@@ -170,22 +170,7 @@
                     ?>
                     <span class="count_top"><i class="fa fa-shopping-cart"></i> Frutas disponibles</span>
                     <div class="count"><?php echo $frutas;?></div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <?php
-                    $compras = $conex->get_Compras();
-                    ?>
-                    <span class="count_top"><i class="fa fa-child"></i> Visitas Actuales</span>
-                    <div class="count green"><?php
-                        $file = "../contador.txt";
-                        $f = fopen($file, "r");
-
-                        while (!feof($f)){
-                            $traer = fgets($f);
-                            echo $traer;
-                        }
-                        ?></div>
-                </div>
+                </div>              
             </div>
 
             <div class="row">
