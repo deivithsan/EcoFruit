@@ -703,6 +703,18 @@ class Admin{
         return $datos;
     }
 
+    public function get_EstadosProdAdd(){
+
+        $sql="SELECT nombrestado, codest FROM estado WHERE codest < 3 ORDER BY nombrestado";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+}
+
     public function get_Vendedores(){
         $sql="SELECT nombreuser from usuarios where tipousuario = 2 or tipousuario=4 order by nombreuser ASC";
         foreach ($this->conexion->query($sql) as $row){
