@@ -198,9 +198,9 @@
                                           <div class="ln_solid"></div>
                                           <div class="form-group">
                                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                  <center>
-                                                  <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2" value="Agregar">
+                                                  <center>                                                 
                                                   <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                                                  <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2" value="Agregar">
                                                   <input type=button value="Ver Privilegios" class="btn btn-success" onclick = "location='tableInfoPriv'"/>
                                               </div>
                                           </div>
