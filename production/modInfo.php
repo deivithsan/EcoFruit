@@ -244,66 +244,83 @@
                     $admin->update_InfoUser();
                 }
             }
-            ?>
-<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-    <div class="form-group">
-        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="nomuser" name="nomuser"  class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $datos[0][1]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][2]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required="required" type="text" value="<?php echo $datos[0][3]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text" name="correo" value="<?php echo $datos[0][4]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="telefono" value="<?php echo $datos[0][5]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="direccion" value="<?php echo $datos[0][6]; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number" name="cedula" value="<?php echo $datos[0][7]; ?>">
-        </div>
-    </div>
-    <div class="ln_solid"></div>
-    <div class="form-group">
-        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-            <center>
-                <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
-                <input type=button value="Ver Información de Usuarios" class="btn btn-success" onclick = "location='tableInfoUsr'"/>
-        </div>
-    </div>
-</form>
+
+            if ($_POST["buscar"]) {
+                ?>
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="nomuser" name="nomuser" class="form-control col-md-7 col-xs-12"
+                                   style="display:none" value="<?php echo $datos[0][1]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre <span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="nombre" name="nombre" required="required"
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][2]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido<span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12"
+                                   required="required" type="text" value="<?php echo $datos[0][3]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="correo" class="form-control col-md-7 col-xs-12" required="required" type="text"
+                                   name="correo" value="<?php echo $datos[0][4]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" required="required"
+                                   type="number" name="telefono" value="<?php echo $datos[0][5]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección <span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="direccion" class="date-picker form-control col-md-7 col-xs-12"
+                                   required="required" type="text" name="direccion" value="<?php echo $datos[0][6]; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula <span
+                                    class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" required="required"
+                                   type="number" name="cedula" value="<?php echo $datos[0][7]; ?>">
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <center>
+                                <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
+                                <input type=button value="Ver Información de Usuarios" class="btn btn-success"
+                                       onclick="location='tableInfoUsr'"/>
+                        </div>
+                    </div>
+                </form>
+                <?php
+            }
+?>
 </div>
 </div>
 </div>
