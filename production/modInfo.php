@@ -315,13 +315,13 @@
                                 <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
                                 <input type=button value="Ver Información de Usuarios" class="btn btn-success"
                                        onclick="location='tableInfoUsr'"/>
+                            </center>
                         </div>
                     </div>
                 </form>
                 <?php
             }
 ?>
-</div>
 </div>
 </div>
 </div>
