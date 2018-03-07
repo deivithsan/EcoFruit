@@ -317,7 +317,6 @@
                                        onclick="location='tableInfoUsr'"/>
                             </center>
                         </div>
-                    </div>
                 </form>
                 <?php
             }
