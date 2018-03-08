@@ -254,7 +254,7 @@
             <?php
         }
                     }
-                    ?>       
+                    ?>
         </tbody>
         </table>
     </div>
