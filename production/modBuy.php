@@ -254,11 +254,7 @@
             <?php
         }
                     }
-                    ?>
-        <form class="form-horizontal form-label-left input_mask" method="post">
-            <center>
-                <input type=button value="Nuevo" class="btn btn-success" onclick = "location='../bd'"/>
-        </form>
+                    ?>       
         </tbody>
         </table>
     </div>
