@@ -369,6 +369,7 @@ if ($_POST["buscar"]) {
     <?php
 }
 ?>
+&nbsp;
 </div>
 </div>
 </div>
