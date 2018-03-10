@@ -145,7 +145,8 @@ if (isset($_SESSION['user'])){
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $prod = $conex->get_ListaProductos();
+                                    $user = $_SESSION['user'];
+                                    $prod = $conex->get_ProductosToBuy($user);
                                     for ($g=0; $g<sizeof($prod); $g++){
                                      ?>
                                     <tr>

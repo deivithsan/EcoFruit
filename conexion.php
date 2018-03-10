@@ -205,6 +205,25 @@ class Conexion{
         return $numCC;
     }
 
+    public function get_ProductosToBuy($user){
+        $productos=$this->conexion->prepare("SELECT * FROM productos ORDER BY idprod");
+        $productos->execute();
+        $fetch = $productos->fetchAll();
+        $rows = count($fetch);
+        if ($rows == 0){
+            echo"<script>alert('Se presentan problemas con los productos disponibles')</script>";
+            echo"<script type=\"text/javascript\">window.location='index'</script>";
+        } else{
+            $sql2="select productos.idprod, productos.nombre, tipoprod.nombretipo, productos.estado, productos.cantidad, productos.costo, productos.venta, productos.ubicacion, productos.vendedor from productos, tipoprod where productos.tipo = tipoprod.idtipo and productos.vendedor != '$user' order by idprod";
+            foreach ($this->conexion->query($sql2) as $row){
+                $this->x[]=$row;
+            }
+            $datos = $this->x;
+            unset($this->x);
+            return $datos;
+        }
+    }
+
     public function get_ListaProductos(){
         $productos=$this->conexion->prepare("SELECT * FROM productos ORDER BY idprod");
         $productos->execute();
