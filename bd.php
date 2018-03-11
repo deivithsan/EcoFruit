@@ -154,9 +154,9 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo $prod[$g][1]; ?></td>
                                          <td align="center"><?php echo $prod[$g][2]; ?></td>
                                          <td align="center"><?php echo $prod[$g][3]; ?></td>
-                                         <td align="center"><?php echo $prod[$g][4]; ?></td>
-                                         <td align="center"><?php echo $prod[$g][5]; ?></td>
-                                         <td align="center"><?php echo $prod[$g][6]; ?></td>
+                                         <td align="center"><?php echo number_format($prod[$g][4],0); ?></td>
+                                         <td align="center"><?php echo number_format($prod[$g][5],0); ?></td>
+                                         <td align="center"><?php echo number_format($prod[$g][6],0); ?></td>
                                          <td align="center"><?php echo $prod[$g][7]; ?></td>
                                     </tr>
                                     <?php   }  ?>
@@ -183,6 +183,8 @@ if (isset($_SESSION['user'])){
                             $cantProd = $idBuscado[0][3];
                             $costProd = $idBuscado[0][4];
                             $vendProd = $idBuscado[0][7];
+                            $ubiProd = $idBuscado[0][6];
+                            $valTotalProd = $idBuscado[0][5];
 
                             if ($cantProd == 0){
                                 echo "<script>alert('El producto actualmente no tiene unidades disponibles para la compra, por favor intente con otro producto.')</script>";
@@ -252,6 +254,14 @@ if (isset($_SESSION['user'])){
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Ubicación:<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $ubiProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
                                                        style="display:inline">Cantidad Disponible (Kilos): <span
                                                             class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -265,6 +275,14 @@ if (isset($_SESSION['user'])){
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
                                                            style="display:inline" value="<?php echo $costProd; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
+                                                       style="display:inline">Costo Total: $<span class="required"></span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo $valTotalProd; ?>">
                                                 </div>
                                             </div>
                                             <input type="text" id="nomprod" name="nomprod" style="display:none"
@@ -300,10 +318,11 @@ if (isset($_SESSION['user'])){
                                 <div class="service-desc">
                                     <center>
                                         <h4>Foto del Producto</h4>
+                                        <h4>&nbsp;</h4>
                                         <?php
                                         if (file_exists($file)){
                                             ?>
-                                            <img src="<?php echo $file; ?>" width="325" height="300"/>
+                                            <img src="<?php echo $file; ?>" width="350" height="350"/>
                                             <?php
                                         } else{
                                             ?>
