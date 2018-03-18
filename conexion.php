@@ -1048,9 +1048,9 @@ class Admin{
             <td><?php echo $prod[$i][1]; ?></td>
             <td><?php echo $prod[$i][2]; ?></td>
             <td><?php echo $prod[$i][3]; ?></td>
-            <td><?php echo $prod[$i][4]; ?></td>
-            <td><?php echo $prod[$i][5]; ?></td>
-            <td><?php echo $prod[$i][6]; ?></td>
+            <td><?php echo number_format($prod[$i][4],0); ?></td>
+            <td><?php echo number_format($prod[$i][5],0); ?></td>
+            <td><?php echo number_format($prod[$i][6],0); ?></td>
             <td><?php echo $prod[$i][7]; ?></td>
             <td><?php echo $prod[$i][8]; ?></td>
         </tr>
@@ -1355,9 +1355,9 @@ class Admin{
                 <td><?php echo $compra[$i][1]; ?></td>
                 <td><?php echo $compra[$i][2]; ?></td>
                 <td><?php echo $compra[$i][3]; ?></td>
-                <td><?php echo $compra[$i][4]; ?></td>
-                <td><?php echo $compra[$i][5]; ?></td>
-                <td><?php echo $compra[$i][6]; ?></td>
+                <td><?php echo number_format($compra[$i][4],0); ?></td>
+                <td><?php echo number_format($compra[$i][5],0); ?></td>
+                <td><?php echo number_format($compra[$i][6],0); ?></td>
                 <td><?php echo $compra[$i][7]; ?></td>
                 <td><?php echo $compra[$i][8]; ?></td>
                 <td><?php echo $compra[$i][9]; ?></td>
