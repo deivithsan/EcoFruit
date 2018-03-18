@@ -233,45 +233,39 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre
-                                                </label>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="text" id="nombre" name="nombre" required class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido
-                                                </label>
+                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Apellido</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input id="apellido" name="apellido" class="form-control col-md-7 col-xs-12" required type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo
-                                                </label>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Correo</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input id="correo" class="form-control col-md-7 col-xs-12" type="text" name="correo" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono
-                                                </label>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefono</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" type="number" name="telefono" required>
+                                                    <input id="telefono" class="date-picker form-control col-md-7 col-xs-12" type="number" name="telefono" required onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección
-                                                </label>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Dirección</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input id="direccion" class="date-picker form-control col-md-7 col-xs-12" required type="text" name="direccion">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula
-                                                </label>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Número de Cedula</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" type="number" name="cedula" required>
+                                                    <input id="cedula" class="date-picker form-control col-md-7 col-xs-12" type="number" name="cedula" required onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                                                 </div>
                                             </div>
                                             <div class="ln_solid"></div>
