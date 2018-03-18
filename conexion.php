@@ -265,7 +265,7 @@ class Conexion{
 
     public function make_Buy(){
 
-        $fecha = date( "Y/m/d", time() );
+        $fecha = date( "Y-m-d", time() );
         $time = strftime( "%H:%M:%S", time() );
         $nom = $_SESSION["user"];
         $iddelproductocompra = $_POST["idproduc"];
@@ -301,7 +301,7 @@ class Conexion{
             echo"<script type=\"text/javascript\">window.location='bd'</script>";
         }
 
-        $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,DEFAULT , DEFAULT, ?,? );";
+        $sql="insert into compra VALUES (DEFAULT , ?,?,?,?,?,?,?,?,?,?,0, DEFAULT, ?,? );";
         $envio=$this->conexion->prepare($sql);
 
         $idProd = strip_tags($idpr);
@@ -597,11 +597,14 @@ class Conexion{
 class Admin{
     private $conexion;
     private $x;
+    private $year;
 
     public function __construct()
     {
+
         $this->conexion = new PDO('pgsql:host=' .NOMBRE_SERVIDOR. '; dbname=' .BASE_DE_DATOS, NOMBRE_USUARIO, PASSWORD);
         $this->x=array();
+        $this->year = date("Y");
     }
 
     public function get_NombreApellido(){
@@ -1488,6 +1491,390 @@ class Admin{
 
         echo "<script>alert('Información actualizada correctamente.')</script>";
         echo "<script type=\"text/javascript\">window.location='perfil'</script>";
+    }
+
+    public function get_ventasVendedor($user){
+
+        $sql="select * from compra where vendedorprod = '$user'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $this->conexion=null;
+        return $this->x;
+
+    }
+
+    public function get_ventasEne($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-01' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+    }
+
+    public function get_ventasFeb($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-02' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasMar($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-03' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasAbr($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-04' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasMay($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-05' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasJun($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-06' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasJul($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-07' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasAgo($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-08' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasSep($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-09' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasOct($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-10' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasNov($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-11' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasDic($user){
+
+        $año = $this->year;
+        $users = $this->conexion->prepare("select * from compra WHERE to_char(fecha, 'YYYY-MM') = '$año-12' AND vendedorprod = '$user'");
+        $users->execute();
+        $fetch = $users->fetchAll();
+        if ($fetch == null){
+            return 0;
+        } else{
+            $rows = count($fetch);
+            return $rows;
+        }
+
+    }
+
+    public function get_ventasGlobales(){
+
+        $año = $this->year;
+        $sql="SELECT usuarios.nombreuser, count(compra.vendedorprod) FROM usuarios,compra WHERE compra.vendedorprod = usuarios.nombreuser AND to_char(fecha, 'YYYY') = '$año' GROUP BY usuarios.nombreuser";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesEne(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-01'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesFeb(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-02'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesMar(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-03'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesAbr(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-04'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesMay(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-05'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesJun(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-06'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public  function get_ventasGlobalesJul(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-07'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesAgo(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-08'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesSep(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-09'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesOct(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-10'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesNov(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-11'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ventasGlobalesDic(){
+
+        $año = $this->year;
+        $sql="select count(*) from compra WHERE to_char(fecha,'YYYY-MM') = '$año-12'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_totalProductos(){
+
+        $sql="SELECT DISTINCT productos.nombre, count(productos.nombre) FROM productos GROUP BY productos.nombre";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
+    }
+
+    public function get_ubicacionProductos(){
+
+        $sql="SELECT DISTINCT productos.ubicacion, count(productos.ubicacion) FROM productos GROUP BY productos.ubicacion";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+
     }
 
 }
