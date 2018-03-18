@@ -110,6 +110,13 @@
                                           <li><a href="modBuy">Compras</a></li>
                                       </ul>
                                   </li>
+                                  <li><a><i class="fa fa-area-chart"></i> Estadisticas <span class="fa fa-chevron-down"></span></a>
+                                      <ul class="nav child_menu">
+                                          <li><a href="ventasGlobal"> Ventas </a></li>
+                                          <li><a href="ventasVendedor"> Ventas Por Vendedor </a></li>
+                                          <li><a href="estadisticasProd"> Productos </a></li>
+                                      </ul>
+                                  </li>
                           </div>
                       </div>
                       <div class="sidebar-footer hidden-small">
@@ -198,9 +205,9 @@
                                           <div class="ln_solid"></div>
                                           <div class="form-group">
                                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                  <center>                                                 
-                                                  <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
+                                                  <center>
                                                   <input type="submit" class="btn btn-success" name="Enviar2" id="Enviar2" value="Agregar">
+                                                  <button onclick='limpiar3()' class="btn btn-success">Limpiar</button>
                                                   <input type=button value="Ver Privilegios" class="btn btn-success" onclick = "location='tableInfoPriv'"/>
                                               </div>
                                           </div>

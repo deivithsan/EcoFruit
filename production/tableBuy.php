@@ -108,6 +108,13 @@
                                     <li><a href="modBuy">Compras</a></li>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-area-chart"></i> Estadisticas <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="ventasGlobal"> Ventas </a></li>
+                                    <li><a href="ventasVendedor"> Ventas Por Vendedor </a></li>
+                                    <li><a href="estadisticasProd"> Productos </a></li>
+                                </ul>
+                            </li>
                     </div>
                 </div>
 
@@ -255,7 +262,6 @@
     <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
