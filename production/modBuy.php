@@ -246,9 +246,9 @@
                 <td><?php echo $compra[$i][1]; ?></td>
                 <td><?php echo $compra[$i][2]; ?></td>
                 <td><?php echo $compra[$i][3]; ?></td>
-                <td><?php echo $compra[$i][4]; ?></td>
-                <td><?php echo $compra[$i][5]; ?></td>
-                <td><?php echo $compra[$i][6]; ?></td>
+                <td><?php echo number_format($compra[$i][4],0); ?></td>
+                <td><?php echo number_format($compra[$i][5],0); ?></td>
+                <td><?php echo number_format($compra[$i][6],0); ?></td>
                 <td><?php echo $compra[$i][7]; ?></td>
                 <td><?php echo $compra[$i][8]; ?></td>
                 <td><?php echo $compra[$i][9]; ?></td>
@@ -314,29 +314,23 @@ if ($_POST["buscar"]) {
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) <span
-                        class="required"></span>
-            </label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input DISABLED class="date-picker form-control col-md-7 col-xs-12" type="number"
-                       value="<?php echo $compraData[0][4]; ?>">
+                       value="<?php echo number_format($compraData[0][4],0); ?>">
                 <input id="cantdisp" style="display:none" class="date-picker form-control col-md-7 col-xs-12"
-                       type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>">
+                       type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>" >
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos) <span
-                        class="required"></span>
-            </label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos) </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required"
-                       type="number" name="cantcomprada" value="<?php echo $compraData[0][6]; ?>">
+                       type="number" name="cantcomprada" value="<?php echo number_format($compraData[0][6],0); ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra<span
-                        class="required"></span>
-            </label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select name="tiposlist">
                     <?php

@@ -226,9 +226,9 @@
                     <td><?php echo $product[$i][1]; ?></td>
                     <td><?php echo $product[$i][2]; ?></td>
                     <td><?php echo $product[$i][3]; ?></td>
-                    <td><?php echo $product[$i][4]; ?></td>
-                    <td><?php echo $product[$i][5]; ?></td>
-                    <td><?php echo $product[$i][6]; ?></td>
+                    <td><?php echo number_format($product[$i][4],0); ?></td>
+                    <td><?php echo number_format($product[$i][5],0); ?></td>
+                    <td><?php echo number_format($product[$i][6],0); ?></td>
                     <td><?php echo $product[$i][7]; ?></td>
                     <td><?php echo $product[$i][8]; ?></td>
                 </tr>
@@ -338,34 +338,28 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos) <span
-                                    class="required"></span>
-                        </label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="number" id="cant" name="cant" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>">
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($)
-                            <span class="required"></span>
-                        </label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($)</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="number" id="costo" name="costo" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>">
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($) <span
-                                    class="required"></span>
-                        </label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($)</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="number" id="venta" name="venta" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6] ?>">
+                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicacion<span
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación<span
                                     class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">

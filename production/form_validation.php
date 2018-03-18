@@ -221,21 +221,21 @@
                                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="cant" name="cant" class="form-control col-md-7 col-xs-12" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Por unidad ($)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="costo" name="costo" class="form-control col-md-7 col-xs-12" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Valor Total ($)<span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" id="venta" name="venta" class="form-control col-md-7 col-xs-12" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
                                         </div>
                                     </div>
                                     <div class="item form-group">
