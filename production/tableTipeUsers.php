@@ -176,6 +176,7 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
+                                    <th>Id del Tipo de Usuario</th>
                                     <th>Nombre del Tipo de Usuario</th>
                                     <th>Número de Privilegio al que Pertenece el Tipo de Usuario</th>
                                 </tr>
@@ -187,6 +188,7 @@
                                 for ($i = 0; $i < $rows; $i++){
                                     ?>
                                     <tr>
+                                        <td><?php echo $tiposUser[$i][0] ?></td>
                                         <td><?php echo $tiposUser[$i][1] ?></td>
                                         <td><?php echo $tiposUser[$i][2] ?></td>
                                     </tr>
