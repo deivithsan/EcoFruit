@@ -351,7 +351,7 @@ if (isset($_SESSION['user'])){
                     echo "
                         <br><br>
                         <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
-						    <h2>Hola $nom Si deseas comprar debes ser comprador, si deseas cambiar tu tipo de cuenta comunicate con nuestros administradores.</h2>
+						    <h2>Hola $nom tienes una cuenta de tipo vendedor y no puedes realizar una compra.</h2>
 						    <br>
 						    <h2>Gracias!</h2>
 						    <div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
