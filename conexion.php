@@ -1882,6 +1882,11 @@ class Admin{
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
+        $data = $this->x;
+        if ($data == null){
+            echo "<script>alert('No has realizado ninguna compra actualmente.')</script>";
+            echo "<script type=\"text/javascript\">window.location='index'</script>";
+        }
         return $this->x;
     }
 
