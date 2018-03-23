@@ -12,8 +12,10 @@
         if ($priv == 1) {
             session_unset();
             echo '<script> window.location="production/index"; </script>';
-        }elseif ($priv == 2 or 3 or 4 ){
+        }elseif ($priv == 2 ){
             $on = 1;
+        } elseif ($priv == 3 or 4){
+            $on = 2;
         }
     }
     if (isset($_POST["Enviar"])){
@@ -71,7 +73,7 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 1){  echo "<a>Bienvenid@: ",$nom;?>
+                        <li><?php if ($on == 1 or $on == 2){  echo "<a>Bienvenid@: ",$nom;?>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -116,7 +118,10 @@
 						<h2>Accede</h2>
 						<div class="devider"></div>
 					</div>
-					<div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+                    <?php if($on == 2){
+
+                    ?>
+					<div class="col-md-3 wow fadeInLeft" data-wow-duration="500ms">
 						<div class="service-item">
 							<div class="service-desc">
                                 <center>
@@ -126,7 +131,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+					<div class="col-md-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
@@ -136,30 +141,49 @@
                             </div>
                         </div>
 					</div>
-                    <?php if ($on != 1){ ?>
-					<div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
-						<div class="service-item">
-							<div class="service-desc">
-								<h3 align="center">Login</h3>
-								<form method="post" action="">
-                                    <center>
-                                        <p>Nombre de Usuario:</p>
-                                        <p><input type=text name=nomusuario id='nomusuario' required class="form-control"></p>
-                                        <p>Contraseña:</p>
-                                        <p><input type=password name=pass id='pass' required class="form-control"></p>
-                                        <br/>
-                                        <input type="hidden" name="Login" class="btn btn-success">
-                                        <input type="submit" name="Entrar" value="Entrar" class="btn btn-success">
-                                </form>
-                                <form name="a" action="registro">
-                                    <button onclick='registro' class="btn btn-success">Registrate!</button>
-                                </form>
+                    <div class="col-md-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <center>
+                                    <h3><a href="compras">Mis Compras</h3></a>
+                                    <p>Revisa las compras que has realizado!</p>
                                 </center>
-                                </p>
                             </div>
-						</div>
-					</div>
-                    <?php }else{ ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <center>
+                                    <h3><a href="usuarios">Perfiles</h3></a>
+                                    <p>Mira los perfiles de nuestros vendedores!</p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php
+                    }elseif   ($on == 1){ ?>
+                    <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <center>
+                                    <h3><a href="bd">Frutas Disponibles</h3></a>
+                                    <p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <center>
+                                    <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                    <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
                         <div class="service-item">
                             <div class="service-desc">
@@ -170,6 +194,49 @@
                             </div>
                         </div>
                     </div>
+                    <?php }elseif ($on != 1 or 2){ ?>
+                        <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="bd">Frutas Disponibles</h3></a>
+                                        <p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                        <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <h3 align="center">Login</h3>
+                                    <form method="post" action="">
+                                        <center>
+                                            <p>Nombre de Usuario:</p>
+                                            <p><input type=text name=nomusuario id='nomusuario' required class="form-control"></p>
+                                            <p>Contraseña:</p>
+                                            <p><input type=password name=pass id='pass' required class="form-control"></p>
+                                            <br/>
+                                            <input type="hidden" name="Login" class="btn btn-success">
+                                            <input type="submit" name="Entrar" value="Entrar" class="btn btn-success">
+                                    </form>
+                                    <form name="a" action="registro">
+                                        <button onclick='registro' class="btn btn-success">Registrate!</button>
+                                    </form>
+                                    </center>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     <?php } ?>
 				</div>
 			</div>

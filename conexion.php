@@ -1877,5 +1877,13 @@ class Admin{
 
     }
 
+    public function get_misCompras($user){
+        $sql="SELECT * FROM compra where comprador = '$user' ORDER BY idcompra";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        return $this->x;
+    }
+
 }
 ?>
