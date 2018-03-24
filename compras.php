@@ -163,7 +163,7 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo number_format($compras[$g][5],0); ?></td>
                                          <td align="center"><?php echo number_format($compras[$g][6],0); ?></td>
                                          <td align="center"><?php echo $compras[$g][9]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][11]; ?></td>
+                                         <td align="center"><?php echo $compras[$g][15]; ?></td>
                                          <td align="center"><?php echo $compras[$g][12]; ?></td>
                                          <td align="center"><?php echo $compras[$g][13]; ?></td>
                                          <td align="center"><?php echo $compras[$g][14]; ?></td>
