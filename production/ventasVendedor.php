@@ -272,6 +272,37 @@ $nombreyapellido = $admin->get_NombreApellido();
                     if ($_POST){
                     ?>
                     <div id="containerGraf" style="height: 400px"></div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <?php
+                        $ventasProdEnero = $admin->get_ventasProdEne($user);
+                        if ($ventasProdEnero == 0) {
+                            echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de enero.</h2>";
+                        } else {
+                            $rowsEne = count($ventasProdEnero);
+                            ?>
+                            <div id="containerGrafEne" style="height: 400px"></div>
+                            <?php
+                        }
+                            ?>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <?php
+                            $ventasProdFebrero = $admin->get_ventasProdFeb($user);
+                            if($ventasProdFebrero == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de febrero.</h2>";
+                            } else {
+                                $rowsFeb = count($ventasProdFebrero);
+                                ?>
+                                <div id="containerGrafFeb" style="height: 400px"></div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div id="containerGraf2" style="height: 400px"></div>
+                        </div>
                         &nbsp;
                     <?php
                     }
@@ -288,6 +319,7 @@ $nombreyapellido = $admin->get_NombreApellido();
         </footer>
     </div>
 </div>
+
 <!-- jQuery -->
 <script src="../vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -328,48 +360,6 @@ $nombreyapellido = $admin->get_NombreApellido();
 <script src="Highcharts-4.1.5/js/highcharts.js"></script>
 <script src="Highcharts-4.1.5/js/highcharts-3d.js"></script>
 <script src="Highcharts-4.1.5/js/modules/exporting.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#containerGraf').highcharts({
-            chart: {
-                type: 'column',
-                margin: 75,
-                options3d: {
-                    enabled: true,
-                    alpha: 10,
-                    beta: 25,
-                    depth: 70
-                }
-            },
-            title: {
-                text: 'Ventas Anuales de <?php echo $user; ?>'
-            },
-            subtitle: {
-                text: '<?php echo $año; ?>'
-            },
-            plotOptions: {
-                column: {
-                    depth: 25
-                }
-            },
-            xAxis: {
-                categories: Highcharts.getOptions().lang.shortMonths
-            },
-            yAxis: {
-                title: {
-                    text: null
-                }
-            },
-            series: [{
-                name: 'Ventas',
-                data: [<?php echo $ventasEn; ?>, <?php echo $ventasFeb; ?>, <?php echo $ventasMar; ?>,
-                    <?php echo $ventasAbr; ?>, <?php echo $ventasMay; ?>,<?php echo $ventasJun; ?>,
-                    <?php echo $ventasJul; ?>, <?php echo $ventasAgo; ?>, <?php echo $ventasSep; ?>,
-                    <?php echo $ventasOct; ?>, <?php echo $ventasNov; ?>, <?php echo $ventasDic; ?>]
-            }]
-        });
-    });
-</script>
 <script>
     $(document).ready(function() {
         var handleDataTableButtons = function() {
@@ -449,6 +439,168 @@ $nombreyapellido = $admin->get_NombreApellido();
         TableManageButtons.init();
     });
 
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGraf').highcharts({
+            chart: {
+                type: 'column',
+                margin: 75,
+                options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    beta: 25,
+                    depth: 70
+                }
+            },
+            title: {
+                text: 'Ventas Anuales de <?php echo $user; ?>'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            xAxis: {
+                categories: Highcharts.getOptions().lang.shortMonths
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php echo $ventasEn; ?>, <?php echo $ventasFeb; ?>, <?php echo $ventasMar; ?>,
+                    <?php echo $ventasAbr; ?>, <?php echo $ventasMay; ?>,<?php echo $ventasJun; ?>,
+                    <?php echo $ventasJul; ?>, <?php echo $ventasAgo; ?>, <?php echo $ventasSep; ?>,
+                    <?php echo $ventasOct; ?>, <?php echo $ventasNov; ?>, <?php echo $ventasDic; ?>]
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafEne').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de enero'
+            },
+            <?php
+            $año = date("Y");
+            ?>
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsEne; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdEnero[$i][0] ?>', <?php echo $ventasProdEnero[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafFeb').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Febrero'
+            },
+            <?php
+
+            $año = date("Y");
+
+            ?>
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsFeb; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdFebrero[$i][0] ?>', <?php echo $ventasProdFebrero[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
 </script>
 </body>
 </html>
