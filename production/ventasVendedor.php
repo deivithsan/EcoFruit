@@ -273,35 +273,333 @@ $nombreyapellido = $admin->get_NombreApellido();
                     ?>
                     <div id="containerGraf" style="height: 400px"></div>
                     &nbsp;
+                            <center><h2>Estadisticas Detalladas Para Cada Mes.</h2></center>
                     &nbsp;
-                    <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Enero</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
                         <?php
                         $ventasProdEnero = $admin->get_ventasProdEne($user);
                         if ($ventasProdEnero == 0) {
-                            echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de enero.</h2>";
+                            echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de enero.</h2></div></div>";
                         } else {
                             $rowsEne = count($ventasProdEnero);
                             ?>
-                            <div id="containerGrafEne" style="height: 400px"></div>
+                                <div class="x_content">
+                                    <div id="containerGrafEne" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
                             <?php
                         }
                             ?>
-                        </div>
                         <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Febrero</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
                             <?php
                             $ventasProdFebrero = $admin->get_ventasProdFeb($user);
                             if($ventasProdFebrero == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de febrero.</h2>";
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de febrero.</h2></div></div>";
                             } else {
                                 $rowsFeb = count($ventasProdFebrero);
                                 ?>
-                                <div id="containerGrafFeb" style="height: 400px"></div>
+                                <div class="x_content">
+                                    <div id="containerGrafFeb" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
                                 <?php
                             }
                             ?>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Ventas de Marzo</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <?php
+                            $ventasProdMarzo = $admin->get_ventasProdMar($user);
+                            if($ventasProdMarzo == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de marzo.</h2></div></div>";
+                            } else {
+                                $rowsMar = count($ventasProdMarzo);
+                                ?>
+                            <div class="x_content">
+                                <div id="containerGrafMar" style="height: 400px"></div>
+                            </div>
                         </div>
+                    </div>
+                                <?php
+                            }
+                            ?>
                         <div class="col-md-4 col-sm-12 col-xs-12">
-                            <div id="containerGraf2" style="height: 400px"></div>
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Abril</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdAbril = $admin->get_ventasProdAbr($user);
+                            if($ventasProdAbril == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de abril.</h2></div></div>";
+                            } else {
+                                $rowsAbr = count($ventasProdAbril);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafAbr" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Mayo</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdMayo = $admin->get_ventasProdMay($user);
+                            if($ventasProdMayo == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de mayo.</h2></div></div>";
+                            } else {
+                                $rowsMay = count($ventasProdMayo);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafMay" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Junio</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdJunio = $admin->get_ventasProdJun($user);
+                            if($ventasProdJunio == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de junio.</h2></div></div>";
+                            } else {
+                                $rowsJun = count($ventasProdJunio);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafJun" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Julio</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdJulio = $admin->get_ventasProdJul($user);
+                            if($ventasProdJulio == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de julio.</h2></div></div>";
+                            } else {
+                                $rowsJul = count($ventasProdJulio);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafJul" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Agosto</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdAgosto = $admin->get_ventasProdAgo($user);
+                            if($ventasProdAgosto == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de agosto.</h2></div></div>";
+                            } else {
+                                $rowsAgo = count($ventasProdAgosto);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafAgo" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Septiembre</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdSeptiembre = $admin->get_ventasProdSep($user);
+                            if($ventasProdSeptiembre == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de septiembre.</h2></div></div>";
+                            } else {
+                                $rowsSep = count($ventasProdSeptiembre);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafSep" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Octubre</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdOctubre = $admin->get_ventasProdOct($user);
+                            if($ventasProdOctubre == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de octubre.</h2></div></div>";
+                            } else {
+                                $rowsOct = count($ventasProdOctubre);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafOct" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Noviembre</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdNoviembre = $admin->get_ventasProdNov($user);
+                            if($ventasProdNoviembre == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de noviembre.</h2></div></div>";
+                            } else {
+                                $rowsNov = count($ventasProdNoviembre);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafNov" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas de Diciembre</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            <?php
+                            $ventasProdDiciembre = $admin->get_ventasProdDic($user);
+                            if($ventasProdDiciembre == 0){
+                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de diciembre.</h2></div></div>";
+                            } else {
+                                $rowsDic = count($ventasProdDiciembre);
+                                ?>
+                                <div class="x_content">
+                                    <div id="containerGrafDic" style="height: 400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <?php
+                            }
+                            ?>
                         </div>
                         &nbsp;
                     <?php
@@ -583,6 +881,566 @@ $nombreyapellido = $admin->get_NombreApellido();
                     for ($i = 0; $i < $rowsFeb; $i++) {
                     ?>
                     ['<?php echo $ventasProdFebrero[$i][0] ?>', <?php echo $ventasProdFebrero[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafMar').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Marzo'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsMar; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdMarzo[$i][0] ?>', <?php echo $ventasProdMarzo[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafAbr').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Abril'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsAbr; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdAbril[$i][0] ?>', <?php echo $ventasProdAbril[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafMay').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Mayo'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsMay; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdMayo[$i][0] ?>', <?php echo $ventasProdMayo[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafJun').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Junio'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsJun; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdJunio[$i][0] ?>', <?php echo $ventasProdJunio[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafJul').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Julio'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsJul; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdJulio[$i][0] ?>', <?php echo $ventasProdJulio[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafAgo').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Agosto'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsAgo; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdAgosto[$i][0] ?>', <?php echo $ventasProdAgosto[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafSep').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Septiembre'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsSep; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdSeptiembre[$i][0] ?>', <?php echo $ventasProdSeptiembre[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafOct').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Octubre'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsOct; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdOctubre[$i][0] ?>', <?php echo $ventasProdOctubre[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafNov').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Noviembre'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsNov; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdNoviembre[$i][0] ?>', <?php echo $ventasProdNoviembre[$i][1]; ?>],
+                    <?php
+                    }
+                    ?>
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#containerGrafDic').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Ventas mes de Diciembre'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de ventas de ese producto'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'Ventas',
+                data: [<?php
+                    for ($i = 0; $i < $rowsDic; $i++) {
+                    ?>
+                    ['<?php echo $ventasProdDiciembre[$i][0] ?>', <?php echo $ventasProdDiciembre[$i][1]; ?>],
                     <?php
                     }
                     ?>
