@@ -2128,5 +2128,175 @@ class Admin{
 
     }
 
+    public function get_ventasProdMar($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-03' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdAbr($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-04' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdMay($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-05' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdJun($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-06' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdJul($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-07' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdAgo($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-08' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdSep($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-09' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdOct($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-10' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdNov($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-11' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
+    public function get_ventasProdDic($user){
+
+        $año = $this->year;
+        $sql="SELECT DISTINCT compra.nombreprod, count(compra.nombreprod) FROM compra WHERE compra.vendedorprod = '$user' AND to_char(fecha, 'YYYY-MM') = '$año-12' GROUP BY compra.nombreprod";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        if ($datos == null){
+            $datos = 0;
+            return $datos;
+        }
+        return $datos;
+
+    }
+
 }
 ?>
