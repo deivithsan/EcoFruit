@@ -38,6 +38,7 @@ $nombreyapellido = $admin->get_NombreApellido();
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Graphics -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
     <style type="text/css">
@@ -663,6 +664,7 @@ $nombreyapellido = $admin->get_NombreApellido();
         var handleDataTableButtons = function() {
             if ($("#datatable-buttons").length) {
                 $("#datatable-buttons").DataTable({
+                    language: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
                     dom: "Bfrtip",
                     buttons: [
                         {

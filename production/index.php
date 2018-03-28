@@ -106,6 +106,7 @@
                                     <li><a href="ventasGlobal"> Ventas </a></li>
                                     <li><a href="ventasVendedor"> Ventas Por Vendedor </a></li>
                                     <li><a href="estadisticasProd"> Productos </a></li>
+                                    <li><a href="estadisticasComp"> Compradores </a></li>
                                 </ul>
                             </li>
                     </div>
