@@ -292,7 +292,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                         <?php
                         $ventasProdEnero = $admin->get_ventasProdEne($user);
                         if ($ventasProdEnero == 0) {
-                            echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de enero.</h2></div></div>";
+                            echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de enero.</h2></div></div></div>";
                         } else {
                             $rowsEne = count($ventasProdEnero);
                             ?>
@@ -319,7 +319,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdFebrero = $admin->get_ventasProdFeb($user);
                             if($ventasProdFebrero == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de febrero.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de febrero.</h2></div></div></div>";
                             } else {
                                 $rowsFeb = count($ventasProdFebrero);
                                 ?>
@@ -373,7 +373,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdAbril = $admin->get_ventasProdAbr($user);
                             if($ventasProdAbril == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de abril.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de abril.</h2></div></div></div>";
                             } else {
                                 $rowsAbr = count($ventasProdAbril);
                                 ?>
@@ -400,7 +400,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdMayo = $admin->get_ventasProdMay($user);
                             if($ventasProdMayo == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de mayo.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de mayo.</h2></div></div></div>";
                             } else {
                                 $rowsMay = count($ventasProdMayo);
                                 ?>
@@ -427,7 +427,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdJunio = $admin->get_ventasProdJun($user);
                             if($ventasProdJunio == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de junio.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de junio.</h2></div></div></div>";
                             } else {
                                 $rowsJun = count($ventasProdJunio);
                                 ?>
@@ -454,7 +454,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdJulio = $admin->get_ventasProdJul($user);
                             if($ventasProdJulio == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de julio.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de julio.</h2></div></div></div>";
                             } else {
                                 $rowsJul = count($ventasProdJulio);
                                 ?>
@@ -481,7 +481,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdAgosto = $admin->get_ventasProdAgo($user);
                             if($ventasProdAgosto == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de agosto.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de agosto.</h2></div></div></div>";
                             } else {
                                 $rowsAgo = count($ventasProdAgosto);
                                 ?>
@@ -508,7 +508,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdSeptiembre = $admin->get_ventasProdSep($user);
                             if($ventasProdSeptiembre == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de septiembre.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de septiembre.</h2></div></div></div>";
                             } else {
                                 $rowsSep = count($ventasProdSeptiembre);
                                 ?>
@@ -535,7 +535,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdOctubre = $admin->get_ventasProdOct($user);
                             if($ventasProdOctubre == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de octubre.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de octubre.</h2></div></div></div>";
                             } else {
                                 $rowsOct = count($ventasProdOctubre);
                                 ?>
@@ -562,7 +562,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdNoviembre = $admin->get_ventasProdNov($user);
                             if($ventasProdNoviembre == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de noviembre.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de noviembre.</h2></div></div></div>";
                             } else {
                                 $rowsNov = count($ventasProdNoviembre);
                                 ?>
@@ -589,7 +589,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdDiciembre = $admin->get_ventasProdDic($user);
                             if($ventasProdDiciembre == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de diciembre.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de diciembre.</h2></div></div></div>";
                             } else {
                                 $rowsDic = count($ventasProdDiciembre);
                                 ?>
