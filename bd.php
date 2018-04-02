@@ -351,7 +351,7 @@ if (isset($_SESSION['user'])){
                     echo "
                         <br><br>
                         <div class=\"sec-title text-center mb50 wow fadeInDown animated\" data-wow-duration=\"500ms\">
-						    <h2>Hola $nom tienes una cuenta de tipo vendedor y no puedes realizar una compra.</h2>
+						    <h2>Hola $nom Si deseas comprar debes ser comprador, si deseas cambiar tu tipo de cuenta comunicate con nuestros administradores.</h2>
 						    <br>
 						    <h2>Gracias!</h2>
 						    <div class=\"devider\"><i class=\"fa fa-heart-o fa-lg\"></i></div>
@@ -386,6 +386,7 @@ if (isset($_SESSION['user'])){
         <script src="js/jquery.easing.min.js"></script>
         <!-- Datatables -->
         <script src="./vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="./vendors/datatables.net/js/jquery.dataTables.js"></script>
         <script src="./vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
         <script src="./vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
         <script src="./vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
