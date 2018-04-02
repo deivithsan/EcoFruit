@@ -119,6 +119,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                                     <li><a href="ventasGlobal"> Ventas </a></li>
                                     <li><a href="ventasVendedor"> Ventas Por Vendedor </a></li>
                                     <li><a href="estadisticasProd"> Productos </a></li>
+                                    <li><a href="estadisticasComp"> Compradores </a></li>
                                 </ul>
                             </li>
                     </div>
@@ -274,7 +275,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                     ?>
                     <div id="containerGraf" style="height: 400px"></div>
                     &nbsp;
-                            <center><h2>Estadisticas Detalladas Para Cada Mes.</h2></center>
+                        <center><h2>Estadisticas Detalladas Para Cada Mes.</h2></center>
                     &nbsp;
                     <div class="row">
                         <div class="col-md-4 col-sm-12 col-xs-12">
