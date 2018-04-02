@@ -640,9 +640,8 @@ $nombreyapellido = $admin->get_NombreApellido();
 <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
-<!-- bootstrap-wysiwyg -->
 <!-- Datatables -->
-<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../vendors/datatables.net/js/jquery.dataTables.js"></script>
 <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
