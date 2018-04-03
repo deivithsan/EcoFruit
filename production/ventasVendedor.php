@@ -347,7 +347,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <?php
                             $ventasProdMarzo = $admin->get_ventasProdMar($user);
                             if($ventasProdMarzo == 0){
-                                echo "<h2 align='center'> El usuario no recibio ninguna compra en el mes de marzo.</h2></div></div>";
+                                echo "<div class='x_content'><h2 align='center'> El usuario no recibio ninguna compra en el mes de marzo.</h2></div></div></div>";
                             } else {
                                 $rowsMar = count($ventasProdMarzo);
                                 ?>
