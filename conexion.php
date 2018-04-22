@@ -614,7 +614,7 @@ class Admin{
             $this->x[]=$row;
         }
         $datos = $this->x;
-        if ($datos == null){
+        if ($datos[0][0] == "0"){
             echo"<script>alert('Diríjase a la pagina de su perfil para agregar su correspondiente información')</script>";
         }
         $nombre= $datos[0][0];
@@ -833,8 +833,8 @@ class Admin{
     public function make_Usuario(){
         $nomus2 = $_POST["nombreusuario2"];
         $pass = $_POST["contraseña"];
-        $tipoprod = $_POST["tiposlist"];
-        $sql = "select idtipousuario from tipousuarios where nombretipousuario = '$tipoprod'";
+        $tipodeUsuario = $_POST["tiposlist"];
+        $sql = "select idtipousuario from tipousuarios where nombretipousuario = '$tipodeUsuario'";
         foreach ($this->conexion->query($sql) as $row) {
             $this->x[] = $row;
         }
@@ -842,13 +842,18 @@ class Admin{
         $tipousuario = $datos[0][0];
         $encripass = md5($pass);
         $val = $this->validate_NomUser($nomus2);
+        if ($tipodeUsuario == "Administrador"){
+            $privilegio = 1;
+        } else{
+            $privilegio = 2;
+        }
         if ($val == 0) {
             $sql = "INSERT INTO usuarios VALUES (?,?,?,?);";
             $envio = $this->conexion->prepare($sql);
 
             $nombre = strip_tags($nomus2);
             $passUser = strip_tags($encripass);
-            $privUser = strip_tags(2);
+            $privUser = strip_tags($privilegio);
             $tipoUser = strip_tags($tipousuario);
 
             $envio->bindValue(1, $nombre, PDO::PARAM_STR);
@@ -857,10 +862,27 @@ class Admin{
             $envio->bindValue(4, $tipoUser, PDO::PARAM_STR);
 
             $envio->execute();
-            $this->conexion = null;
+
             echo "<script>alert('Usuario agregado correctamente.')</script>";
-            echo "<script type=\"text/javascript\">window.location='adduser'</script>";
+
+            $this->create_infoUsers($nomus2);
         }
+    }
+
+    public function create_infoUsers($nom){
+        $nomUser = $nom;
+
+        $sql="insert into infousuarios VALUES (DEFAULT ,?, 0 , 0 , 0 , 0 , 0 , 0 );";
+        $envio=$this->conexion->prepare($sql);
+
+        $nombre = strip_tags($nomUser);
+
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+
+        $envio->execute();
+
+        unset($this->x);
+        echo "<script type=\"text/javascript\">window.location='adduser'</script>";
     }
 
     public function validate_NomUser($nomUser){
