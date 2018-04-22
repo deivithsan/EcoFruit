@@ -68,12 +68,12 @@ class Conexion{
     public function enviarComentario(){
 
         $fecha = date( "Y/m/d", time() );
-        $time = strftime( "%H:%M:%S", time() );
+        $horaActual = strftime( "%H:%M:%S", time() );
         $sql="insert into mensajes VALUES (default, ?,?,?,?,?);";
         $envio=$this->conexion->prepare($sql);
 
         $Dia = strip_tags($fecha);
-        $hora = strip_tags($time);
+        $hora = strip_tags($horaActual);
 
         $envio->bindValue(1, $_POST["name"], PDO::PARAM_STR);
         $envio->bindValue(2, $_POST["tel"], PDO::PARAM_STR);
@@ -343,9 +343,9 @@ class Conexion{
         $sql = "UPDATE productos set cantidad=? WHERE idprod=$id";
         $envio = $this->conexion->prepare($sql);
 
-        $can = strip_tags($valor);
+        $cant = strip_tags($valor);
 
-        $envio->bindValue(1, $can, PDO::PARAM_STR);
+        $envio->bindValue(1, $cant, PDO::PARAM_STR);
 
         $envio->execute();
 
@@ -454,7 +454,7 @@ class Conexion{
     }
 
     public function get_TiposUsers(){
-        $sql="select nombretipousuario, privilegio from tipousuarios where privilegio != 1";
+        $sql="select nombretipousuario, privilegio from tipousuarios";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -614,6 +614,9 @@ class Admin{
             $this->x[]=$row;
         }
         $datos = $this->x;
+        if ($datos == null){
+            echo"<script>alert('Diríjase a la pagina de su perfil para agregar su correspondiente información')</script>";
+        }
         $nombre= $datos[0][0];
         $apellido = $datos[0][1];
         $nombreyapellido = "$nombre $apellido";
@@ -2502,6 +2505,7 @@ class Admin{
         return $datos;
 
     }
+
 
 }
 ?>
