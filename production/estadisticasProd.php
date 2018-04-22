@@ -217,6 +217,9 @@ $nombreyapellido = $admin->get_NombreApellido();
             title: {
                 text: 'Productos Actuales'
             },
+            subtitle: {
+                text: '<?php echo $año = date("Y"); ?>'
+            },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
             },
@@ -265,6 +268,9 @@ $nombreyapellido = $admin->get_NombreApellido();
             },
             title: {
                 text: 'Ubicación de Productos'
+            },
+            subtitle: {
+                text: '<?php echo $año; ?>'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
