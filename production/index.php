@@ -111,9 +111,13 @@
                             </li>
                     </div>
                 </div>
-
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" a href="logout" data-placement="top" title="Salir" ">
+                    &nbsp;
+                    <img src="images/ECOFRUIT.png" height="35px" width="40px">
+                    &nbsp;
+                    <img src="images/DATMA.png" height="35px" width="40px">
+
+                    <a data-toggle="tooltip" a href="logout" data-placement="top" title="Salir">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -189,6 +193,14 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <h2>Clima</h2>
                                     <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                    <center>
+                                        <img src="images/ECOFRUIT.png" height="100px" width="100px">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <img src="images/DATMA.png" height="100px" width="100px">
+                                    </center>
                                 </div>
                             </div>
                         </div>

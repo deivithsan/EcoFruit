@@ -121,6 +121,11 @@
                           </div>
                       </div>
                       <div class="sidebar-footer hidden-small">
+                          &nbsp;
+                          <img src="images/ECOFRUIT.png" height="35px" width="40px">
+                          &nbsp;
+                          <img src="images/DATMA.png" height="35px" width="40px">
+
                           <a data-toggle="tooltip" a href="logout" data-placement="top" title="Salir">
                               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                           </a>
