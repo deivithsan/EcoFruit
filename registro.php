@@ -177,7 +177,7 @@ End Fixed Navigation
 
                 <form class="form-horizontal" method="post">
                     <?php
-                    $tiposUser = $conex->get_TiposUsers();
+                    $tiposUser = $conex->get_userRegistro();
                     if ($_POST) {
                         if ($_POST["Enviar1"]) {
                             $conex->make_Registro();

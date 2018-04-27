@@ -463,6 +463,16 @@ class Conexion{
         return $datos;
     }
 
+    public function get_userRegistro(){
+        $sql="select nombretipousuario, privilegio from tipousuarios where privilegio = '2' ";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        unset($this->x);
+        return $datos;
+    }
+
     public function make_Registro(){
         $nomus2 = $_POST["nomusuario"];
         $pass = $_POST["pass"];
