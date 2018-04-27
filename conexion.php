@@ -1916,6 +1916,22 @@ class Admin{
         return $this->x;
     }
 
+    public function get_misProductos($user){
+
+        $sql= "select * from productos where vendedor = '$user'";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $data = $this->x;
+        if ($data == null){
+            echo "<script>alert('Actualmente no tienes ningun producto en la página.')</script>";
+            echo "<script type=\"text/javascript\">window.location='index'</script>";
+        }
+        unset($this->x);
+        return $data;
+
+    }
+
     public function get_compradores(){
 
         $sql="SELECT nombreuser from usuarios where tipousuario = 3 or tipousuario=4 order by nombreuser ASC";
@@ -2527,7 +2543,5 @@ class Admin{
         return $datos;
 
     }
-
-
 }
 ?>

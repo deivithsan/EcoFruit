@@ -14,8 +14,10 @@
             echo '<script> window.location="production/index"; </script>';
         }elseif ($priv == 2 ){
             $on = 1;
-        } elseif ($priv == 3 or 4){
+        }elseif ($priv == 3 ){
             $on = 2;
+        }elseif ($priv == 4){
+            $on = 3;
         }
     }
     if (isset($_POST["Enviar"])){
@@ -73,7 +75,7 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><?php if ($on == 1 or $on == 2){  echo "<a>Bienvenid@: ",$nom;?>
+                        <li><?php if ($on == 1 or $on == 2 or $on == 3){  echo "<a>Bienvenid@: ",$nom;?>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -119,7 +121,6 @@
 						<div class="devider"></div>
 					</div>
                     <?php if($on == 2){
-
                     ?>
 					<div class="col-md-3 wow fadeInLeft" data-wow-duration="500ms">
 						<div class="service-item">
@@ -161,10 +162,9 @@
                             </div>
                         </div>
                     </div>
-
                     <?php
-                    }elseif   ($on == 1){ ?>
-                    <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
+                    }elseif ($on == 1){ ?>
+                    <div class="col-md-3 wow fadeInLeft" data-wow-duration="500ms">
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                    <div class="col-md-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="900ms">
+                    <div class="col-md-3 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="500ms">
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
@@ -194,7 +194,68 @@
                             </div>
                         </div>
                     </div>
-                    <?php }elseif ($on != 1 or 2){ ?>
+                    <div class="col-md-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
+                        <div class="service-item">
+                            <div class="service-desc">
+                                <center>
+                                    <h3><a href="misProductos">Mis Productos</h3></a>
+                                    <p>Revisa los productos con los que cuentas actualemte en la pagina!</p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <?php }elseif ($on == 3){?>
+                        <div class="col-md-3 wow fadeInLeft" data-wow-duration="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="bd">Frutas Disponibles</h3></a>
+                                        <p>Mira que frutas estan disponibles para la compra, se actualiza cuando haya algun producto nuevo!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                        <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 wow fadeInRight" data-wow-duration="500ms"  data-wow-delay="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="usuarios">Perfiles</h3></a>
+                                        <p>Mira los perfiles de nuestros vendedores!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="misProductos">Mis Productos</h3></a>
+                                        <p>Revisa los productos con los que cuentas actualemte en la pagina!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                            <div class="service-item">
+                                <div class="service-desc">
+                                    <center>
+                                        <h3><a href="compras">Mis Compras</h3></a>
+                                        <p>Revisa las compras que has realizado!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }else { ?>
                         <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
                             <div class="service-item">
                                 <div class="service-desc">
@@ -256,7 +317,7 @@
                         <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms">
 						    <div class="counters-item">
 							    <i class="fa fa-users fa-3x"></i>
-							    <strong data-to="<?php echo $compradores;?>">0</strong>
+							    <strong data-to="<?php echo $compradores; ?>">0</strong>
 							    <p>Compradores</p>
 						    </div>
 					    </div>

@@ -23,7 +23,7 @@ if (isset($_SESSION['user'])){
 <!DOCTYPE html>
     <head>
         <meta charset="utf-8">
-        <title>Mis Compras</title>
+        <title>Mis Productos</title>
         <link rel="shortcut icon" href="img/icono.ico">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -124,7 +124,7 @@ if (isset($_SESSION['user'])){
 			<div class="container">
 				<div class="row">
 					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-						<h2>Mis compras</h2>
+						<h2>Mis Productos</h2>
 						<div class="devider"></div>
 					</div>
                 <div class="clearfix"></div>
@@ -134,39 +134,29 @@ if (isset($_SESSION['user'])){
                                 <table id="datatable-buttons2" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Id Compra</th>
                                         <th>Id Producto</th>
                                         <th>Nombre del Producto</th>
                                         <th>Estado</th>
                                         <th>Cantidad Disponible (Kilos)</th>
-                                        <th>Costo Por Unidad ($)</th>
-                                        <th>Cantidad Comprada (Kilos)</th>
-                                        <th>Vendedor del Producto</th>
-                                        <th>Valoración de Compra</th>
-                                        <th>Información de la Valoración</th>
-                                        <th>Fecha de Compra</th>
-                                        <th>Hora de Compra:</th>
+                                        <th>Costo Por Unidad ($/kilo)</th>
+                                        <th>Valor Total ($)</th>
+                                        <th>Ubicación del Producto</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     $user = $_SESSION['user'];
-                                    $compras = $admin->get_misCompras($user);
-                                    for ($g=0; $g<sizeof($compras); $g++){
+                                    $productos = $admin->get_misProductos($user);
+                                    for ($x=0; $x<sizeof($productos); $x++){
                                      ?>
                                     <tr>
-                                         <td align="center"><?php echo $compras[$g][0]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][1]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][2]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][3]; ?></td>
-                                         <td align="center"><?php echo number_format($compras[$g][4],0); ?></td>
-                                         <td align="center"><?php echo number_format($compras[$g][5],0); ?></td>
-                                         <td align="center"><?php echo number_format($compras[$g][6],0); ?></td>
-                                         <td align="center"><?php echo $compras[$g][9]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][15]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][12]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][13]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][14]; ?></td>
+                                         <td align="center"><?php echo $productos[$x][0]; ?></td>
+                                         <td align="center"><?php echo $productos[$x][1]; ?></td>
+                                         <td align="center"><?php echo $productos[$x][2]; ?></td>
+                                         <td align="center"><?php echo number_format($productos[$x][3],0); ?></td>
+                                         <td align="center"><?php echo number_format($productos[$x][4],0); ?></td>
+                                         <td align="center"><?php echo number_format($productos[$x][5],0); ?></td>
+                                         <td align="center"><?php echo $productos[$x][6]; ?></td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
@@ -203,7 +193,6 @@ if (isset($_SESSION['user'])){
         <script src="js/jquery.easing.min.js"></script>
         <!-- Datatables -->
         <script src="./vendors/datatables.net/js/jquery.dataTables.js"></script>
-        <script src="./vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
         <script src="./vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
         <script src="./vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
         <script src="./vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
