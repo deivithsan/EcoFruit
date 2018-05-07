@@ -156,7 +156,7 @@ if (isset($_SESSION['user'])){
                                     $value7 = @trim($tr->getElementsByTagName("td")->item(7)->nodeValue);
                                     ?>
                                 <tr>
-                                    <td><?php echo $title ?></td>
+                                    <td><?php echo $title, asd ?></td>
                                     <td><?php echo $value ?></td>
                                     <td><?php echo $value2 ?></td>
                                     <td><?php echo $value3 ?></td>
