@@ -146,7 +146,7 @@ if (isset($_SESSION['user'])){
                                 </thead>
                                 <tbody>
                                 <?php foreach ($trs as $tr) {
-                                    $title = @trim($tr->getElementsByTagName("td")->item(0)->nodeValue);
+                                    $title = ($tr->getElementsByTagName("td")->item(0)->nodeValue);
                                     $value = @trim($tr->getElementsByTagName("td")->item(1)->nodeValue);
                                     $value2 = @trim($tr->getElementsByTagName("td")->item(2)->nodeValue);
                                     $value3 = @trim($tr->getElementsByTagName("td")->item(3)->nodeValue);
@@ -156,9 +156,8 @@ if (isset($_SESSION['user'])){
                                     $value7 = @trim($tr->getElementsByTagName("td")->item(7)->nodeValue);
                                     ?>
                                 <tr>
-                                    <td>asd</td>
-                                    <td>123<?php echo $title ?></td>
-                                    <td>123<?php echo $value ?></td>
+                                    <td><?php echo $title ?></td>
+                                    <td><?php echo $value ?></td>
                                     <td><?php echo $value2 ?></td>
                                     <td><?php echo $value3 ?></td>
                                     <td><?php echo $value4 ?></td>
