@@ -166,7 +166,7 @@ if (isset($_SESSION['user'])){
                                     <td><?php echo $value7 ?></td>
                                 </tr>
                                <?php } ?>
-                               <?php echo $title; ?>
+                               <?php echo $source; ?>
                             </tbody>
                         </table>
                     </div>
