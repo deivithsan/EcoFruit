@@ -14,6 +14,14 @@ if (isset($_SESSION['user'])){
         $on = 1;
     }
 }
+$source = file_get_contents('http://www.corabastos.com.co/sitio/historicoApp2/reportes/prueba.php');
+libxml_use_internal_errors(true);
+libxml_clear_errors();
+$html = new DOMDocument();
+$html ->loadHTML($source);
+$xpath = new DOMXPath($html);
+$result = array();
+$trs = $html->getElementsByTagName("tr");
 ?>
 <!DOCTYPE html>
 <head>
@@ -122,17 +130,7 @@ if (isset($_SESSION['user'])){
                             <h4>Si desea buscar un producto especifico use la herramienta de busqueda de su correspondiente navegador. <a href="https://support.mozilla.org/es/kb/Hacer%20b%C3%BAsquedas%20dentro%20de%20una%20p%C3%A1gina%20web">(Firefox</a> o <a href="https://support.google.com/chrome/answer/95440?co=GENIE.Platform%3DDesktop&hl=es">Google Chrome)</a> </h4>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered">
-                                <thead>
-                                    <?php
-                                    $source = file_get_contents('http://www.corabastos.com.co/sitio/historicoApp2/reportes/prueba.php');
-                                    libxml_use_internal_errors(true);
-                                    libxml_clear_errors();
-                                    $html = new DOMDocument();
-                                    $html ->loadHTML($source);
-                                    $xpath = new DOMXPath($html);
-                                    $result = array();
-                                    $trs = $html->getElementsByTagName("tr");
-                                    ?>
+                                <thead>                                   
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Presentación</th>
