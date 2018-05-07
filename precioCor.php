@@ -167,9 +167,7 @@ if (isset($_SESSION['user'])){
                                     <td><?php echo $value7 ?></td>
                                 </tr>
                                <?php } ?>
-                                    <tr>
-                                        <td>asdf</td>
-                                    </tr>
+                               <?php echo $title; ?>
                             </tbody>
                         </table>
                     </div>
