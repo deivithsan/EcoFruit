@@ -157,7 +157,7 @@ if (isset($_SESSION['user'])){
                                     ?>
                                 <tr>
                                     <td>123<?php echo $title ?></td>
-                                    <td><?php echo $value ?></td>
+                                    <td>123<?php echo $value ?></td>
                                     <td><?php echo $value2 ?></td>
                                     <td><?php echo $value3 ?></td>
                                     <td><?php echo $value4 ?></td>
