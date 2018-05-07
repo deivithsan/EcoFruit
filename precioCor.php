@@ -134,7 +134,7 @@ if (isset($_SESSION['user'])){
                                     $trs = $html->getElementsByTagName("tr");
                                     ?>
                                     <tr>
-                                        <th>Nombresasd</th>
+                                        <th>Nombre</th>
                                         <th>Presentación</th>
                                         <th>Cantidad</th>
                                         <th>Unidad</th>
@@ -167,6 +167,9 @@ if (isset($_SESSION['user'])){
                                     <td><?php echo $value7 ?></td>
                                 </tr>
                                <?php } ?>
+                                    <tr>
+                                        <td>asdf</td>
+                                    </tr>
                             </tbody>
                         </table>
                     </div>
