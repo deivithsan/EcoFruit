@@ -134,7 +134,7 @@ if (isset($_SESSION['user'])){
                                     $trs = $html->getElementsByTagName("tr");
                                     ?>
                                     <tr>
-                                        <th>Nombre</th>
+                                        <th>Nombresasd</th>
                                         <th>Presentación</th>
                                         <th>Cantidad</th>
                                         <th>Unidad</th>
