@@ -2,6 +2,7 @@
 session_start();
 require_once "conexion.php";
 $conex = new Conexion();
+$admin = new Admin();
 global $on;
 if (isset($_SESSION['user'])){
     global $priv, $nom;
@@ -14,14 +15,7 @@ if (isset($_SESSION['user'])){
         $on = 1;
     }
 }
-$source = file_get_contents('http://www.corabastos.com.co/sitio/historicoApp2/reportes/prueba.php');
-libxml_use_internal_errors(true);
-libxml_clear_errors();
-$html = new DOMDocument();
-$html ->loadHTML($source);
-$xpath = new DOMXPath($html);
-$result = array();
-$trs = $html->getElementsByTagName("tr");
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -120,57 +114,16 @@ $trs = $html->getElementsByTagName("tr");
             <div class="row">
                 <div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
                     <h2>Precios Actuales en Corabastos</h2>
-                        <div class="devider"></div>
+                    <div class="devider"><i class="fa fa-line-chart fa-lg"></i></div>
                 </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_content">
-                            <h4>Información: los productos con precio 0 es porque no se encuentran en cosecha.</h4>
-                            <h4>Si desea buscar un producto especifico use la herramienta de busqueda de su correspondiente navegador. <a href="https://support.mozilla.org/es/kb/Hacer%20b%C3%BAsquedas%20dentro%20de%20una%20p%C3%A1gina%20web">(Firefox</a> o <a href="https://support.google.com/chrome/answer/95440?co=GENIE.Platform%3DDesktop&hl=es">Google Chrome)</a> </h4>
+                <div class="col-md-12 col-sm-3 col-xs-3">
+                    <center>
+                        <h4>Por favor espere un momento mientras carga el archivo, gracias.</h4>
 
-                            <table id="datatable-buttons" class="table table-striped table-bordered">
-                                <thead>                                   
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Presentación</th>
-                                        <th>Cantidad</th>
-                                        <th>Unidad</th>
-                                        <th>$Cal. Extra</th>
-                                        <th>$Cal. Primera</th>
-                                        <th>Valor Por Unidad</th>
-                                        <th>Gran. Superficies</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach ($trs as $tr) {
-                                    $title = ($tr->getElementsByTagName("td")->item(0)->nodeValue);
-                                    $value = @trim($tr->getElementsByTagName("td")->item(1)->nodeValue);
-                                    $value2 = @trim($tr->getElementsByTagName("td")->item(2)->nodeValue);
-                                    $value3 = @trim($tr->getElementsByTagName("td")->item(3)->nodeValue);
-                                    $value4 = @trim($tr->getElementsByTagName("td")->item(4)->nodeValue);
-                                    $value5 = @trim($tr->getElementsByTagName("td")->item(5)->nodeValue);
-                                    $value6 = @trim($tr->getElementsByTagName("td")->item(6)->nodeValue);
-                                    $value7 = @trim($tr->getElementsByTagName("td")->item(7)->nodeValue);
-                                    ?>
-                                <tr>
-                                    <td><?php echo $title ?></td>
-                                    <td><?php echo $value ?></td>
-                                    <td><?php echo $value2 ?></td>
-                                    <td><?php echo $value3 ?></td>
-                                    <td><?php echo $value4 ?></td>
-                                    <td><?php echo $value5 ?></td>
-                                    <td><?php echo $value6 ?></td>
-                                    <td><?php echo $value7 ?></td>
-                                </tr>
-                               <?php } ?>
-                               <?php echo $source; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                        <embed src="http://www.corabastos.com.co/sitio/historicoApp2/reportes/BoletinDescarga.php" type="application/pdf" width="800" height="600">
+                    </center>
                 </div>
             </div>
-        </div>
     </section>
     <h5 align="center"><i>2018 - EcoFruit</i></h5>
 
