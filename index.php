@@ -81,7 +81,6 @@
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-
                     </ul>
                         <form class="nav navbar-form navbar-left" role="search" action="registro">
                             <button onclick='registro' class="btn btn-success">Modificar Información</button>
@@ -94,7 +93,6 @@
             </div>
             </div>
         </header>
-
 		<section id="slider">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner" role="listbox">
@@ -112,7 +110,6 @@
 				</div>
 			</div>
 		</section>
-
 		<section id="features" class="features">
 			<div class="container">
 				<div class="row">
@@ -270,7 +267,7 @@
                             <div class="service-item">
                                 <div class="service-desc">
                                     <center>
-                                        <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                        <h3><a href="http://ecofruit.herokuapp.com/precioCor">Precios Corabastos</h3></a>
                                         <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
                                     </center>
                                 </div>
