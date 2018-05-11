@@ -101,7 +101,7 @@ if (isset($_SESSION['user'])){
                         <h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">Venta eficaz, rapida y total de la fruta en su cosecha</span> </h3>
                         <ul class="social-links text-center">
                             <li><i class="fa fa-twitter fa-lg"></i></li>
-                            <li><a href="index"><i class="fa fa-home fa-lg"></i></a></li>
+                            <li><a href="https://ecofruit.herokuapp.com/"><i class="fa fa-home fa-lg"></i></a></li>
                             <li><i class="fa fa-facebook fa-lg"></i></li>
                         </ul>
                     </div>
