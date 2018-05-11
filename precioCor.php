@@ -119,9 +119,7 @@ if (isset($_SESSION['user'])){
                 <div class="col-md-12 col-sm-3 col-xs-3">
                     <center>
                         <h4>Por favor espere un momento mientras carga el archivo, gracias.</h4>
-                        <object data="http://www.corabastos.com.co/sitio/historicoApp2/reportes/BoletinDescarga.php" type="application/pdf">
-                        <embed src="http://www.corabastos.com.co/sitio/historicoApp2/reportes/BoletinDescarga.php" type="application/pdf" width="100%" height="100%"/>
-                        </object>
+                        <embed src="http://www.corabastos.com.co/sitio/historicoApp2/reportes/BoletinDescarga.php" type="application/pdf" width="800" height="600"/>
                     </center>
                 </div>
             </div>
