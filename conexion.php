@@ -2553,5 +2553,35 @@ class Admin{
         return $datos;
 
     }
+
+    public function update_Pass($nom){
+        $pass =$_POST["newPass"];
+        $encriptPass = md5($pass);
+        $user =$_POST["nomuser"];
+
+        if ($nom == $user){
+
+            echo '<script>alert("No puedes cambiar tu propia contraseña, comunicate con otro administrador para realizar " +
+                                "el respectivo cambio, gracias.")</script>';
+            echo "<script type=\"text/javascript\">window.location='modInfo'</script>";
+
+        } else{
+
+            $sql = "UPDATE usuarios set contraseña=? WHERE nombreuser='$user'";
+            $envio = $this->conexion->prepare($sql);
+
+            $newPass = strip_tags($encriptPass);
+
+            $envio->bindValue(1, $newPass, PDO::PARAM_STR);
+
+            $envio->execute();
+
+            $this->conexion = null;
+
+            echo '<script>alert("La contraseña del usuario '.$user.', ha sido actualizada.")</script>';
+            echo "<script type=\"text/javascript\">window.location='modInfo'</script>";
+        }
+    }
+
 }
 ?>
