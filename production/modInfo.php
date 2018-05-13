@@ -260,7 +260,7 @@
 
             if ($_POST["buscar"]) {
                 ?>
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                <form id="demo-form2" class="form-horizontal form-label-left" method="post">
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -317,13 +317,45 @@
                                 <input type="submit" class="btn btn-success" name="Enviar" id="Enviar" value="Guardar">
                                 <input type=button value="Ver Información de Usuarios" class="btn btn-success"
                                        onclick="location='tableInfoUsr'"/>
+                                <input type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-contraseña" value="Cambio de Contraseña">
                             </center>
                         </div>
                 </form>
                 <?php
             }
+            if ($_POST["Pass"]){
+                $admin->update_Pass($nom);
+            }
 ?>
 &nbsp;
+<div class="modal fade" id="modal-contraseña" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <form class="form-horizontal form-label-left" method="POST">
+                    <h4 class="text-center text-white">Cambio de Contraseña</h4>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <input type="text" id="nomuser" name="nomuser" class="form-control col-md-7 col-xs-12"
+                               style="display:none" value="<?php echo $datos[0][1]; ?>">
+                        <center><h2>Nueva Contraseña:</h2></center>
+                        <input id="newPass" class="form-control col-md-7 col-xs-12" required type="password" name="newPass"/>
+                    </div>
+                    <div class="form-group">
+                        <center>
+                            <input type="submit" class="btn btn-success" name="Pass" id="Pass" value="Aceptar">
+                        </center>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                EcoFruit
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </div>
 </div>
