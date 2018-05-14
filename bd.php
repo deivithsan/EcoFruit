@@ -265,24 +265,24 @@ if (isset($_SESSION['user'])){
                                                        style="display:inline">Cantidad Disponible (Kilos): <span
                                                             class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
-                                                           style="display:inline" value="<?php echo $cantProd; ?>">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo number_format($cantProd,0); ?>">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
                                                        style="display:inline">Costo por Unidad: $<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
-                                                           style="display:inline" value="<?php echo $costProd; ?>">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo number_format($costProd,0); ?>">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
                                                        style="display:inline">Costo Total: $<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="number" DISABLED class="form-control col-md-7 col-xs-12"
-                                                           style="display:inline" value="<?php echo $valTotalProd; ?>">
+                                                    <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
+                                                           style="display:inline" value="<?php echo number_format($valTotalProd,0); ?>">
                                                 </div>
                                             </div>
                                             <input type="text" id="nomprod" name="nomprod" style="display:none"
