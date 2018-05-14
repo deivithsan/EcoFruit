@@ -1301,8 +1301,8 @@ class Admin{
 
     }
 
-    public function get_logUser($user){
-        $sql="SELECT * FROM log WHERE usuario = '$user'";
+    public function get_logUser(){
+        $sql="SELECT * FROM log";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
