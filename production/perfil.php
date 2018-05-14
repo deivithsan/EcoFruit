@@ -310,9 +310,9 @@
 
                                                         <!-- start recent activity -->
                                                         <?php
-                                                        $log = $admin->get_logUser($nom);
+                                                        $log = $admin->get_logUser();
                                                         if ($log == 0) {
-                                                            echo "<h4 class='heading' align='center'> El Usuario no ha hecho ningun cambio</h4>";
+                                                            echo "<h4 class='heading' align='center'> Los Administradores no han Realizado Acciones.</h4>";
 
                                                         } else{
                                                         $rows = count($log);
@@ -321,6 +321,7 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>Id</th>
+                                                                <th>Usuario</th>
                                                                 <th>Acción</th>
                                                                 <th>idAfectado</th>
                                                                 <th>Fecha</th>
@@ -333,6 +334,7 @@
                                                                 for ($i = 0; $i < $rows; $i++){
                                                                 ?>
                                                                 <td><?php echo $log[$i][0]; ?></td>
+                                                                <td><?php echo $log[$i][2]; ?></td>
                                                                 <td><?php echo $log[$i][1]; ?></td>
                                                                 <td><?php echo $log[$i][5]; ?></td>
                                                                 <td><?php echo $log[$i][3]; ?></td>
