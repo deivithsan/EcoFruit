@@ -337,7 +337,7 @@
                     <h4 class="text-center text-white">Cambio de Contraseña</h4>
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <input type="text" id="nomuser" name="nomuser" class="form-control col-md-7 col-xs-12"
+                        <input type="text" id="nomuserP" name="nomuserP" class="form-control col-md-7 col-xs-12"
                                style="display:none" value="<?php echo $datos[0][1]; ?>">
                         <center><h2>Nueva Contraseña:</h2></center>
                         <input id="newPass" class="form-control col-md-7 col-xs-12" required type="password" name="newPass"/>
