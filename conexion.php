@@ -2557,7 +2557,7 @@ class Admin{
     public function update_Pass($nom){
         $pass =$_POST["newPass"];
         $encriptPass = md5($pass);
-        $user =$_POST["nomuser"];
+        $user =$_POST["nomuserP"];
 
         if ($nom == $user){
 
