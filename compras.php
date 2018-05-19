@@ -143,7 +143,7 @@ if (isset($_SESSION['user'])){
                                         <th>Cantidad Comprada (Kilos)</th>
                                         <th>Vendedor del Producto</th>
                                         <th>Valoración de Compra</th>
-                                        <th>Información de la Valoración</th>
+                                        <th>Detalle de la Valoración</th>
                                         <th>Fecha de Compra</th>
                                         <th>Hora de Compra:</th>
                                     </tr>
