@@ -133,7 +133,7 @@
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
-                                <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                <h3><a href="http://ecofruit.herokuapp.com/precioCor">Precios Corabastos</h3></a>
                                 <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
                                 </center>
                             </div>
@@ -175,7 +175,7 @@
                         <div class="service-item">
                             <div class="service-desc">
                                 <center>
-                                    <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                    <h3><a href="http://ecofruit.herokuapp.com/precioCor">Precios Corabastos</h3></a>
                                     <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
                                 </center>
                             </div>
@@ -216,7 +216,7 @@
                             <div class="service-item">
                                 <div class="service-desc">
                                     <center>
-                                        <h3><a href="precioCor">Precios Corabastos</h3></a>
+                                        <h3><a href="http://ecofruit.herokuapp.com/precioCor">Precios Corabastos</h3></a>
                                         <p>Observa el boletin diario de precios que actualmente se encuentra en Corabastos!</p>
                                     </center>
                                 </div>
@@ -232,7 +232,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
+                        <div class="col-md-2 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
                             <div class="service-item">
                                 <div class="service-desc">
                                     <center>
