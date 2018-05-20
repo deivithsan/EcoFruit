@@ -788,7 +788,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de enero'
             },
             <?php
             $año = date("Y");
@@ -847,7 +847,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de febrero'
             },
             <?php
             $año = date("Y");
@@ -906,7 +906,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de marzo'
             },
             <?php
             $año = date("Y");
@@ -965,7 +965,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de abril'
             },
             <?php
             $año = date("Y");
@@ -1024,7 +1024,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de mayo'
             },
             <?php
             $año = date("Y");
@@ -1083,7 +1083,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de junio'
             },
             <?php
             $año = date("Y");
@@ -1142,7 +1142,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de julio'
             },
             <?php
             $año = date("Y");
@@ -1201,7 +1201,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de agosto'
             },
             <?php
             $año = date("Y");
@@ -1260,7 +1260,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de septiembre'
             },
             <?php
             $año = date("Y");
@@ -1319,7 +1319,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de octubre'
             },
             <?php
             $año = date("Y");
@@ -1378,7 +1378,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de noviembre'
             },
             <?php
             $año = date("Y");
@@ -1437,7 +1437,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 type: 'column'
             },
             title: {
-                text: ''
+                text: 'Compras mes de diciembre'
             },
             <?php
             $año = date("Y");
