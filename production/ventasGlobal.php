@@ -166,9 +166,9 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <div id="containerGraf" style="height: 400px"></div>
+                            <div id="containerGraf" style="height: 500px"></div>
                             &nbsp;
-                            <div id="containerGraf2" style="height: 400px"></div>
+                            <div id="containerGraf2" style="height: 500px"></div>
                         </div>
 
                     </div>
