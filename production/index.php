@@ -190,9 +190,11 @@
                     <div class="dashboard_graph">
                         <div class="row">
                             <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">                                  
-                                    <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
-                                    &nbsp;
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <center>
+                                        <div id="cont_e688f203390b5ceff3d284c0c6d0032e"><script type="text/javascript" async src="https://www.tiempo.com/wid_loader/e688f203390b5ceff3d284c0c6d0032e"></script></div>
+                                        &nbsp;
+                                    </center>
                                 </div>
                                 <div class="col-md-12 col-sm-6 col-xs-12">
                                     <center>
