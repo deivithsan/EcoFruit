@@ -155,8 +155,8 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo $prod[$g][2]; ?></td>
                                          <td align="center"><?php echo $prod[$g][3]; ?></td>
                                          <td align="center"><?php echo number_format($prod[$g][4],0); ?></td>
-                                         <td align="center"><?php echo number_format($prod[$g][5],0); ?></td>
-                                         <td align="center"><?php echo number_format($prod[$g][6],0); ?></td>
+                                         <td align="center">$<?php echo number_format($prod[$g][5],0); ?>.00</td>
+                                         <td align="center">$<?php echo number_format($prod[$g][6],0); ?>.00</td>
                                          <td align="center"><?php echo $prod[$g][7]; ?></td>
                                     </tr>
                                     <?php   }  ?>
@@ -274,7 +274,7 @@ if (isset($_SESSION['user'])){
                                                        style="display:inline">Costo por Unidad: $<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
-                                                           style="display:inline" value="<?php echo number_format($costProd,0); ?>">
+                                                           style="display:inline" value="$<?php echo number_format($costProd,0); ?>.00">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
@@ -282,7 +282,7 @@ if (isset($_SESSION['user'])){
                                                        style="display:inline">Costo Total: $<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
-                                                           style="display:inline" value="<?php echo number_format($valTotalProd,0); ?>">
+                                                           style="display:inline" value="$<?php echo number_format($valTotalProd,0); ?>.00">
                                                 </div>
                                             </div>
                                             <input type="text" id="nomprod" name="nomprod" style="display:none"
