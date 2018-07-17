@@ -209,8 +209,8 @@
                                     <td><?php echo $compras[$i][2] ?></td>
                                     <td><?php echo $compras[$i][3] ?></td>
                                     <td><?php echo number_format($compras[$i][4],0) ?></td>
-                                    <td><?php echo number_format($compras[$i][5],0) ?></td>
-                                    <td><?php echo number_format($compras[$i][6],0) ?></td>
+                                    <td>$<?php echo number_format($compras[$i][5],0) ?>.00</td>
+                                    <td>$<?php echo number_format($compras[$i][6],0) ?>.00</td>
                                     <td><?php echo $compras[$i][7] ?></td>
                                     <td><?php echo $compras[$i][8] ?></td>
                                     <td><?php echo $compras[$i][9] ?></td>
