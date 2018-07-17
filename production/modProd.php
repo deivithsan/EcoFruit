@@ -233,8 +233,8 @@
                     <td><?php echo $product[$i][2]; ?></td>
                     <td><?php echo $product[$i][3]; ?></td>
                     <td><?php echo number_format($product[$i][4],0); ?></td>
-                    <td><?php echo number_format($product[$i][5],0); ?></td>
-                    <td><?php echo number_format($product[$i][6],0); ?></td>
+                    <td>$<?php echo number_format($product[$i][5],0); ?>.00</td>
+                    <td>$<?php echo number_format($product[$i][6],0); ?>.00</td>
                     <td><?php echo $product[$i][7]; ?></td>
                     <td><?php echo $product[$i][8]; ?></td>
                 </tr>
