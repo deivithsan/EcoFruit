@@ -201,8 +201,8 @@
                                         <td><?php echo $productos[$i][2] ?></td>
                                         <td><?php echo $productos[$i][3] ?></td>
                                         <td><?php echo number_format($productos[$i][4],0) ?></td>
-                                        <td><?php echo number_format($productos[$i][5],0) ?></td>
-                                        <td><?php echo number_format($productos[$i][6],0) ?></td>
+                                        <td>$<?php echo number_format($productos[$i][5],0) ?>.00</td>
+                                        <td>$<?php echo number_format($productos[$i][6],0) ?>.00</td>
                                         <td><?php echo $productos[$i][7] ?></td>
                                         <td><?php echo $productos[$i][8] ?></td>
                                     </tr>
