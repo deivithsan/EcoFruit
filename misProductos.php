@@ -154,8 +154,8 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo $productos[$x][1]; ?></td>
                                          <td align="center"><?php echo $productos[$x][2]; ?></td>
                                          <td align="center"><?php echo number_format($productos[$x][3],0); ?></td>
-                                         <td align="center"><?php echo number_format($productos[$x][4],0); ?></td>
-                                         <td align="center"><?php echo number_format($productos[$x][5],0); ?></td>
+                                         <td align="center">$<?php echo number_format($productos[$x][4],0); ?>.00</td>
+                                         <td align="center">$<?php echo number_format($productos[$x][5],0); ?>.00</td>
                                          <td align="center"><?php echo $productos[$x][6]; ?></td>
                                     </tr>
                                     <?php   }  ?>
