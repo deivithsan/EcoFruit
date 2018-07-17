@@ -252,7 +252,7 @@
                 <td><?php echo $compra[$i][2]; ?></td>
                 <td><?php echo $compra[$i][3]; ?></td>
                 <td><?php echo number_format($compra[$i][4],0); ?></td>
-                <td><?php echo number_format($compra[$i][5],0); ?></td>
+                <td>$<?php echo number_format($compra[$i][5],0); ?>.00</td>
                 <td><?php echo number_format($compra[$i][6],0); ?></td>
                 <td><?php echo $compra[$i][7]; ?></td>
                 <td><?php echo $compra[$i][8]; ?></td>
