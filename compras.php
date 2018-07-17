@@ -160,7 +160,7 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo $compras[$g][2]; ?></td>
                                          <td align="center"><?php echo $compras[$g][3]; ?></td>
                                          <td align="center"><?php echo number_format($compras[$g][4],0); ?></td>
-                                         <td align="center"><?php echo number_format($compras[$g][5],0); ?></td>
+                                         <td align="center">$<?php echo number_format($compras[$g][5],0); ?>.00</td>
                                          <td align="center"><?php echo number_format($compras[$g][6],0); ?></td>
                                          <td align="center"><?php echo $compras[$g][9]; ?></td>
                                          <td align="center"><?php echo $compras[$g][15]; ?></td>
