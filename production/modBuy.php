@@ -7,6 +7,7 @@
     if (isset($_SESSION['user'])){
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
+        $iduser = $_SESSION['iduser'];
         if ($priv != 1) {
             session_unset();
             echo '<script> window.location="../index"; </script>';
@@ -85,9 +86,8 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -95,10 +95,9 @@
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -106,7 +105,8 @@
                             <li><a><i class="fa fa-edit"></i> Modificar Datos<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -201,7 +201,7 @@
                     if ($_POST){
                         if ($_POST["buscar"]){
                             $idbuy = $_POST["idbuy"];
-                            $compras = $admin->get_ComprasProd();
+                            $compras = $admin->get_LlenarFormCompra($idbuy);
                             $rows = count($compras);
                             for ($i = 0; $i < $rows; $i++){
                                 if ($compras[$i][0] == $idbuy){
@@ -225,44 +225,37 @@
         <tr>
             <th>Id Compra</th>
             <th>Id Producto</th>
-            <th>Nombre Producto</th>
-            <th>Estado</th>
-            <th>Cantidad Disponible (kilos)</th>
-            <th>Costo Unidad ($)</th>
+            <th>Nombre del Producto</th>
             <th>Cantidad Comprada (Kilos)</th>
-            <th>Número de Cedula</th>
-            <th>Número de Telefono</th>
             <th>Vendedor del Producto</th>
-            <th>Comprador del Producto</th>
-            <th>Valoración de la Compra</th>
-            <th>Detalle de la Valoración</th>
-            <th>Fecha de la Compra</th>
-            <th>Hora de la Compra</th>
+            <th>Valoración de Compra</th>
+            <th>Detalle de Valoración</th>
+            <th>Fecha de Compra</th>
+            <th>Hora de Compra:</th>
+            <th>Observación de Compra:</th>
+            <th>Valor a Pagar:</th>
+            <th>Id del Comprador:</th>
         </tr>
         </thead>
-        <tbody>
-        <?php
-        $compra = $admin->get_ComprasProd();
-        $rows = count($compra);
-        for ($i = 0; $i < $rows; $i++){
-            ?>
-            <tr>
-                <td><?php echo $compra[$i][0]; ?></td>
-                <td><?php echo $compra[$i][1]; ?></td>
-                <td><?php echo $compra[$i][2]; ?></td>
-                <td><?php echo $compra[$i][3]; ?></td>
-                <td><?php echo number_format($compra[$i][4],0); ?></td>
-                <td>$<?php echo number_format($compra[$i][5],0); ?>.00</td>
-                <td><?php echo number_format($compra[$i][6],0); ?></td>
-                <td><?php echo $compra[$i][7]; ?></td>
-                <td><?php echo $compra[$i][8]; ?></td>
-                <td><?php echo $compra[$i][9]; ?></td>
-                <td><?php echo $compra[$i][10]; ?></td>
-                <td><?php echo $compra[$i][11]; ?></td>
-                <td><?php echo $compra[$i][12]; ?></td>
-                <td><?php echo $compra[$i][13]; ?></td>
-                <td><?php echo $compra[$i][14]; ?></td>
-            </tr>
+    <tbody>
+    <?php
+    $compras= $admin->get_Compras();
+    $rows = count($compras);
+    for ($g = 0; $g < $rows; $g++) {?>
+        <tr>
+            <td align="center"><?php echo $compras[$g][0]; ?></td>
+            <td align="center"><?php echo $compras[$g][6]; ?></td>
+            <td align="center"><?php echo $compras[$g][7]; ?></td>
+            <td align="center"><?php echo number_format($compras[$g][10],0); ?></td>
+            <td align="center"><?php echo $compras[$g][5]; ?></td>
+            <td align="center"><?php echo $compras[$g][1]; ?></td>
+            <td align="center"><?php echo $compras[$g][2]; ?></td>
+            <td align="center"><?php echo $compras[$g][3]; ?></td>
+            <td align="center"><?php echo $compras[$g][4]; ?></td>
+            <td align="center"><?php echo $compras[$g][11]; ?></td>
+            <td align="center">$<?php echo number_format($compras[$g][9],0); ?>.00</td>
+            <td align="center"><?php echo $compras[$g][12]; ?></td>
+        </tr>
             <?php
         }
                     }
@@ -278,13 +271,13 @@ if ($_POST){
         $admin->update_Compras();
         $info = "Modificación de Compra";
         $i =$_POST["idcompra"];
-        $admin->create_log($nom,$info,$i);
+        $admin->create_log($iduser,$info,$i);
     }
     if ($_POST["Eliminar"]){
         $admin->delete_Compra();
         $info = "Eliminó una Compra";
         $i= $_POST["idcompra"];
-        $admin->create_log($nom,$info,$i);
+        $admin->create_log($iduser,$info,$i);
     }
 }
 
@@ -292,58 +285,49 @@ if ($_POST["buscar"]) {
     ?>
     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
         <div class="form-group">
-            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de
-                Compra</span>
-            </label>
+            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id de Compra:</span></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" id="idcompra" name="idcompra" class="form-control col-md-7 col-xs-12"
-                       style="display:none" value="<?php echo $compraData[0][0]; ?>">
+                <input type="number" id="idcompra" name="idcompra" class="form-control col-md-7 col-xs-12" style="display:none" value="<?php echo $compraData[0][0]; ?>">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto <span
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id Producto: <span class="required"></span></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="number" id="idprod" DISABLED name="idprod" class="form-control col-md-7 col-xs-12" value="<?php echo $compraData[0][6]; ?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto:<span class="required"></span></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" type="text" value="<?php echo $compraData[0][7]; ?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Vendedor del Producto:<span
                         class="required"></span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" id="idprod" DISABLED name="idprod" class="form-control col-md-7 col-xs-12"
-                       value="<?php echo $compraData[0][1]; ?>">
+                <input id="vendprod" name="vendprod" DISABLED class="form-control col-md-7 col-xs-12" type="text"
+                       value="<?php echo $compraData[0][5]; ?>">
             </div>
         </div>
         <div class="form-group">
-            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre Producto<span
-                        class="required"></span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="nomprod" name="nomprod" DISABLED class="form-control col-md-7 col-xs-12" type="text"
-                       value="<?php echo $compraData[0][2]; ?>">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Disponible (Kilos) </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input DISABLED class="date-picker form-control col-md-7 col-xs-12" type="number"
-                       value="<?php echo number_format($compraData[0][4],0); ?>">
-                <input id="cantdisp" style="display:none" class="date-picker form-control col-md-7 col-xs-12"
-                       type="number" name="cantdisp" value="<?php echo $compraData[0][4]; ?>" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos) </label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad Comprada (Kilos): </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input id="cantcomprada" class="date-picker form-control col-md-7 col-xs-12" required="required"
-                       type="number" name="cantcomprada" value="<?php echo number_format($compraData[0][6],0); ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
+                       type="number" name="cantcomprada" value="<?php echo number_format($compraData[0][10],0); ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra</label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Valoración de la Compra:</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select name="tiposlist">
+                <select name="valoracion">
                     <?php
                     $val = $admin->get_Valoraciones();
                     $rows = count($val);
                     for ($i = 0; $i < $rows; $i++) {
                         ?>
-                        <option value="<?php echo $val[$i][0] ?>"><?php echo $val[$i][0]; ?></option>
+                        <option value="<?php echo $val[$i][0] ?>"<?php if ($val[$i][1] == $compraData[0][1]){?> selected <?php } ?> ><?php echo $val[$i][1]; ?></option>
                         <?php
                     }
                     ?>
@@ -351,11 +335,35 @@ if ($_POST["buscar"]) {
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalle de la Valoración<span
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalle de la Valoración:<span
                         class="required"></span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea id="detval" class="form-control" name="detval"><?php echo $compraData[0][12]; ?></textarea>
+                <textarea id="detval" class="form-control" name="detval"><?php echo $compraData[0][2]; ?></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Observación de la Compra:<span
+                        class="required"></span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea id="detcompra" class="form-control" name="detcompra"><?php echo $compraData[0][11]; ?></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Comprador del Producto: </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <select name="comprador">
+                    <?php
+                    $val = $admin->get_compradores();
+                    $rows = count($val);
+                    for ($i = 0; $i < $rows; $i++) {
+                        ?>
+                        <option value="<?php echo $val[$i][0] ?>"<?php if ($val[$i][0] == $compraData[0][12]){?> selected <?php } ?> ><?php echo $val[$i][1]; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
             </div>
         </div>
         <div class="ln_solid"></div>

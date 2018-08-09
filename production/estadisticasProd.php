@@ -68,9 +68,8 @@ $nombreyapellido = $admin->get_NombreApellido();
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -78,10 +77,9 @@ $nombreyapellido = $admin->get_NombreApellido();
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -89,7 +87,8 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <li><a><i class="fa fa-edit"></i> Modificar Datos<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -137,9 +136,6 @@ $nombreyapellido = $admin->get_NombreApellido();
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>

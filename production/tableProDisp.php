@@ -24,7 +24,7 @@
     </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Productos</title>
+    <title>Productos a la Venta</title>
     <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,9 +78,8 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -88,10 +87,9 @@
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -99,7 +97,8 @@
                             <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -148,9 +147,6 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
@@ -166,7 +162,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Productos</h2>
+                            <h2>Productos a la Venta</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -180,14 +176,16 @@
                                 <thead>
                                 <tr>
                                     <th>Id Producto</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
+                                    <th>Nombre de Venta</th>
                                     <th>Estado Actual</th>
                                     <th>Cantidad (Kilos)</th>
-                                    <th>Costo Producto ($)</th>
-                                    <th>Costo Total ($)</th>
+                                    <th>Costo Unitario</th>
+                                    <th>Costo Total</th>
                                     <th>Ubicación</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Fecha Limite de Venta</th>
                                     <th>Vendedor</th>
+                                    <th>Producto Principal:</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -199,12 +197,14 @@
                                         <td><?php echo $productos[$i][0] ?></td>
                                         <td><?php echo $productos[$i][1] ?></td>
                                         <td><?php echo $productos[$i][2] ?></td>
-                                        <td><?php echo $productos[$i][3] ?></td>
-                                        <td><?php echo number_format($productos[$i][4],0) ?></td>
+                                        <td><?php echo number_format($productos[$i][3],0) ?></td>
+                                        <td>$<?php echo number_format($productos[$i][4],0) ?>.00</td>
                                         <td>$<?php echo number_format($productos[$i][5],0) ?>.00</td>
-                                        <td>$<?php echo number_format($productos[$i][6],0) ?>.00</td>
+                                        <td><?php echo $productos[$i][6] ?></td>
                                         <td><?php echo $productos[$i][7] ?></td>
                                         <td><?php echo $productos[$i][8] ?></td>
+                                        <td><?php echo $productos[$i][9] ?></td>
+                                        <td><?php echo $productos[$i][11] ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -212,7 +212,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <center>
-                                        <input type=button value="Agregar" class="btn btn-success" onclick = "location='form_validation'"/>
+                                        <input type=button value="Agregar" class="btn btn-success" onclick = "location='createProdV'"/>
                                         <input type=button value="Modificar" class="btn btn-success" onclick = "location='modProd'"/>
                                 </div>
                             </div>

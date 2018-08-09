@@ -78,9 +78,8 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -88,10 +87,9 @@
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -99,7 +97,8 @@
                             <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -148,9 +147,6 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
@@ -162,13 +158,11 @@
 
         <div class="right_col" role="main">
             <div class="">
-
-
                 <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Compras Realizadas</h2>
+                            <h2>Compras Recibidas</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -182,43 +176,37 @@
                                 <thead>
                                 <tr>
                                     <th>Id Compra</th>
-                                    <th>Id del Producto Comprado</th>
-                                    <th>Nombre Producto</th>
-                                    <th>Estado del Producto</th>
-                                    <th>Cantidad Disponible del Producto</th>
-                                    <th>Costo Por Unidad ($)</th>
+                                    <th>Id Producto</th>
+                                    <th>Nombre del Producto</th>
                                     <th>Cantidad Comprada (Kilos)</th>
-                                    <th>Número de Celular Comprador</th>
-                                    <th>Número de Cedula Comprador</th>
                                     <th>Vendedor del Producto</th>
-                                    <th>Comprador del Producto</th>
-                                    <th>Valoración de la Compra</th>
+                                    <th>Valoración de Compra</th>
                                     <th>Detalle de la Valoración</th>
-                                    <th>Fecha de la Compra</th>
-                                    <th>Hora de la Compra</th>
+                                    <th>Fecha de Compra</th>
+                                    <th>Hora de Compra:</th>
+                                    <th>Observación de Compra:</th>
+                                    <th>Valor a Pagar:</th>
+                                    <th>Id del Comprador:</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                 $compras= $admin->get_Compras();
                                 $rows = count($compras);
-                                for ($i = 0; $i < $rows; $i++) {?>
+                                for ($g = 0; $g < $rows; $g++) {?>
                                 <tr>
-                                    <td><?php echo $compras[$i][0] ?></td>
-                                    <td><?php echo $compras[$i][1] ?></td>
-                                    <td><?php echo $compras[$i][2] ?></td>
-                                    <td><?php echo $compras[$i][3] ?></td>
-                                    <td><?php echo number_format($compras[$i][4],0) ?></td>
-                                    <td>$<?php echo number_format($compras[$i][5],0) ?>.00</td>
-                                    <td><?php echo number_format($compras[$i][6],0) ?></td>
-                                    <td><?php echo $compras[$i][7] ?></td>
-                                    <td><?php echo $compras[$i][8] ?></td>
-                                    <td><?php echo $compras[$i][9] ?></td>
-                                    <td><?php echo $compras[$i][10] ?></td>
-                                    <td><?php echo $compras[$i][11] ?></td>
-                                    <td><?php echo $compras[$i][12] ?></td>
-                                    <td><?php echo $compras[$i][13] ?></td>
-                                    <td><?php echo $compras[$i][14] ?></td>
+                                    <td align="center"><?php echo $compras[$g][0]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][6]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][7]; ?></td>
+                                    <td align="center"><?php echo number_format($compras[$g][10],0); ?></td>
+                                    <td align="center"><?php echo $compras[$g][5]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][1]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][2]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][3]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][4]; ?></td>
+                                    <td align="center"><?php echo $compras[$g][11]; ?></td>
+                                    <td align="center">$<?php echo number_format($compras[$g][9],0); ?>.00</td>
+                                    <td align="center"><?php echo $compras[$g][12]; ?></td>
                                 </tr>
                                     <?php } ?>
                                 </tbody>
@@ -245,17 +233,11 @@
         </div>
     </div>
 
-    <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net/js/jquery.dataTables.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -271,9 +253,8 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-    <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <!-- Datatables -->
+
     <script>
       $(document).ready(function() {
         var handleDataTableButtons = function() {
@@ -352,8 +333,6 @@
 
         TableManageButtons.init();
       });
-
     </script>
-    <!-- /Datatables -->
   </body>
 </html>

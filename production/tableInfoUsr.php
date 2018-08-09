@@ -78,20 +78,18 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-table"></i> Visualizar Tablas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="tableBuy"> Compras </a>
+                                    <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -99,7 +97,8 @@
                             <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -148,9 +147,6 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
@@ -187,6 +183,7 @@
                                     <th>Telefono</th>
                                     <th>Dirección</th>
                                     <th>Número de Cedula</th>
+                                    <th>Tipo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -203,6 +200,7 @@
                                         <td><?php echo $infoUsers[$i][5] ?></td>
                                         <td><?php echo $infoUsers[$i][6] ?></td>
                                         <td><?php echo $infoUsers[$i][7] ?></td>
+                                        <td><?php echo $infoUsers[$i][10] ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -210,7 +208,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <center>
-                                        <input type=button value="Agregar" class="btn btn-success" onclick = "location='form'"/>
+                                        <input type=button value="Agregar" class="btn btn-success" onclick = "location='adduser'"/>
                                         <input type=button value="Modificar" class="btn btn-success" onclick = "location='modInfo'"/>
                                 </div>
                             </div>

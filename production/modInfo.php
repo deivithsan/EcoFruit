@@ -5,6 +5,7 @@
     session_start();
 
     if (isset($_SESSION['user'])){
+        $iduser = $_SESSION['iduser'];
         $priv = $_SESSION['privil'];
         $nom = $_SESSION['user'];
         if ($priv != 1) {
@@ -76,9 +77,8 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -86,10 +86,9 @@
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -97,7 +96,8 @@
                             <li><a><i class="fa fa-edit"></i> Modificar Datos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -220,6 +220,7 @@
                 <th>Telefono</th>
                 <th>Dirección</th>
                 <th>Número de Cedula</th>
+                <th>Tipo</th>
             </tr>
             </thead>
             <tbody>
@@ -237,6 +238,7 @@
                     <td><?php echo $infoUs[$i][5]; ?></td>
                     <td><?php echo $infoUs[$i][6]; ?></td>
                     <td><?php echo $infoUs[$i][7]; ?></td>
+                    <td><?php echo $infoUs[$i][10]; ?></td>
                 </tr>
                 <?php
             }
@@ -244,7 +246,7 @@
                         ?>
             <form class="form-horizontal form-label-left input_mask" method="post">
                 <center>
-                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='form'"/>
+                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='adduser'"/>
             </form>
             </tbody>
             </table>
@@ -262,10 +264,10 @@
                 ?>
                 <form id="demo-form2" class="form-horizontal form-label-left" method="post">
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Nombre</label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name" style="display:none">Id User</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="nomuser" name="nomuser" class="form-control col-md-7 col-xs-12"
-                                   style="display:none" value="<?php echo $datos[0][1]; ?>">
+                            <input type="text" id="iduser" name="iduser" class="form-control col-md-7 col-xs-12"
+                                   style="display:none" value="<?php echo $datos[0][0]; ?>">
                         </div>
                     </div>
                     <div class="form-group">
@@ -318,13 +320,18 @@
                                 <input type=button value="Ver Información de Usuarios" class="btn btn-success"
                                        onclick="location='tableInfoUsr'"/>
                                 <input type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-contraseña" value="Cambio de Contraseña">
+                                <input type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-tipouser" value="Cambio de Tipo">
                             </center>
                         </div>
                 </form>
                 <?php
             }
             if ($_POST["Pass"]){
-                $admin->update_Pass($nom);
+                $admin->update_Pass($iduser);
+            }
+            $tiposUser = $conex->get_TiposUsers();
+            if ($_POST["TipoUpdate"]){
+                $admin->update_Tipo($iduser);
             }
 ?>
 &nbsp;
@@ -337,14 +344,50 @@
                     <h4 class="text-center text-white">Cambio de Contraseña</h4>
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <input type="text" id="nomuserP" name="nomuserP" class="form-control col-md-7 col-xs-12"
-                               style="display:none" value="<?php echo $datos[0][1]; ?>">
+                        <input type="text" id="iduser" name="iduser" class="form-control col-md-7 col-xs-12"
+                               style="display:none" value="<?php echo $datos[0][0]; ?>">
                         <center><h2>Nueva Contraseña:</h2></center>
                         <input id="newPass" class="form-control col-md-7 col-xs-12" required type="password" name="newPass"/>
                     </div>
                     <div class="form-group">
                         <center>
                             <input type="submit" class="btn btn-success" name="Pass" id="Pass" value="Aceptar">
+                        </center>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                EcoFruit
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-tipouser" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <form class="form-horizontal form-label-left" method="POST">
+                    <h4 class="text-center text-white">Cambio de Tipo de Usuario</h4>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <input type="text" id="iduser" name="iduser" class="form-control col-md-7 col-xs-12"
+                               style="display:none" value="<?php echo $datos[0][0]; ?>">
+                        <center><h2>Tipos de Usuarios:</h2></center>
+                        <center><select name="tiposlist">
+                            <?php
+                            for ($i=0; $i<sizeof($tiposUser); $i++){
+                                ?>
+                                <option value="<?php echo $tiposUser[$i]["nombretipousuario"] ?>"><?php echo $tiposUser[$i]["nombretipousuario"]; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select></center>
+                    </div>
+                    <div class="form-group">
+                        <center>
+                            <input type="submit" class="btn btn-success" name="TipoUpdate" id="TipoUpdate" value="Aceptar">
                         </center>
                     </div>
                 </form>

@@ -23,7 +23,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modificar Productos</title>
+    <title>Modificar Productos Principales</title>
     <link rel="shortcut icon" href="../img/icono.ico">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -142,9 +142,6 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
@@ -161,7 +158,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Modifica Los Productos en Venta</h2>
+                            <h2>Modifica Los Productos Principales</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -174,8 +171,7 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered">
                                 <div class="form-group">
                                     <form class="form-horizontal form-label-left input_mask" method="post">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id del Producto a Modificar <span class="required"></span>
-                                        </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Id del Producto a Modificar <span class="required"></span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" id="idprod" name="idprod" required="required" class="form-control col-md-7 col-xs-12">
                                             <center>
@@ -190,13 +186,13 @@
                             $idproducto = $_POST["idprod"];
                             $idprod = (int) $idproducto;
                             if ($_POST["buscar"]){
-                                $prod = $admin->get_Productos();
+                                $prod = $admin->get_ProductosPrin();
                                 $rows = count($prod);
                                 for ($i = 0; $i < $rows; $i++){
                                     if ($prod[$i][0] == $idprod){
                                         $on = 1;
-                                        $admin->find_Prod($idprod);
-                                        $datos = $admin->get_LlenarFormProd($idprod);
+                                        $admin->find_ProdPrin($idprod);
+                                        $datos = $admin->get_LlenarFormProdPrin($idprod);
                                     }
                                 }
                                 if ($on == 0){
@@ -212,35 +208,19 @@
             <thead>
             <tr>
                 <th>Id Producto</th>
-                <th>Nombre de Venta</th>
-                <th>Estado Actual</th>
-                <th>Cantidad (Kilos)</th>
-                <th>Costo Unitario</th>
-                <th>Costo Total</th>
-                <th>Ubicación</th>
-                <th>Fecha Creación</th>
-                <th>Fecha Limite Venta</th>
-                <th>Vendedor</th>
-                <th>Producto Principal:</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            $product = $admin->get_Productos();
+            $product = $admin->get_ProductosPrin();
             $rows = count($product);
             for ($i = 0; $i < $rows; $i++){  ?>
                 <tr>
                     <td><?php echo $product[$i][0] ?></td>
                     <td><?php echo $product[$i][1] ?></td>
                     <td><?php echo $product[$i][2] ?></td>
-                    <td><?php echo number_format($product[$i][3],0) ?></td>
-                    <td>$<?php echo number_format($product[$i][4],0) ?>.00</td>
-                    <td>$<?php echo number_format($product[$i][5],0) ?>.00</td>
-                    <td><?php echo $product[$i][6] ?></td>
-                    <td><?php echo $product[$i][7] ?></td>
-                    <td><?php echo $product[$i][8] ?></td>
-                    <td><?php echo $product[$i][9] ?></td>
-                    <td><?php echo $product[$i][11] ?></td>
                 </tr>
                 <?php
             }
@@ -248,7 +228,7 @@
                              ?>
             <form class="form-horizontal form-label-left input_mask" method="post">
                 <center>
-                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='createProdV'"/>
+                    <input type=button value="Nuevo" class="btn btn-success" onclick = "location='createProdP'"/>
             </form>
             </tbody>
             </table>
@@ -259,32 +239,17 @@
             if ($_POST){
                 if ($_POST["Enviar"]){
 
-                    $admin->update_Productos();
-                    $info = "Modificación de Producto de Usuario";
+                    $admin->update_ProductosPrin();
+                    $info = "Modificación de Producto Principal";
                     $i = $_POST["idproduc"];
                     $admin->create_log($iduser,$info,$i);
 
-                    if (isset($_FILES['image_uploads'])) {
-                        $nomF = "$i.jpg";
-                        $nomArray = array("$nomF");
-                        $_FILES['image_uploads']['name'] = $nomArray;
-                        $myFile = $_FILES['image_uploads']['name'];
-                        $fileCount = count($myFile);
-                        for ($i = 0; $i < $fileCount; $i++) {
-                            $target_path = "images/Productos/";
-                            $target_path = $target_path . basename($_FILES['image_uploads']['name'][$i]);
-                            if (move_uploaded_file($_FILES['image_uploads']['tmp_name'][$i], $target_path)) {
-                                echo "<script type=\"text/javascript\">window.location='modProd'</script>";
-                            }
-                        }
-                    }
-
-                    echo "<script type=\"text/javascript\">window.location='modProd'</script>";
+                    echo "<script type=\"text/javascript\">window.location='modProdPrin'</script>";
 
                 }
                 if ($_POST["Eliminar"]){
-                    $admin->delete_Prod();
-                    $info = "Eliminó un Producto de Usuario";
+                    $admin->delete_ProdPrin();
+                    $info = "Eliminó un Producto Principal";
                     $i = $_POST["idproduc"];
                     $admin->create_log($iduser,$info,$i);
                 }
@@ -312,13 +277,13 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Estado<span
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo<span
                                     class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="estadolist">
+                            <select name="tipo">
                                 <?php
-                                $est = $admin->get_EstadosProd();
+                                $est = $admin->get_TipoProducto();
                                 $rows = count($est);
                                 for ($i = 0; $i < $rows; $i++) {
                                     ?>
@@ -329,89 +294,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Cantidad (Kilos)</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="cant" name="cant" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][3] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo por Unidad ($)</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="costo" name="costo" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][4] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Costo Total ($)</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="venta" name="venta" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][5] ?>" onkeyup="javascript:this.value = this.value.replace(/[.,,]/, ''); if (isNaN(this.value)) this.value = 0;">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación<span
-                                    class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="ubicacion" name="ubicacion" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6];?>">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Fecha Limite de Venta<span
-                                    class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="date" id="fechaF" name="fechaF" required
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][8];?>">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Vendedor<span
-                                    class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="vendedoreslist">
-                                <?php
-                                $vendedores = $admin->get_Vendedores();
-                                $rows = count($vendedores);
-                                for ($i = 0; $i < $rows; $i++) {
-                                    ?>
-                                    <option value="<?php echo $vendedores[$i][0] ?>"<?php if ($vendedores[$i][0] == $datos[0][12]){?> selected <?php } ?> ><?php echo $vendedores[$i][1]; ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Producto Principal<span
-                                    class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="prodP">
-                                <?php
-                                $prodP = $admin->get_productosPrin();
-                                $rows = count($prodP);
-                                for ($i = 0; $i < $rows; $i++) {
-                                    ?>
-                                    <option value="<?php echo $prodP[$i][0] ?>"<?php if ($prodP[$i][0] == $datos[0][13]){?> selected <?php } ?> ><?php echo $prodP[$i][1]; ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Foto del Producto<span
-                                    class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input name="image_uploads[]" id="image_uploads[]" type="file" accept=".jpg, .png, .jpeg"/>
-                        </div>
-                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -420,8 +302,8 @@
                                        value="Borrar">
                                 <input type="submit" class="btn btn-success" name="Enviar" id="Enviar"
                                        value="Actualizar">
-                                <input type=button value="Ver Productos en Venta" class="btn btn-success"
-                                       onclick="location='tableProDisp'"/>
+                                <input type=button value="Ver Productos Principales" class="btn btn-success"
+                                       onclick="location='tableProPrin'"/>
                             </center>
                         </div>
                     </div>

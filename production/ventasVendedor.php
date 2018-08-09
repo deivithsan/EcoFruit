@@ -84,9 +84,8 @@ $nombreyapellido = $admin->get_NombreApellido();
                             </li>
                             <li><a><i class="fa fa-edit"></i> Formularios <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="form">Ingresar Información Usuario</a></li>
-                                    <li><a href="form_validation">Ingresar Productos</a></li>
-                                    <li><a href="formPriv">Ingresar Privilegios</a></li>
+                                    <li><a href="createProdP">Ingresar Productos Principales</a></li>
+                                    <li><a href="createProdV">Ingresar Productos a la Venta</a></li>
                                     <li><a href="adduser">Ingresar Usuarios</a></li>
                                 </ul>
                             </li>
@@ -94,10 +93,9 @@ $nombreyapellido = $admin->get_NombreApellido();
                                 <ul class="nav child_menu">
                                     <li><a href="tableBuy"> Compras </a></li>
                                     <li><a href="tableInfoUsr"> Información de Usuarios </a></li>
-                                    <li><a href="tableProDisp"> Productos </a></li>
+                                    <li><a href="tableProDisp"> Productos a la Venta </a></li>
+                                    <li><a href="tableProPrin"> Productos Principales </a></li>
                                     <li><a href="tableEstateProd"> Estado de los Productos </a></li>
-                                    <li><a href="tableInfoPriv"> Privilegios </a></li>
-                                    <li><a href="tableUsers"> Usuarios </a></li>
                                     <li><a href="tableTipeUsers"> Tipos de Usuarios </a></li>
                                     <li><a href="tableTiposProd"> Tipos de Productos </a></li>
                                 </ul>
@@ -105,7 +103,8 @@ $nombreyapellido = $admin->get_NombreApellido();
                             <li><a><i class="fa fa-edit"></i> Modificar Datos<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="modInfo">Información de Usuarios</a></li>
-                                    <li><a href="modProd">Productos</a></li>
+                                    <li><a href="modProd">Productos a la Venta</a></li>
+                                    <li><a href="modProdPrin">Productos Principales</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-money"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -153,9 +152,6 @@ $nombreyapellido = $admin->get_NombreApellido();
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <?php if($nom == 'dei'){?>
-                                    <li><a href="../registro"><i class="fa fa-lock pull-right"></i> Nuevo Admin</a></li>
-                                <?php } ?>
                                 <li><a href="perfil"><i class="fa fa-street-view pull-right"></i> Perfil</a></li>
                                 <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                             </ul>
@@ -192,7 +188,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                                             $rows = count($vendedores);
                                             for ($i = 0; $i < $rows; $i++) {
                                                 ?>
-                                                <option value="<?php echo $vendedores[$i][0] ?>"><?php echo $vendedores[$i][0]; ?></option>
+                                                <option value="<?php echo $vendedores[$i][0] ?>"><?php echo $vendedores[$i][2]; ?> <?php echo $vendedores[$i][3]; ?></option>
                                                 <?php
                                             }
                                             ?>
@@ -209,6 +205,11 @@ $nombreyapellido = $admin->get_NombreApellido();
                             $user = $_POST["vendedoreslist"];
                             $año = date("Y");
 
+                            $datos = $admin->get_datosuser($user);
+                            $rows2 = count($datos);
+                            for ($i = 0; $i < $rows2; $i++) {
+                                $nombres= $datos[0][2].' '.$datos[0][3];
+                            }
                             $ventasEn= $admin->get_ventasEne($user);
                             $ventasFeb= $admin->get_ventasFeb($user);
                             $ventasMar= $admin->get_ventasMar($user);
@@ -228,46 +229,40 @@ $nombreyapellido = $admin->get_NombreApellido();
                                 echo '<script>alert("El usuario '.$user.' no ha recibido ninguna compra, intente con otro usuario")</script>';
                                 echo "<script type=\"text/javascript\">window.location='ventasVendedor'</script>";
                             }
-                            echo "<center><h2>Vendedor: $user</h2></center>";
+                            echo "<center><h2>Vendedor: $nombres</h2></center>";
                             ?>
                             <div class="x_content">
                                 <table id="datatable-buttons" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>Id Compra</th>
-                                        <th>Id del Producto Comprado</th>
-                                        <th>Nombre Producto</th>
-                                        <th>Estado del Producto</th>
-                                        <th>Cantidad Disponible del Producto</th>
-                                        <th>Costo Por Unidad ($)</th>
+                                        <th>Id Producto</th>
+                                        <th>Nombre del Producto</th>
                                         <th>Cantidad Comprada (Kilos)</th>
-                                        <th>Número de Celular Comprador</th>
-                                        <th>Número de Cedula Comprador</th>
-                                        <th>Comprador del Producto</th>
-                                        <th>Valoración de la Compra</th>
+                                        <th>Vendedor del Producto</th>
+                                        <th>Valoración de Compra</th>
                                         <th>Detalle de la Valoración</th>
-                                        <th>Fecha de la Compra</th>
-                                        <th>Hora de la Compra</th>
+                                        <th>Fecha de Compra</th>
+                                        <th>Hora de Compra:</th>
+                                        <th>Observación de Compra:</th>
+                                        <th>Valor a Pagar:</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    for ($i = 0; $i < $rows; $i++) { ?>
+                                    for ($g = 0; $g < $rows; $g++) { ?>
                                         <tr>
-                                            <td><?php echo $compras[$i][0] ?></td>
-                                            <td><?php echo $compras[$i][1] ?></td>
-                                            <td><?php echo $compras[$i][2] ?></td>
-                                            <td><?php echo $compras[$i][3] ?></td>
-                                            <td><?php echo number_format($compras[$i][4],0) ?></td>
-                                            <td>$<?php echo number_format($compras[$i][5],0) ?>.00</td>
-                                            <td><?php echo number_format($compras[$i][6],0) ?></td>
-                                            <td><?php echo $compras[$i][7] ?></td>
-                                            <td><?php echo $compras[$i][8] ?></td>
-                                            <td><?php echo $compras[$i][10] ?></td>
-                                            <td><?php echo $compras[$i][11] ?></td>
-                                            <td><?php echo $compras[$i][12] ?></td>
-                                            <td><?php echo $compras[$i][13] ?></td>
-                                            <td><?php echo $compras[$i][14] ?></td>
+                                            <td align="center"><?php echo $compras[$g][0]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][6]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][7]; ?></td>
+                                            <td align="center"><?php echo number_format($compras[$g][10],0); ?></td>
+                                            <td align="center"><?php echo $compras[$g][5]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][1]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][2]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][3]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][4]; ?></td>
+                                            <td align="center"><?php echo $compras[$g][11]; ?></td>
+                                            <td align="center">$<?php echo number_format($compras[$g][9],0); ?>.00</td>
                                         </tr>
                                     <?php } ?>
                                     </tbody>
@@ -759,7 +754,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 }
             },
             title: {
-                text: 'Ventas Anuales de <?php echo $user; ?>'
+                text: 'Ventas Anuales de <?php echo $nombres; ?>'
             },
             subtitle: {
                 text: '<?php echo $año; ?>'
