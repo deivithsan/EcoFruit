@@ -19,59 +19,30 @@
 ?>
 <!DOCTYPE html>
 <head>
-    <!-- meta charec set -->
     <meta charset="utf-8">
-    <!-- Always force latest IE rendering engine or request Chrome Frame -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!-- Page Title -->
     <title>Registro</title>
     <link rel="shortcut icon" href="img/icono.ico">
-
-    <!-- Meta Description -->
-
-    <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS
-    ================================================== -->
-    <!-- Fontawesome Icon font -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- Twitter Bootstrap css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- jquery.fancybox  -->
     <link rel="stylesheet" href="css/jquery.fancybox.css">
-    <!-- animate -->
     <link rel="stylesheet" href="css/animate.css">
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/main.css">
-    <!-- media-queries -->
     <link rel="stylesheet" href="css/media-queries.css">
-
-    <!-- Modernizer Script for old Browsers -->
     <script src="js/modernizr-2.6.2.min.js"></script>
-
 </head>
-
 <body id="body">
-
-<!-- preloader -->
 <div id="preloader">
     <img src="img/Fruta.gif" alt="Preloader">
 </div>
-<!-- end preloader -->
-
-<!--
-Fixed Navigation
-==================================== -->
 <header id="navigation" class="navbar-fixed-top navbar">
     <div class="container">
         <div class="navbar-header">
-            <!-- responsive nav button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <i class="fa fa-bars fa-2x"></i>
             </button>
-
-            <!-- main nav -->
             <nav class="collapse navbar-collapse navbar-right" role="navigation">
                 <ul id="nav" class="nav navbar-nav">
                     <li class="current"><a href="#body">Inicio</a></li>
@@ -126,19 +97,9 @@ Fixed Navigation
             </nav>
         </div>
 </header>
-<!--
-End Fixed Navigation
-==================================== --><!--
-        Home Slider
-        ==================================== -->
-
 <section id="slider">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-        <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-
-            <!-- single slide -->
             <div class="item active" style="background-image: url(img/log3.png);">
                 <div class="carousel-caption">
                     <h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated" style="color: white;"><span>EcoFruit!</span></h2>
@@ -150,15 +111,12 @@ End Fixed Navigation
                     </ul>
                 </div>
             </div>
-            <!-- end single slide --></div>
-        <!-- End Wrapper for slides --></div>
-</section><!--
-        Features
-        ==================================== -->
+        </div>
+    </div>
+</section>
 <section id="features" class="features">
     <div class="container">
         <div class="row">
-
             <?php
             if ($on == 0){
                 ?>
@@ -166,15 +124,9 @@ End Fixed Navigation
                 <h2>Registrate!</h2>
                 <div class="devider"></div>
             </div>
-
-            <!-- service item -->
-
             <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
             </div>
-
             <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-                <!-- Formulario -->
-
                 <form class="form-horizontal" method="post">
                     <?php
                     $tiposUser = $conex->get_userRegistro();
@@ -208,7 +160,7 @@ End Fixed Navigation
                                 <?php
                                 for ($i=0; $i<sizeof($tiposUser); $i++){
                                     ?>
-                                    <option value="<?php  echo $tiposUser[$i]["nombretipousuario"] ?>"><?php  echo $tiposUser[$i]["nombretipousuario"]; ?></option>
+                                    <option value="<?php  echo $tiposUser[$i]["idtipousuario"] ?>"><?php  echo $tiposUser[$i]["nombretipousuario"]; ?></option>
                                     <?php
                                 }
                                 ?>
@@ -216,7 +168,6 @@ End Fixed Navigation
                             </center>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">
                         </label>
@@ -239,26 +190,18 @@ End Fixed Navigation
                 </form>
             </div>
         </div>
-
                 <?php
             } elseif ($on == 1) {
 
                 ?>
                     <div class="row">
-
                         <div class="sec-title text-center mb50 wow bounceInDown a  nimated" data-wow-duration="500ms">
                             <h2>Modifique su información personal</h2>
                             <div class="devider"></div>
                         </div>
-
-                        <!-- service item -->
-
                         <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
                         </div>
-
                         <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-                            <!-- Formulario -->
-
                             <form class="form-horizontal" method="post">
                                 <?php
                                 if ($_POST) {
@@ -324,7 +267,6 @@ End Fixed Navigation
                                         <input type="number" id="numcc" name="numcc" required class="form-control col-md-7 col-xs-12" value="<?php echo $numCC;?>">
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                                     </label>
@@ -360,18 +302,11 @@ End Fixed Navigation
             <h2>Creacion de un nuevo Administrador</h2>
             <div class="devider"></div>
         </div>
-
-        <!-- service item -->
-
         <div class="col-md-4 wow fadeInLeft" data-wow-duration="500ms">
         </div>
-
         <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-            <!-- Formulario -->
-
             <form class="form-horizontal" method="post">
                 <?php
-                $tiposUser = $conex->get_TiposUsers();
                 if ($_POST) {
                     if ($_POST["Enviar1"]) {
                         $conex->create_AdminUser();
@@ -393,7 +328,6 @@ End Fixed Navigation
                         <input type="password" name=pass id='pass' required class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                     </label>
@@ -422,31 +356,15 @@ End Fixed Navigation
 
 </section>
 <h5 align="center"><i>2018 - EcoFruit</i></h5>
-
-
-<!--
-End Features
-==================================== -->	<!-- Essential jQuery Plugins
-		================================================== -->
-<!-- Main jQuery -->
 <script src="js/jquery-1.11.1.min.js"></script>
-<!-- Single Page Nav -->
 <script src="js/jquery.singlePageNav.min.js"></script>
-<!-- Twitter Bootstrap -->
 <script src="js/bootstrap.min.js"></script>
-<!-- jquery.fancybox.pack -->
 <script src="js/jquery.fancybox.pack.js"></script>
-<!-- jquery.mixitup.min -->
 <script src="js/jquery.mixitup.min.js"></script>
-<!-- jquery.parallax -->
 <script src="js/jquery.parallax-1.1.3.js"></script>
-<!-- jquery.countTo -->
 <script src="js/jquery-countTo.js"></script>
-<!-- jquery.appear -->
 <script src="js/jquery.appear.js"></script>
-<!-- jquery easing -->
 <script src="js/jquery.easing.min.js"></script>
-<!-- jquery easing -->
 <script src="js/wow.min.js"></script>
 <script>
     var wow = new WOW ({
@@ -459,9 +377,7 @@ End Features
     );
     wow.init();
 </script>
-<!-- Custom Functions -->
 <script src="js/custom.js"></script>
-
 <script type="text/javascript">
 </script>
 </body>

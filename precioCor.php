@@ -69,8 +69,8 @@ if (isset($_SESSION['user'])){
                     <li><a></a></li>
                     <li><a></a></li>
                     <li><?php if ($on == 1){
-                        $nom = $conex->get_NombreApellido();
-                        echo "<a>$nom";
+                        $nombres = $conex->get_NombreApellido();
+                        echo "<a>$nombres";
                         ?>
                     <li><a></a></li>
                     <li><a></a></li>

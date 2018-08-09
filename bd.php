@@ -3,6 +3,7 @@ session_start();
 require_once "conexion.php";
 $conex = new Conexion();
 global $on;
+setlocale(LC_MONETARY, 'en_US.UTF-8');
 if (isset($_SESSION['user'])){
     global $priv, $nom;
     $priv = $_SESSION['privil'];
@@ -76,8 +77,8 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><?php if ($on == 2 or $on == 1){
-                            $nom = $conex->get_NombreApellido();
-                            echo "<a>$nom";
+                            $nombres = $conex->get_NombreApellido();
+                            echo "<a>$nombres";
                             ?>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -135,29 +136,33 @@ if (isset($_SESSION['user'])){
                                     <tr>
                                         <th>Id Producto</th>
                                         <th>Nombre Producto</th>
-                                        <th>Tipo</th>
                                         <th>Estado</th>
-                                        <th>Cantidad (Kilos)</th>
-                                        <th>Costo Producto ($)</th>
-                                        <th>Costo Total ($)</th>
+                                        <th>Cantidad Disponible (Kilos)</th>
+                                        <th>Costo Unitario</th>
+                                        <th>Costo Total</th>
                                         <th>Ubicación</th>
+                                        <th>Fecha Publicación</th>
+                                        <th>Fecha Limite</th>
+                                        <th>Vendedor</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $user = $_SESSION['user'];
-                                    $prod = $conex->get_ProductosToBuy($user);
+                                    $iduser = $_SESSION['iduser'];
+                                    $prod = $conex->get_ProductosToBuy($iduser);
                                     for ($g=0; $g<sizeof($prod); $g++){
                                      ?>
                                     <tr>
                                          <td align="center"><?php echo $prod[$g][0]; ?></td>
                                          <td align="center"><?php echo $prod[$g][1]; ?></td>
                                          <td align="center"><?php echo $prod[$g][2]; ?></td>
-                                         <td align="center"><?php echo $prod[$g][3]; ?></td>
-                                         <td align="center"><?php echo number_format($prod[$g][4],0); ?></td>
+                                         <td align="center"><?php echo number_format($prod[$g][3],0); ?></td>
+                                         <td align="center">$<?php echo number_format($prod[$g][4],0); ?>.00</td>
                                          <td align="center">$<?php echo number_format($prod[$g][5],0); ?>.00</td>
-                                         <td align="center">$<?php echo number_format($prod[$g][6],0); ?>.00</td>
+                                         <td align="center"><?php echo $prod[$g][6]; ?></td>
                                          <td align="center"><?php echo $prod[$g][7]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][8]; ?></td>
+                                         <td align="center"><?php echo $prod[$g][9]; ?></td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
@@ -182,7 +187,7 @@ if (isset($_SESSION['user'])){
                             $estProd = $idBuscado[0][2];
                             $cantProd = $idBuscado[0][3];
                             $costProd = $idBuscado[0][4];
-                            $vendProd = $idBuscado[0][7];
+                            $vendProd = $idBuscado[0][11];
                             $ubiProd = $idBuscado[0][6];
                             $valTotalProd = $idBuscado[0][5];
 
@@ -271,7 +276,7 @@ if (isset($_SESSION['user'])){
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
-                                                       style="display:inline">Costo por Unidad: $<span class="required"></span></label>
+                                                       style="display:inline">Costo por Unidad:<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
                                                            style="display:inline" value="$<?php echo number_format($costProd,0); ?>.00">
@@ -279,7 +284,7 @@ if (isset($_SESSION['user'])){
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name"
-                                                       style="display:inline">Costo Total: $<span class="required"></span></label>
+                                                       style="display:inline">Costo Total:<span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <input type="text" DISABLED class="form-control col-md-7 col-xs-12"
                                                            style="display:inline" value="$<?php echo number_format($valTotalProd,0); ?>.00">

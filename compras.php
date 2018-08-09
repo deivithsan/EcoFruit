@@ -137,36 +137,34 @@ if (isset($_SESSION['user'])){
                                         <th>Id Compra</th>
                                         <th>Id Producto</th>
                                         <th>Nombre del Producto</th>
-                                        <th>Estado</th>
-                                        <th>Cantidad Disponible (Kilos)</th>
-                                        <th>Costo Por Unidad ($)</th>
                                         <th>Cantidad Comprada (Kilos)</th>
                                         <th>Vendedor del Producto</th>
                                         <th>Valoración de Compra</th>
                                         <th>Detalle de la Valoración</th>
                                         <th>Fecha de Compra</th>
                                         <th>Hora de Compra:</th>
+                                        <th>Observación de Compra:</th>
+                                        <th>Valor a Pagar:</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $user = $_SESSION['user'];
-                                    $compras = $admin->get_misCompras($user);
+                                    $iduser = $_SESSION['iduser'];
+                                    $compras = $admin->get_misCompras($iduser);
                                     for ($g=0; $g<sizeof($compras); $g++){
                                      ?>
                                     <tr>
                                          <td align="center"><?php echo $compras[$g][0]; ?></td>
+                                         <td align="center"><?php echo $compras[$g][6]; ?></td>
+                                         <td align="center"><?php echo $compras[$g][7]; ?></td>
+                                         <td align="center"><?php echo number_format($compras[$g][10],0); ?></td>
+                                         <td align="center"><?php echo $compras[$g][5]; ?></td>
                                          <td align="center"><?php echo $compras[$g][1]; ?></td>
                                          <td align="center"><?php echo $compras[$g][2]; ?></td>
                                          <td align="center"><?php echo $compras[$g][3]; ?></td>
-                                         <td align="center"><?php echo number_format($compras[$g][4],0); ?></td>
-                                         <td align="center">$<?php echo number_format($compras[$g][5],0); ?>.00</td>
-                                         <td align="center"><?php echo number_format($compras[$g][6],0); ?></td>
-                                         <td align="center"><?php echo $compras[$g][9]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][15]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][12]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][13]; ?></td>
-                                         <td align="center"><?php echo $compras[$g][14]; ?></td>
+                                         <td align="center"><?php echo $compras[$g][4]; ?></td>
+                                         <td align="center"><?php echo $compras[$g][11]; ?></td>
+                                         <td align="center">$<?php echo number_format($compras[$g][9],0); ?>.00</td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>

@@ -77,8 +77,8 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><?php if ($on == 2 or $on == 1){
-                            $nom = $conex->get_NombreApellido();
-                            echo "<a>$nom";
+                            $nombres = $conex->get_NombreApellido();
+                            echo "<a>$nombres";
                             ?>
                         <li><a></a></li>
                         <li><a></a></li>
@@ -139,14 +139,16 @@ if (isset($_SESSION['user'])){
                                         <th>Estado</th>
                                         <th>Cantidad Disponible (Kilos)</th>
                                         <th>Costo Por Unidad ($/kilo)</th>
-                                        <th>Valor Total ($)</th>
+                                        <th>Valor Total</th>
                                         <th>Ubicación del Producto</th>
+                                        <th>Fecha de Publicación</th>
+                                        <th>Fecha de Cierre</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $user = $_SESSION['user'];
-                                    $productos = $admin->get_misProductos($user);
+                                    $iduser = $_SESSION['iduser'];
+                                    $productos = $admin->get_misProductos($iduser);
                                     for ($x=0; $x<sizeof($productos); $x++){
                                      ?>
                                     <tr>
@@ -157,6 +159,8 @@ if (isset($_SESSION['user'])){
                                          <td align="center">$<?php echo number_format($productos[$x][4],0); ?>.00</td>
                                          <td align="center">$<?php echo number_format($productos[$x][5],0); ?>.00</td>
                                          <td align="center"><?php echo $productos[$x][6]; ?></td>
+                                         <td align="center"><?php echo $productos[$x][7]; ?></td>
+                                         <td align="center"><?php echo $productos[$x][8]; ?></td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
