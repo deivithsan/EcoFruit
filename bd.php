@@ -128,6 +128,13 @@ if (isset($_SESSION['user'])){
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_content">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <input id="txtSearch" placeholder="Buscar por Ubicación" class="form-control" />
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <input id="txtVendedor" placeholder="Buscar por Vendedor" class="form-control" />
+                                </div>
+                                <br>
                                 <table id="datatable-buttons2" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -163,6 +170,20 @@ if (isset($_SESSION['user'])){
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id Producto</th>
+                                            <th>Nombre Producto</th>
+                                            <th>Estado</th>
+                                            <th>Cantidad Disponible (Kilos)</th>
+                                            <th>Costo Unitario</th>
+                                            <th>Costo Total</th>
+                                            <th>Ubicación</th>
+                                            <th>Fecha Publicación</th>
+                                            <th>Fecha Limite</th>
+                                            <th>Vendedor</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -417,17 +438,50 @@ if (isset($_SESSION['user'])){
         <!-- Datatables -->
         <script>
             $(document).ready(function() {
+
+                $('#datatable-buttons2 tfoot th').each( function () {
+                    var title = $(this).text();
+                    $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+                } );
+
+                $('#txtSearch').on('keyup', function() {
+                    $('#datatable-buttons2')
+                        .DataTable().columns([6])
+                        .search($('#txtSearch').val(), false, true)
+                        .draw();
+                });
+
+                $('#txtVendedor').on('keyup', function() {
+                    $('#datatable-buttons2')
+                        .DataTable().columns([9])
+                        .search($('#txtVendedor').val(), false, true)
+                        .draw();
+                });
+
                 var handleDataTableButtons = function() {
                     if ($("#datatable-buttons2").length) {
-                        $("#datatable-buttons2").DataTable({
+                        var table = $("#datatable-buttons2").DataTable({
                             dom: "Bfrtip",
                             buttons: [
 
                             ],
                             responsive: true
                         });
+
+                        table.columns().every( function () {
+                            var that = this;
+
+                            $( 'input', this.footer() ).on( 'keyup change', function () {
+                                if ( that.search() !== this.value ) {
+                                    that
+                                        .search( this.value )
+                                        .draw();
+                                }
+                            } );
+                        } );
                     }
                 };
+
                 TableManageButtons = function() {
                     "use strict";
                     return {
