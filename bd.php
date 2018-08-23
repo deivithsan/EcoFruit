@@ -75,13 +75,10 @@ if (isset($_SESSION['user'])){
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
-                        <li><a></a></li>
                         <li><?php if ($on == 2 or $on == 1){
                             $nombres = $conex->get_NombreApellido();
                             echo "<a>$nombres";
                             ?>
-                        <li><a></a></li>
-                        <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>
                         <li><a></a></li>

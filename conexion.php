@@ -208,7 +208,7 @@ class Conexion{
             echo"<script type=\"text/javascript\">window.location='index'</script>";
         } else{
             if($iduser == null){
-                $sql2='select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod  and productosusuarios.idestado != 3 order by idProductosUsuarios';
+                $sql2='select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and municipios.idmunicipios = productosusuarios.idmunicipio and productosusuarios.idestado != 3 order by idProductosUsuarios';
                 foreach ($this->conexion->query($sql2) as $row){
                     $this->x[]=$row;
                 }
@@ -216,7 +216,7 @@ class Conexion{
                 unset($this->x);
                 return $datos;
             } else{
-                $sql2="select productosusuarios.idProductosUsuarios, productosusuarios.nombreProducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and productosusuarios.idusers != '$user' and productosusuarios.idestado != 3 order by idProductosUsuarios";
+                $sql2="select productosusuarios.idProductosUsuarios, productosusuarios.nombreProducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and municipios.idmunicipios = productosusuarios.idmunicipio and productosusuarios.idusers != '$user' and productosusuarios.idestado != 3 order by idProductosUsuarios";
                 foreach ($this->conexion->query($sql2) as $row){
                     $this->x[]=$row;
                 }
@@ -235,7 +235,7 @@ class Conexion{
             echo"<script>alert('Se presentan problemas con los productos disponibles')</script>";
             echo"<script type=\"text/javascript\">window.location='index'</script>";
         } else{
-            $sql2="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod order by idProductosUsuarios";
+            $sql2="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
             foreach ($this->conexion->query($sql2) as $row){
                 $this->x[]=$row;
             }
@@ -267,7 +267,7 @@ class Conexion{
         $id->execute();
         while ($fetch = $id->fetchColumn()){
             if ($fetch == $idproduc){
-                $sql ="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productosusuarios.idusers from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod  and productosusuarios.idestado != 3 and idproductosusuarios ='$idproduc' order by idProductosUsuarios";
+                $sql ="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productosusuarios.idusers from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod  and productosusuarios.idestado != 3 and idproductosusuarios ='$idproduc' and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
                 foreach ($this->conexion->query($sql) as $row){
                     $this->x[]=$row;
                 }
@@ -564,6 +564,34 @@ class Admin{
         $this->x=array();
         $this->year = date("Y");
     }
+
+    public function get_backupP(){
+
+        $data_dir  = "C:\Users\deivi\Desktop";
+        $pg_dump_dir = "/usr/bin";
+        $keep  = (60 * 60 * 24) * 30;  // 30 days
+        $dbname  = "d3q71k9f5t7k2c";
+        $dump_date = date("Ymd_Hs");
+        $file_name = $data_dir . "/dump22_" . $dump_date . ".sql";
+            system("$pg_dump_dir/pg_dump $dbname >> $file_name");
+        $fecha = date("Ymd-His");
+        $db = 'd3q71k9f5t7k2c';
+        $user = 'ithxzpubsdyssh';
+        $pass = 'yzRs8R1aJkymNawqYGJkS_4ySJ';
+        $host= 'ec2-54-243-200-159.compute-1.amazonaws.com';
+        $salida_sql = $db.' '.$fecha.'.sql';
+        $query = '--file '.$salida_sql.' --host '.$host.' --port "5432" --username '.$user.' --no-password --verbose --format=c --blobs '.$db.' ';
+        $dump= "pg_dump -U$user -h$host -d$db > $salida_sql";
+
+        system($query, $output);
+
+        $zip = new ZipArchive();
+    }
+
+    public function get_backupM(){
+        echo"<script type=\"text/javascript\">window.location='backup'</script>";
+    }
+
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from usuarios where nombreuser = '$nom'";
@@ -729,12 +757,13 @@ class Admin{
         $envio->bindValue(2, $cantProd, PDO::PARAM_STR);
         $envio->bindValue(3, $costProd, PDO::PARAM_STR);
         $envio->bindValue(4, $ventaProd, PDO::PARAM_STR);
-        $envio->bindValue(5, $ubiProd, PDO::PARAM_STR);
-        $envio->bindValue(6, $date, PDO::PARAM_STR);
-        $envio->bindValue(7, $fechaF, PDO::PARAM_STR);
-        $envio->bindValue(8, $vendProd, PDO::PARAM_STR);
-        $envio->bindValue(9, $idProdP, PDO::PARAM_STR);
-        $envio->bindValue(10, $estProd, PDO::PARAM_STR);
+        $envio->bindValue(5, $date, PDO::PARAM_STR);
+        $envio->bindValue(6, $fechaF, PDO::PARAM_STR);
+        $envio->bindValue(7, $vendProd, PDO::PARAM_STR);
+        $envio->bindValue(8, $idProdP, PDO::PARAM_STR);
+        $envio->bindValue(9, $estProd, PDO::PARAM_STR);
+        $envio->bindValue(10, $ubiProd, PDO::PARAM_STR);
+
 
         $envio->execute();
         echo "<script>alert('Producto para la venta agregado correctamente')</script>";
@@ -776,7 +805,7 @@ class Admin{
         return 0;
     }
     public function get_Compras(){
-        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser from compra, valoraciones, usuarios, productosusuarios where compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser from compra, valoraciones, usuarios, productosusuarios, municipios where compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and municipios.idmunicipios = productosusuarios.idmunicipio order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -878,7 +907,7 @@ class Admin{
         echo "<script type=\"text/javascript\">window.location='modInfo'</script>";
     }
     public function get_Productos(){
-        $sql="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod order by idProductosUsuarios";
+        $sql="select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -888,13 +917,29 @@ class Admin{
     }
 
     public function get_ProductosPrin(){
-        $sql2="select productos.idprod, productos.nombre, tipoprod.nombretipo from productos, tipoprod where tipoprod.idtipo = productos.idtipo order by idprod";
+        $sql2="select productos.idprod, productos.nombre, tipoprod.nombretipo from productos, tipoprod where tipoprod.idtipo = productos.idtipo order by productos.nombre";
         foreach ($this->conexion->query($sql2) as $row){
             $this->x[]=$row;
         }
         $datos = $this->x;
         if ($datos == 0){
             echo"<script>alert('Se presentan problemas con los productos disponibles')</script>";
+            echo"<script type=\"text/javascript\">window.location='index'</script>";
+        }else{
+            unset($this->x);
+            return $datos;
+        }
+
+    }
+
+    public function get_municipios(){
+        $sql2="select * from municipios order by nombre";
+        foreach ($this->conexion->query($sql2) as $row){
+            $this->x[]=$row;
+        }
+        $datos = $this->x;
+        if ($datos == 0){
+            echo"<script>alert('Se presentan problemas con los municipios')</script>";
             echo"<script type=\"text/javascript\">window.location='index'</script>";
         }else{
             unset($this->x);
@@ -944,7 +989,7 @@ class Admin{
     }
 
     public function find_Prod($id){
-        $sql = "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre, productosusuarios.idusers, productosusuarios.idprod from productosusuarios, usuarios, estado, productos where  productosusuarios.idproductosusuarios = '$id' and productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod order by idProductosUsuarios";
+        $sql = "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre, productosusuarios.idusers, productosusuarios.idprod from productosusuarios, usuarios, estado, productos, municipios where  productosusuarios.idproductosusuarios = '$id' and productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
         foreach ($this->conexion->query($sql) as $row) {
             $this->x[] = $row;
         }
@@ -989,7 +1034,7 @@ class Admin{
         }
     }
     public function get_LlenarFormProd($id){
-        $sql = "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.idestado, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre, productosusuarios.idusers from productosusuarios, usuarios, productos where  productosusuarios.idproductosusuarios = '$id' and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod order by idProductosUsuarios";
+        $sql = "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.idestado, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod, productos.nombre, productosusuarios.idusers from productosusuarios, usuarios, productos, municipios where  productosusuarios.idproductosusuarios = '$id' and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod  and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
         foreach ($this->conexion->query($sql) as $row) {
             $this->x[] = $row;
         }
@@ -1014,6 +1059,47 @@ class Admin{
         echo "<script>alert('Producto actualizado correctamente.')</script>";
     }
 
+    public function update_ProductosVend($idpro){
+
+        $nomprod = $_POST["nomprod"];
+        $cant = $_POST["cant"];
+        $cost = $_POST["costo"];
+        $venta = $_POST["venta"];
+        $fechaF = $_POST["fechaF"];
+
+        $sql = "UPDATE productosusuarios set nombreproducto=?, cantidad=?, costounitario=?, costototal=?, fechafinal=? WHERE idproductosusuarios = '$idpro'";
+        $envio = $this->conexion->prepare($sql);
+        $nombre = strip_tags($nomprod);
+        $cantid = strip_tags($cant);
+        $costo = strip_tags($cost);
+        $ven = strip_tags($venta);
+        $fechaFinal = strip_tags($fechaF);
+        $envio->bindValue(1, $nombre, PDO::PARAM_STR);
+        $envio->bindValue(2, $cantid, PDO::PARAM_STR);
+        $envio->bindValue(3, $costo, PDO::PARAM_STR);
+        $envio->bindValue(4, $ven, PDO::PARAM_STR);
+        $envio->bindValue(5, $fechaFinal, PDO::PARAM_STR);
+
+        $envio->execute();
+        echo "<script>alert('Producto actualizado correctamente.')</script>";
+        echo "<script type=\"text/javascript\">window.location='misProductos'</script>";
+
+    }
+
+    public function get_misProductos($iduser){
+        $sql= "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and productosusuarios.idusers = '$iduser' and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
+        foreach ($this->conexion->query($sql) as $row){
+            $this->x[]=$row;
+        }
+        $data = $this->x;
+        if ($data == null){
+            echo "<script>alert('Actualmente no tienes ningun producto en la página.')</script>";
+            echo "<script type=\"text/javascript\">window.location='index'</script>";
+        }
+        unset($this->x);
+        return $data;
+    }
+
     public function update_Productos(){
         $idpro = $_POST["idproduc"];
         $nomprod = $_POST["nomprod"];
@@ -1026,7 +1112,7 @@ class Admin{
         $venta = $_POST["venta"];
         $idvendedor = $_POST["vendedoreslist"];
 
-        $sql = "UPDATE productosusuarios set nombreproducto=?, cantidad=?, costounitario=?, costototal=?, ubicacion=?, fechafinal=?, idusers=?, idprod=?, idestado=? WHERE idproductosusuarios = '$idpro'";
+        $sql = "UPDATE productosusuarios set nombreproducto=?, cantidad=?, costounitario=?, costototal=?, fechafinal=?, idusers=?, idprod=?, idestado=?, idmunicipio=? WHERE idproductosusuarios = '$idpro'";
         $envio = $this->conexion->prepare($sql);
         $nombre = strip_tags($nomprod);
         $est = strip_tags($estado);
@@ -1041,15 +1127,18 @@ class Admin{
         $envio->bindValue(2, $cantid, PDO::PARAM_STR);
         $envio->bindValue(3, $costo, PDO::PARAM_STR);
         $envio->bindValue(4, $ven, PDO::PARAM_STR);
-        $envio->bindValue(5, $ubic, PDO::PARAM_STR);
-        $envio->bindValue(6, $fechaFinal, PDO::PARAM_STR);
-        $envio->bindValue(7, $vendedorProd, PDO::PARAM_STR);
-        $envio->bindValue(8, $idProdP, PDO::PARAM_STR);
-        $envio->bindValue(9, $est, PDO::PARAM_STR);
+        $envio->bindValue(5, $fechaFinal, PDO::PARAM_STR);
+        $envio->bindValue(6, $vendedorProd, PDO::PARAM_STR);
+        $envio->bindValue(7, $idProdP, PDO::PARAM_STR);
+        $envio->bindValue(8, $est, PDO::PARAM_STR);
+        $envio->bindValue(9, $ubic, PDO::PARAM_STR);
+
 
         $envio->execute();
         echo "<script>alert('Producto actualizado correctamente.')</script>";
     }
+
+
     public function create_log($iduser,$info,$i){
         $fecha = date( "Y-m-d", time() );
         $time = strftime( "%H:%M:%S", time() );
@@ -1093,7 +1182,21 @@ class Admin{
             $BD->execute();
             $this->conexion = null;
             echo "<script type=\"text/javascript\">window.location='createProdV'</script>";
-        } elseif($info == "Modificación de Producto de Usuario"){
+        } elseif ($info == "Creación de Producto a la Venta Por Vendedor"){
+            $sqlLOG = "INSERT INTO log VALUES (default, ?,?, DEFAULT ,?, ? );";
+            $BD = $this->conexion->prepare($sqlLOG);
+            $log = strip_tags($info);
+            $user = strip_tags($iduser);
+            $dia = strip_tags($fecha);
+            $hora = strip_tags($time);
+            $BD->bindValue(1, $log, PDO::PARAM_STR);
+            $BD->bindValue(2, $hora, PDO::PARAM_STR);
+            $BD->bindValue(3, $dia, PDO::PARAM_STR);
+            $BD->bindValue(4, $user, PDO::PARAM_STR);
+            $BD->execute();
+            $this->conexion = null;
+            echo "<script type=\"text/javascript\">window.location='misProductos'</script>";
+        }elseif($info == "Modificación de Producto de Usuario"){
             $sqlLOG = "INSERT INTO log VALUES (default, ?,?,? ,?, ? );";
             $BD = $this->conexion->prepare($sqlLOG);
             $log = strip_tags($info);
@@ -1254,7 +1357,7 @@ class Admin{
         }
     }
     public function find_Compra($id){
-        $sql = "select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser, productosusuarios.cantidad from compra, valoraciones, usuarios, productosusuarios where compra.idcompra = '$id' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql = "select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser, productosusuarios.cantidad from compra, valoraciones, usuarios, productosusuarios, municipios where compra.idcompra = '$id' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and municipios.idmunicipios = productosusuarios.idmunicipio order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row) {
             $this->x[] = $row;
         }
@@ -1302,7 +1405,7 @@ class Admin{
         }
     }
     public function get_LlenarFormCompra($id){
-        $sql = "select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser, productosusuarios.cantidad from compra, valoraciones, usuarios, productosusuarios where compra.idcompra = '$id' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql = "select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones, compra.u_iduser, productosusuarios.cantidad from compra, valoraciones, usuarios, productosusuarios, municipios where compra.idcompra = '$id' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and  municipios.idmunicipios = productosusuarios.idmunicipio  order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row) {
             $this->x[] = $row;
         }
@@ -1561,7 +1664,7 @@ class Admin{
     }
     public function get_ventasGlobales(){
         $año = $this->year;
-        $sql="SELECT usuarios.iduser, count(compra.pu_iduser), usuarios.nombre FROM usuarios,compra WHERE compra.pu_iduser = usuarios.iduser AND to_char(fecha, 'YYYY') = '$año' GROUP BY usuarios.iduser";
+        $sql="SELECT usuarios.iduser, count(compra.pu_iduser) as num , usuarios.nombre FROM usuarios,compra WHERE compra.pu_iduser = usuarios.iduser AND to_char(fecha, 'YYYY') = '$año' GROUP BY usuarios.iduser order by num desc limit 10";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -1708,7 +1811,7 @@ class Admin{
         return $datos;
     }
     public function get_misCompras($iduser){
-        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios where compra.u_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios, municipios where compra.u_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and municipios.idmunicipios = productosusuarios.idmunicipio order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -1719,8 +1822,9 @@ class Admin{
         }
         return $this->x;
     }
-    public function get_misProductos($iduser){
-        $sql= "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, productosusuarios.ubicacion, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and productosusuarios.idusers = '$iduser' order by idProductosUsuarios";
+
+    public function get_ProdVendedor($idprod){
+        $sql= "select productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, estado.nombre, productosusuarios.cantidad, productosusuarios.costoUnitario, productosusuarios.costoTotal, municipios.nombre, productosusuarios.fechaCreacion, productosusuarios.fechaFinal, usuarios.nombre, productosusuarios.idprod from productosusuarios, usuarios, estado, productos, municipios where productosusuarios.idestado = estado.idestado and usuarios.iduser = productosusuarios.idusers and productos.idprod = productosusuarios.idprod and productosusuarios.idusers = '$iduser' and municipios.idmunicipios = productosusuarios.idmunicipio order by idProductosUsuarios";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -1732,6 +1836,7 @@ class Admin{
         unset($this->x);
         return $data;
     }
+
     public function get_compradores(){
         $sql="SELECT * from usuarios where idtipousuario = 3 or idtipousuario=4 order by nombreuser ASC";
         foreach ($this->conexion->query($sql) as $row){

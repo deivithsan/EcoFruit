@@ -139,10 +139,11 @@ if (isset($_SESSION['user'])){
                                         <th>Estado</th>
                                         <th>Cantidad Disponible (Kilos)</th>
                                         <th>Costo Por Unidad ($/kilo)</th>
-                                        <th>Valor Total</th>
+                                        <th>Costo Total</th>
                                         <th>Ubicación del Producto</th>
                                         <th>Fecha de Publicación</th>
                                         <th>Fecha de Cierre</th>
+                                        <th><i class="fa fa-edit"></i></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -161,10 +162,15 @@ if (isset($_SESSION['user'])){
                                          <td align="center"><?php echo $productos[$x][6]; ?></td>
                                          <td align="center"><?php echo $productos[$x][7]; ?></td>
                                          <td align="center"><?php echo $productos[$x][8]; ?></td>
+                                         <td align="center"><a href="editProd?id=<?php echo $productos[$x][0]; ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     <?php   }  ?>
                                     </tbody>
                                 </table>
+                                <br>
+                                <center>
+                                    <a href="createProd.php" class="btn btn-success">Agregar Tu Producto Para Vender!</a>
+                                </center>
                             </div>
                         </div>
                     </div>
