@@ -193,7 +193,7 @@
         </div>
                 <?php
             } elseif ($on == 1) {
-                    ?>
+                ?>
                     <div class="row">
                         <div class="sec-title text-center mb50 wow bounceInDown a  nimated" data-wow-duration="500ms">
                             <h2>Modificar Producto</h2>
@@ -258,27 +258,17 @@
                                                value="<?php echo $productos[0][8]; ?>">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    </label>
-                                    <div class="col-md-12 col-sm-9 col-xs-12">
-                                    </div>
-                                    <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1"
-                                                   value="Guardar">
-                                        </div>
-                                    </div>
-                            </form>
+                                <center>
+                                    <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1" value="Guardar">
+                                </center>
                         </div>
+                        </form>
                     </div>
-                    <?php
-                }
-            ?>
+                <?php
+            }
+        ?>
     </div>
-
+    </div>
 </section>
 <h5 align="center"><i>2018 - EcoFruit</i></h5>
 <script src="js/jquery-1.11.1.min.js"></script>
