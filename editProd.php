@@ -178,16 +178,8 @@
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                 <input type="submit" class="btn btn-success" name="Enviar1" id="Enviar1" value="Registrar">
-                                <button onclick='limpiar2()' class="btn btn-success">Limpiar</button>
                             </div>
                         </div>
-                        <script language=javascript>
-                            function limpiar2(){
-                                document.getElementById('nomusuario').value = "";
-                                document.getElementById('pass').value = "";
-                                document.getElementById('privilegio').value = "";
-                            }
-                        </script>
                 </form>
             </div>
         </div>
