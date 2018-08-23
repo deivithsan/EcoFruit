@@ -355,8 +355,17 @@
                                     class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="ubicacion" name="ubicacion" required="required"
-                                   class="form-control col-md-7 col-xs-12" value="<?php echo $datos[0][6];?>">
+                            <select name="ubicacion">
+                                <?php
+                                $mun = $admin->get_municipios();
+                                $rows3 = count($mun);
+                                for ($i = 0; $i < $rows3; $i++) {
+                                    ?>
+                                    <option value="<?php echo $mun[$i][0] ?>"<?php if ($mun[$i][1] == $datos[0][6]){?> selected <?php } ?> ><?php echo $mun[$i][1]; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">

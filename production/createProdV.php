@@ -179,6 +179,7 @@
                                     $estadosProd = $admin->get_EstadosProdAdd();
                                     $vendedores = $admin->get_Vendedores();
                                     $productosP = $admin->get_productosPrin();
+                                    $mun = $admin->get_municipios();
                                     if ($_POST){
                                         $admin->insert_Productos();
                                         $info = "Creación de Producto a la Venta";
@@ -245,7 +246,15 @@
                                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Ubicación <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="ubicacion" name="ubicacion" required="required" class="form-control col-md-7 col-xs-12">
+                                            <select name="ubicacion">
+                                                <?php
+                                                for ($i=0; $i<sizeof($mun); $i++){
+                                                    ?>
+                                                    <option value="<?php echo $mun[$i]["idmunicipios"] ?>"><?php echo $mun[$i]["nombre"]; ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">

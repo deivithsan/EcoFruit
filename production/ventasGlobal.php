@@ -216,10 +216,10 @@ $nombreyapellido = $admin->get_NombreApellido();
                 }
             },
             title: {
-                text: 'Ventas Totales'
+                text: 'Ventas Totales <?php echo $año = date("Y"); ?>'
             },
             subtitle: {
-                text: '<?php echo $año = date("Y"); ?>'
+                text: 'Top 10 de usuarios con el mayor número de ventas'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

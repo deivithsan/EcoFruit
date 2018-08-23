@@ -176,7 +176,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id Producto</th>
-                                    <th>Nombre de Venta</th>
+                                    <th>Nombre</th>
                                     <th>Estado Actual</th>
                                     <th>Cantidad (Kilos)</th>
                                     <th>Costo Unitario</th>
