@@ -565,33 +565,6 @@ class Admin{
         $this->year = date("Y");
     }
 
-    public function get_backupP(){
-
-        $data_dir  = "C:\Users\deivi\Desktop";
-        $pg_dump_dir = "/usr/bin";
-        $keep  = (60 * 60 * 24) * 30;  // 30 days
-        $dbname  = "d3q71k9f5t7k2c";
-        $dump_date = date("Ymd_Hs");
-        $file_name = $data_dir . "/dump22_" . $dump_date . ".sql";
-            system("$pg_dump_dir/pg_dump $dbname >> $file_name");
-        $fecha = date("Ymd-His");
-        $db = 'd3q71k9f5t7k2c';
-        $user = 'ithxzpubsdyssh';
-        $pass = 'yzRs8R1aJkymNawqYGJkS_4ySJ';
-        $host= 'ec2-54-243-200-159.compute-1.amazonaws.com';
-        $salida_sql = $db.' '.$fecha.'.sql';
-        $query = '--file '.$salida_sql.' --host '.$host.' --port "5432" --username '.$user.' --no-password --verbose --format=c --blobs '.$db.' ';
-        $dump= "pg_dump -U$user -h$host -d$db > $salida_sql";
-
-        system($query, $output);
-
-        $zip = new ZipArchive();
-    }
-
-    public function get_backupM(){
-        echo"<script type=\"text/javascript\">window.location='backup'</script>";
-    }
-
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from usuarios where nombreuser = '$nom'";
@@ -1802,7 +1775,7 @@ class Admin{
         return $datos;
     }
     public function get_ubicacionProductos(){
-        $sql="SELECT DISTINCT productosusuarios.ubicacion, count(productosusuarios.ubicacion) FROM productosusuarios GROUP BY productosusuarios.ubicacion";
+        $sql="SELECT DISTINCT municipios.nombre, count(productosusuarios.idmunicipio) FROM productosusuarios,municipios where municipios.idmunicipios = productosusuarios.idmunicipio GROUP BY municipios.nombre";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
