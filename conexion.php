@@ -565,6 +565,10 @@ class Admin{
         $this->year = date("Y");
     }
 
+    public function get_backupM(){
+        echo"<script type=\"text/javascript\">window.location='backup'</script>";
+    }
+
     public function get_NombreApellido(){
         $nom = $_SESSION["user"];
         $sql="select nombre, apellido from usuarios where nombreuser = '$nom'";
@@ -1473,7 +1477,7 @@ class Admin{
         echo "<script type=\"text/javascript\">window.location='perfil'</script>";
     }
     public function get_ventasVendedor($iduser){
-        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios where compra.pu_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios, municipios where compra.pu_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and municipios.idmunicipios = productosusuarios.idmunicipio order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
@@ -1820,7 +1824,7 @@ class Admin{
         return $datos;
     }
     public function get_comprasUser($iduser){
-        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, productosusuarios.ubicacion, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios where compra.u_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser order by compra.idcompra";
+        $sql="select compra.idcompra, valoraciones.nombreval, compra.infoval, compra.fecha, compra.hora, usuarios.nombre, productosusuarios.idproductosusuarios, productosusuarios.nombreproducto, municipios.nombre, compra.costo, compra.cantbuy, compra.observaciones from compra, valoraciones, usuarios, productosusuarios, municipios where compra.u_iduser = '$iduser' and compra.v_idvaloracion = valoraciones.idvaloracion and compra.pu_iduser = usuarios.iduser and productosusuarios.idproductosusuarios = compra.pu_idproduser and municipios.idmunicipios = productosusuarios.idmunicipio order by compra.idcompra";
         foreach ($this->conexion->query($sql) as $row){
             $this->x[]=$row;
         }
