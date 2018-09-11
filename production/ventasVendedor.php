@@ -754,7 +754,7 @@ $nombreyapellido = $admin->get_NombreApellido();
                 }
             },
             title: {
-                text: 'Ventas Anuales de <?php echo $nombres; ?>'
+                text: 'Ventas Mensuales de <?php echo $nombres; ?>'
             },
             subtitle: {
                 text: '<?php echo $año; ?>'
